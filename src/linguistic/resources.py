@@ -120,8 +120,10 @@ def info(name: str) -> dict:
     return out
 
 
-def register_model(name: str, hf_repo: str, revision: str, readme: str) -> None:
-    """A Hugging Face model kept at root/<name>/ (config.json + tokenizer + safetensors)."""
+def register_model(name: str, hf_repo: str, revision: str, readme: str,
+                   patterns: tuple[str, ...] | None = None) -> None:
+    """A Hugging Face model kept at root/<name>/ (config.json + tokenizer + weights)."""
+    extra = {"hf_patterns": patterns} if patterns else {}
     RESOURCES[name] = Resource(name=name, filename="config.json",
                                description=f"Hugging Face model {hf_repo}@{revision[:7]}",
-                               readme=readme, hf_repo=hf_repo, hf_revision=revision)
+                               readme=readme, hf_repo=hf_repo, hf_revision=revision, **extra)
