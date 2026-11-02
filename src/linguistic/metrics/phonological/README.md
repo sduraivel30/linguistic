@@ -29,6 +29,12 @@ BLICK (Hayes) scores a phone string with weighted phonotactic constraints and re
 penalty: 0 = fully English-like, higher = less English-like (`blick` 0.116, `bnick` 5.95).
 Every vowel gets primary stress (`IH1`), because stress is undefined for nonwords.
 
+> **Disclaimer: stress.** The same all-primary-stress rule is applied to real words, so
+> CMUdict's own stress (and any reduced vowels) is ignored. Reduced vowels are scored as
+> stressed, which inflates some real-word scores: `THE` (`DH AH1`) scores 10.6. Sentence
+> and nonword BLICK values are therefore on the same convention, but real-word values are
+> not the BLICK scores you would get with dictionary stress.
+
 | Metric (`-m` name) | Level | Columns | Definition |
 | --- | --- | --- | --- |
 | `blick_word` | word | `blick_word` | BLICK score of the whole word's phones |
