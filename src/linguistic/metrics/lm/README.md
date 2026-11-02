@@ -28,21 +28,37 @@ Face XLNet examples), because it predicts poorly from a short context.
 
 ## Activations and embeddings
 
-```bash
-linguistic represent -i stimuli.csv -o reps/ -m gpt2-xl -m albert-xxlarge-v1
-```
+These are large arrays and are never stored in the repo. To get them:
 
-Per model, in `reps/<model>/`: `activations.npy` (words × layers × units, the embedding
-layer then every block), `embeddings.npy` (the word's input embedding, no context),
-`stimuli_last.npy` and `stimuli_mean.npy` (per stimulus: last word, mean over words), and
-`words.csv` / `stimuli.csv` / `layers.csv` giving the rows. By default each word is read
-with the preceding words only (`--context full` for the whole stimulus); a word's vector is
-its last sub-token (`--pool mean` for the mean). `--dtype float16` halves the size. T5:
-encoder layers.
+1. Download the model: `linguistic fetch gpt2-xl` (or `glove-840b`, `albert-xxlarge-v1`, ...).
+2. Extract, locally or on a cluster:
+   ```bash
+   linguistic represent -i stimuli.csv -o reps/ -m gpt2-xl -m glove-840b
+   sbatch -p <partition> --gres=gpu:1 slurm/represent.sh stimuli.csv reps/ gpt2-xl glove-840b
+   ```
+3. If extracted on a cluster, copy `reps/` back:
+   `rsync -av <cluster>:<repo>/reps/ reps/` (or `scp -r`).
+4. Load:
+   ```python
+   import numpy as np, pandas as pd
+   acts = np.load("reps/gpt2-xl/activations.npy", mmap_mode="r")   # words x layers x units
+   rows = pd.read_csv("reps/gpt2-xl/words.csv")                      # which row is which word
+   layer_12 = acts[:, 12]                                            # layers.csv names each layer
+   ```
 
-GloVe (`-m glove-840b`; 840B cased, 300-d, `linguistic fetch glove-840b`, 2 GB): one static
-vector per word in `embeddings.npy` (as written, else lowercased; out-of-vocabulary words
-are NaN and listed in `words.csv`), plus `stimuli_last.npy` / `stimuli_mean.npy`.
+Files per model in `reps/<model>/`:
+
+| File | Shape | Contents |
+| --- | --- | --- |
+| `activations.npy` | words × layers × units | hidden state of each word at every layer (embedding layer first) |
+| `embeddings.npy` | words × units | the word's input embedding, no context (GloVe: its GloVe vector) |
+| `stimuli_last.npy`, `stimuli_mean.npy` | stimuli × layers × units | per stimulus: last word, mean over words |
+| `words.csv`, `stimuli.csv`, `layers.csv` | – | row and layer indices |
+
+By default each word is read with the preceding words only (`--context full` for the whole
+stimulus), and its vector is its last sub-token (`--pool mean` for the mean). `--dtype
+float16` halves the size. T5: encoder layers. GloVe (840B, cased, 300-d) has no layers: only
+`embeddings.npy` and the stimulus files; words not in its vocabulary are NaN.
 
 ## Setup
 
