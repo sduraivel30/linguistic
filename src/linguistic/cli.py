@@ -33,6 +33,22 @@ def run(input: Path = typer.Option(..., "--input", "-i", exists=True),
 
 
 @app.command()
+def represent(input: Path = typer.Option(..., "--input", "-i", exists=True),
+              out: Path = typer.Option(..., "--out", "-o"),
+              models: list[str] = typer.Option(..., "--model", "-m", help="model name; repeatable"),
+              context: str = typer.Option("incremental", help="incremental (preceding words only) | full"),
+              pool: str = typer.Option("last", help="last | mean over the word's sub-tokens"),
+              dtype: str = typer.Option("float32", help="float32 | float16")):
+    """Layer-wise word activations and static word embeddings (.npy) for each model."""
+    from .representations import represent as _represent
+    stimuli = load_stimuli(input)
+    units = build_units(stimuli, Lexicon())
+    for m in models:
+        d = _represent(input, units.words, stimuli, m, out, context=context, pool=pool, dtype=dtype)
+        typer.echo(f"{m}: {d}")
+
+
+@app.command()
 def fetch(name: str = typer.Argument(..., help="resource name, or 'all'")):
     """Download and verify an external lexicon/model into $LINGUISTIC_RESOURCES."""
     names = list(resources.RESOURCES) if name == "all" else [name]
