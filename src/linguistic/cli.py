@@ -51,6 +51,9 @@ def represent(input: Path = typer.Option(..., "--input", "-i", exists=True),
 @app.command()
 def fetch(name: str = typer.Argument(..., help="resource name, or 'all'")):
     """Download and verify an external lexicon/model into $LINGUISTIC_RESOURCES."""
+    all_metrics()                                   # registers the models' resources
+    if name != "all" and name not in resources.RESOURCES:
+        raise typer.BadParameter(f"unknown resource {name!r}; known: {sorted(resources.RESOURCES)}")
     names = list(resources.RESOURCES) if name == "all" else [name]
     for n in names:
         r = resources.RESOURCES[n]
