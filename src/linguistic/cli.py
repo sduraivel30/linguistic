@@ -49,12 +49,14 @@ def _run(input: Path, out: Path, metric_spec: list[str]) -> None:
     ctx = Context(stimuli=stimuli, words=units.words, phones=units.phones, lexicon=lexicon)
     tables = run_metrics(ctx, metrics)
 
+    # built before writing, so the code-commit check is not affected by these outputs
+    manifest = build_manifest(input, stimuli, metrics, lexicon.info(), tables.report, units)
     out.mkdir(parents=True, exist_ok=True)
     tables.words.to_csv(out / "words.csv", index=False)
     tables.phones.to_csv(out / "phones.csv", index=False)
     tables.stimuli.to_csv(out / "stimuli.csv", index=False)
     units.missing_phones.to_csv(out / "missing_phones.csv", index=False)
-    write_manifest(build_manifest(input, stimuli, metrics, lexicon.info(), tables.report, units), out)
+    write_manifest(manifest, out)
 
     src = units.words["phone_source"].fillna("missing").value_counts().to_dict()
     typer.echo(f"{len(stimuli)} stimuli, {len(units.words)} words, {len(units.phones)} phones; "
