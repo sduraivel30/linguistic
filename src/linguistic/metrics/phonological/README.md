@@ -70,7 +70,7 @@ never seen in CMUdict give NaN.
 | `phoneme_tp_cross` | `bigram_surp_cross` | dependent | dependent | −ln P(B \| A) = −ln[count(A,B) / count(A)], context carried across word boundaries |
 | | `trigram_surp_cross` | | | −ln P(C \| A,B) = −ln[count(A,B,C) / count(A,B)] |
 | | `log_bigram_freq_cross` | | | ln count(A,B) |
-| `phoneme_tp_within` | `bigram_surp_within`, `trigram_surp_within`, `log_bigram_freq_within` | dependent | independent | same, but context resets at each word boundary: the first phone of a word is NaN for bigram, the first two for trigram |
+| `phoneme_tp_within` | `bigram_surp_within`, `trigram_surp_within`, `log_bigram_freq_within` | dependent | dependent | same, but context resets at each word boundary: the first phone of a word is NaN for bigram, the first two for trigram |
 | `phoneme_tp_backward` | `bigram_surp_back` | dependent | dependent | −ln P(B \| C) = −ln[count(B,C) / count(C)], assigned to B, across word boundaries |
 | | `trigram_surp_back` | | | −ln P(X \| Y,Z) = −ln[count(X,Y,Z) / count(Y,Z)], assigned to X |
 
