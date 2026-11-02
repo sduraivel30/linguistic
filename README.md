@@ -41,6 +41,7 @@ No grapheme-to-phoneme prediction is used.
 ## Run
 
 ```bash
+linguistic fetch all                              # download the lexicons that have a public URL
 linguistic list                                   # registered metrics
 linguistic prepare -i stimuli.csv -o out/         # word/phone tables + missing phones only
 linguistic run -i stimuli.csv -o out/ -m all      # or family / metric names, repeatable
@@ -66,6 +67,7 @@ regression check.
 | Family | README |
 | --- | --- |
 | phonological | [src/linguistic/metrics/phonological/README.md](src/linguistic/metrics/phonological/README.md) |
+| lexical | [src/linguistic/metrics/lexical/README.md](src/linguistic/metrics/lexical/README.md) |
 
 ## Adding a metric
 
