@@ -123,6 +123,7 @@ class _Base(Metric):
 @register
 class PhonemeTPCross(_Base):
     name = "phoneme_tp_cross"
+    context = {"phone": "dependent", "word": "dependent"}     # crosses word boundaries
     columns = ("bigram_surp_cross", "trigram_surp_cross", "log_bigram_freq_cross")
     description = ("Forward phoneme transitional probability over the stimulus's phone "
                    "sequence, context carried across word boundaries. bigram: -ln P(B|A); "
@@ -140,6 +141,7 @@ class PhonemeTPCross(_Base):
 @register
 class PhonemeTPWithin(_Base):
     name = "phoneme_tp_within"
+    context = {"phone": "dependent", "word": "independent"}   # stays inside the word
     columns = ("bigram_surp_within", "trigram_surp_within", "log_bigram_freq_within")
     description = ("Forward phoneme transitional probability with context reset at each "
                    "word boundary (word-initial phone NaN for bigram, first two for trigram).")
@@ -156,6 +158,7 @@ class PhonemeTPWithin(_Base):
 @register
 class PhonemeTPBackward(_Base):
     name = "phoneme_tp_backward"
+    context = {"phone": "dependent", "word": "dependent"}
     columns = ("bigram_surp_back", "trigram_surp_back")
     description = ("Backward phoneme surprisal across word boundaries: for A B C, bigram "
                    "-ln P(B|C) assigned to B; trigram -ln P(X|Y,Z) assigned to X. NaN for "
