@@ -1,7 +1,8 @@
 # Phonological metrics
 
-Computed from each word's phones. Sentences and nonwords. Surprisal in nats; n-gram counts
-from CMUdict (stress stripped); unseen n-grams are NaN.
+Computed from each word's phones. Sentences and nonwords. Phone metrics also appear in
+`words.csv` as the mean over the word's phones (not across words). Surprisal in nats;
+n-gram counts from CMUdict (stress stripped); unseen n-grams are NaN.
 
 ## Context-independent
 
