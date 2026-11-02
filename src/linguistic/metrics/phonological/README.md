@@ -43,6 +43,7 @@ whether that phone could stand alone (`T` = 15.6).
 | `phoneme_tp_cross` | `bigram_surp_cross`, `trigram_surp_cross`, `log_bigram_freq_cross` | −ln P(B\|A), −ln P(C\|A,B), ln count(A,B), across word boundaries |
 | `phoneme_tp_within` | `bigram_surp_within`, `trigram_surp_within`, `log_bigram_freq_within` | same, reset at each word boundary |
 | `phoneme_tp_backward` | `bigram_surp_back`, `trigram_surp_back` | −ln P(B\|C), −ln P(X\|Y,Z), across word boundaries |
+| `cohort_phoneme` | `cohort_surprisal`, `cohort_entropy`, `cohort_size` | within the word, over the frequency-weighted cohort (CMUdict words sharing the phonemes so far, SUBTLEX-US counts + 1): −ln P(phoneme \| earlier phonemes of the word), entropy over the remaining words, and their number (Brodbeck et al. 2018; Gwilliams et al. 2022). NaN once no word shares the prefix |
 | `blick_word` | `blick_word` | BLICK score of the whole word |
 | `blick_cross` / `blick_within` | `blick_w2_*` … `blick_w4_*`, `delta_blick_*` | BLICK score of the last 2–4 phones, and its change from the previous phone |
 
@@ -54,6 +55,7 @@ stress, real words included, so reduced vowels inflate some scores (`THE` = 10.6
 ```bash
 pip install -e .                                          # includes python-BLICK 0.2.12
 python -c "import nltk; nltk.download('cmudict')"
+linguistic fetch subtlex_us                               # word frequencies for the cohort
 ```
 
 ## Run
