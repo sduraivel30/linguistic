@@ -27,10 +27,11 @@ class Resource:
     hf_repo: str = ""          # Hugging Face model: repo id + pinned revision
     hf_revision: str = ""
     hf_patterns: tuple[str, ...] = ("*.json", "*.txt", "*.model", "model*.safetensors")
+    container: str = ""        # container image (pulled with apptainer)
 
     @property
     def manual(self) -> bool:
-        return not (self.url or self.hf_repo)
+        return not (self.url or self.hf_repo or self.container)
 
 
 RESOURCES = {
@@ -42,6 +43,13 @@ RESOURCES = {
         archive_md5="7644415a9f78270c7c3b6b4b6395967c",
         file_md5="ee7be8db21f26e1925ac0ea3ab598f32",
         readme="src/linguistic/metrics/lexical/README.md",
+    ),
+    "lmzoo-ngram": Resource(
+        name="lmzoo-ngram",
+        filename="ngram.sif",
+        description="lm-zoo SRILM 5-gram image (cpllab/language-models:ngram), run with apptainer",
+        container="docker://cpllab/language-models@sha256:cbecfb418878930a06514c2a55e66f116ba56dbc03ece722f73b84fea725df6a",
+        readme="src/linguistic/metrics/lm/README.md",
     ),
     "elp": Resource(
         name="elp",
@@ -85,6 +93,13 @@ def fetch(name: str) -> Path:
         raise ResourceMissing(f"{r.name} has no public download URL; see {r.readme}")
     d = root() / r.name
     d.mkdir(parents=True, exist_ok=True)
+    if r.container:
+        exe = shutil.which("apptainer") or shutil.which("singularity")
+        if not exe:
+            raise ResourceMissing(f"{r.name}: apptainer (or singularity) is needed to pull {r.container}")
+        import subprocess
+        subprocess.run([exe, "pull", "--force", str(d / r.filename), r.container], check=True)
+        return d / r.filename
     if r.hf_repo:
         from huggingface_hub import snapshot_download
         snapshot_download(repo_id=r.hf_repo, revision=r.hf_revision, local_dir=d,
@@ -112,7 +127,9 @@ def info(name: str) -> dict:
     r = RESOURCES[name]
     p = root() / r.name / r.filename
     out = {"name": r.name, "path": str(p), "url": r.url or "manual"}
-    if r.hf_repo:
+    if r.container:
+        out.update(url=r.container)
+    elif r.hf_repo:
         out.update(url=f"https://huggingface.co/{r.hf_repo}", hf_repo=r.hf_repo,
                    hf_revision=r.hf_revision)
     elif p.exists():
