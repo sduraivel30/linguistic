@@ -14,6 +14,7 @@ from conftest import write_stimuli
 class _Letters(Metric):
     name, family, level = "t_letters", "t_family", "word"
     conditions = frozenset({"sentence"})
+    context = {"word": "independent"}
 
     def compute(self, ctx):
         return ctx.words.assign(t_letters=ctx.words["word"].str.len())[["stimulus_id", "word_idx", "t_letters"]]
@@ -22,6 +23,7 @@ class _Letters(Metric):
 class _PhoneIndex(Metric):
     name, family, level = "t_phone_idx", "t_family", "phone"
     requires = frozenset({"phones"})
+    context = {"phone": "dependent", "word": "independent"}
 
     def compute(self, ctx):
         p = ctx.phones
@@ -88,3 +90,8 @@ def test_column_clash(ctx, metrics):
 
     with pytest.raises(ValueError, match="already exist"):
         run_metrics(ctx, [_Clash()])
+
+
+def test_level_context_selector(metrics):
+    assert [m.name for m in select(["phone:dependent"]) if m.family == "t_family"] == ["t_phone_idx"]
+    assert {m.name for m in select(["word:independent"]) if m.family == "t_family"} == {"t_letters", "t_phone_idx"}
