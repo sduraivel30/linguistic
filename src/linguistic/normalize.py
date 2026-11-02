@@ -7,7 +7,10 @@ Phone source per word, in order of precedence:
                   listed in `missing_phones` until hand phones are supplied.
 No grapheme-to-phoneme prediction is ever used.
 
-Every word, real or nonword, is tagged `in_lexicon` (spelling found in CMUdict).
+Every word, real or nonword, is tagged `in_lexicon` (spelling found in CMUdict) and
+`lexicon_route`: 'whole', or for hyphenated words 'closed' ('icecream') or 'parts'
+(part pronunciations joined). Lexical norms such as frequency should accept only
+'whole'/'closed' -- a mean over parts is a different quantity.
 """
 from __future__ import annotations
 
@@ -63,8 +66,31 @@ class Lexicon:
         self._symbols = {p for prons in self._d.values() for pron in prons for p in pron}
 
     def lookup(self, word: str) -> list[tuple[str, ...]]:
+        """Exact-spelling pronunciations (empty if absent)."""
         self._load()
         return self._d.get(word_key(word), [])
+
+    def resolve(self, word: str) -> tuple[list[tuple[str, ...]], str | None]:
+        """Pronunciations and the route that found them.
+
+        'whole'  -- exact spelling
+        'closed' -- hyphenated word written closed ('ice-cream' -> 'icecream')
+        'parts'  -- every hyphen part found; first pronunciations joined in order
+        None     -- not found
+        """
+        prons = self.lookup(word)
+        if prons:
+            return prons, "whole"
+        parts = [p for p in word.split("-") if p]
+        if len(parts) < 2:
+            return [], None
+        prons = self.lookup("".join(parts))
+        if prons:
+            return prons, "closed"
+        part_prons = [self.lookup(p) for p in parts]
+        if all(part_prons):
+            return [tuple(ph for pp in part_prons for ph in pp[0])], "parts"
+        return [], None
 
     @property
     def symbols(self) -> set[str]:
@@ -94,11 +120,12 @@ def build_units(stimuli: pd.DataFrame, lexicon: Lexicon | None = None) -> Units:
         tokens = tokenize(s.text)
         hand = _hand_words(s, tokens, lexicon) if s.phones_labels else None
         for i, w in enumerate(tokens):
-            prons = lexicon.lookup(w)
+            prons, route = lexicon.resolve(w)
             row = {
                 "stimulus_id": s.stimulus_id, "condition": s.condition,
                 "word_idx": i + 1, "word": w, "word_key": word_key(w),
-                "in_lexicon": bool(prons), "n_pronunciations": len(prons),
+                "in_lexicon": bool(prons), "lexicon_route": route,
+                "n_pronunciations": len(prons),
                 "phone_source": None, "onset": float("nan"), "offset": float("nan"),
                 "hand_word_label": None,
             }
