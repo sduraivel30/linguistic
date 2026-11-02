@@ -138,7 +138,8 @@ def _hand_words(s, tokens: list[str], lexicon: Lexicon) -> list[dict]:
 
     Word bounds are then re-derived from the phones (phone timing is ground truth).
     """
-    words = [w for w in read_audacity_labels(s.words_labels) if w["label"].strip()]
+    words = _merge_hyphen_parts(
+        [w for w in read_audacity_labels(s.words_labels) if w["label"].strip()], tokens)
     if len(words) != len(tokens):
         raise InputError(
             f"{s.stimulus_id}: {len(words)} words in {s.words_labels} "
@@ -172,3 +173,24 @@ def _hand_words(s, tokens: list[str], lexicon: Lexicon) -> list[dict]:
         if w["phones"]:
             w["start"], w["end"] = w["phones"][0]["start"], w["phones"][-1]["end"]
     return out
+
+
+def _merge_hyphen_parts(labels: list[dict], tokens: list[str]) -> list[dict]:
+    """Merge consecutive label words that spell the parts of a hyphenated text word.
+
+    e.g. text 'ice-cream' with label words 'ice', 'cream' -> one 'ice-cream' interval.
+    Labels that don't line up this way are returned unchanged (the count check then fails).
+    """
+    out, j = [], 0
+    for t in tokens:
+        parts = [word_key(p) for p in t.split("-") if p]
+        span = labels[j:j + len(parts)]
+        if (len(parts) > 1 and len(span) == len(parts)
+                and [word_key(_EDGE_PUNCT.sub("", w["label"])) for w in span] == parts):
+            out.append({"start": span[0]["start"], "end": span[-1]["end"],
+                        "label": " ".join(w["label"] for w in span)})
+            j += len(parts)
+        elif j < len(labels):
+            out.append(labels[j])
+            j += 1
+    return out + labels[j:]
