@@ -5,7 +5,9 @@ masked  Whole-word pseudo-log-likelihood, left to right within the word (Kauf & 
         word's later sub-tokens; every other word stays visible on both sides.
         Entropy: of the prediction for the first sub-token with the whole word masked.
 xlnet   Left to right: sub-token t is predicted with a permutation mask that hides t and
-        everything after it, after a <s> token. Entropy: at the word's first sub-token.
+        everything after it. XLNet predicts poorly from a short context, so (as in the
+        Hugging Face XLNet examples) a fixed padding passage ending in <eod> comes before the
+        stimulus. Entropy: at the word's first sub-token.
 t5      The word is replaced by the sentinel <extra_id_0> and the decoder produces
         "<extra_id_0> word <extra_id_1>"; surprisal over the word's tokens. Both sides
         visible. Entropy: of the decoder's prediction for the word's first token.
@@ -63,11 +65,28 @@ def score_masked(words: list[str], tok, model) -> pd.DataFrame:
                          "n_subtokens": [len(s) for s in spans]})
 
 
+XLNET_PADDING = (
+    "In 1991, the remains of Russian Tsar Nicholas II and his family (except for Alexei and "
+    "Maria) are discovered. The voice of Nicholas's young son, Tsarevich Alexei Nikolaevich, "
+    "narrates the remainder of the story. 1883 Western Siberia, a young Grigori Rasputin is "
+    "asked by his father and a group of men to perform magic. Rasputin has a vision and "
+    "denounces one of the men as a horse thief. Although his father initially slaps him for "
+    "making such an accusation, Rasputin watches as the man is chased outside and beaten. "
+    "Twenty years later, Rasputin sees a vision of the Virgin Mary, prompting him to become a "
+    "priest. Rasputin quickly becomes famous, with people, even a bishop, begging for his "
+    "blessing. <eod>")
+
+
+def xlnet_prefix(tok) -> list[int]:
+    return tok(XLNET_PADDING, add_special_tokens=False)["input_ids"]
+
+
 def score_xlnet(words: list[str], tok, model) -> pd.DataFrame:
     import torch
     enc = tok(words, is_split_into_words=True, add_special_tokens=False)
-    spans = [[p + 1 for p in s] for s in word_spans(enc, len(words))]   # +1 for <s>
-    ids = torch.tensor([tok.bos_token_id] + enc["input_ids"], device=model.device)
+    prefix = xlnet_prefix(tok)
+    spans = [[p + len(prefix) for p in s] for s in word_spans(enc, len(words))]
+    ids = torch.tensor(prefix + enc["input_ids"], device=model.device)
     L = len(ids)
     pos = [p for s in spans for p in s]
     perm = torch.zeros(len(pos), L, L, device=model.device)
