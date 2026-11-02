@@ -32,48 +32,21 @@ How a stimulus is scored:
 - Float32. Device: CUDA if available, else Apple MPS, else CPU; override with
   `LINGUISTIC_DEVICE=cpu`.
 
-## Get the model (not stored in this repo)
+## Get the model
 
-Models live outside the repo, in `$LINGUISTIC_RESOURCES/<model name>/` (default
-`~/.cache/linguistic/gpt2-xl/`). GPT-2 XL is pinned to the revision used for the langloc
-values:
+The model is not stored in the repo. GPT-2 XL
+([openai-community/gpt2-xl](https://huggingface.co/openai-community/gpt2-xl), revision
+`15ea56d`, 6.4 GB) goes in `$LINGUISTIC_RESOURCES/gpt2-xl/` (default `~/.cache/linguistic`).
 
-- Model page: https://huggingface.co/openai-community/gpt2-xl
-- Revision: `15ea56dee5df4983c59b2538573817e1667135e2`
-- Download: about 6.4 GB (`model.safetensors`) plus small tokenizer and config files.
-  About 7 GB of RAM to run. A GPU helps but is not required: 120 short stimuli take a few
-  minutes on a laptop CPU.
+```bash
+pip install -e ".[lm]"
+linguistic fetch gpt2-xl
+```
 
-Step by step:
-
-1. Install the LM dependencies: `pip install -e ".[lm]"` (torch, transformers,
-   huggingface_hub). On ORCD use a GPU node through sbatch.
-2. Download the model, **one** of:
-   - `linguistic fetch gpt2-xl` (downloads exactly the files below at the pinned revision);
-   - the Hugging Face CLI:
-     ```bash
-     hf download openai-community/gpt2-xl \
-         --revision 15ea56dee5df4983c59b2538573817e1667135e2 \
-         --include "*.json" --include "*.txt" --include "model.safetensors" \
-         --local-dir ~/.cache/linguistic/gpt2-xl
-     ```
-   - by hand: from https://huggingface.co/openai-community/gpt2-xl/tree/15ea56dee5df4983c59b2538573817e1667135e2
-     download `config.json`, `generation_config.json`, `tokenizer.json`,
-     `tokenizer_config.json`, `vocab.json`, `merges.txt` and `model.safetensors` into
-     `~/.cache/linguistic/gpt2-xl/`.
-3. To keep models elsewhere (e.g. on a cluster scratch disk), set
-   `export LINGUISTIC_RESOURCES=/path/to/resources` before steps 2 and 4. The model must be
-   in `$LINGUISTIC_RESOURCES/gpt2-xl/`.
-4. Check: `linguistic run -i data/examples/sentences/stimuli.csv -o /tmp/lm_check -m lm_gpt2-xl`
-   should run without "skipped". Without the model, `-m all` skips this metric and says
-   why.
-
-The model is loaded with `local_files_only=True`, so a run never downloads anything.
-
-## Running on a server
-
-Step-by-step notes for ORCD / SLURM (environment, model placement, GPU jobs, pulling
-results back): [`slurm/README.md`](../../../../slurm/README.md).
+To place it by hand, download `config.json`, `generation_config.json`, `tokenizer.json`,
+`tokenizer_config.json`, `vocab.json`, `merges.txt` and `model.safetensors` from the model
+page at that revision into the same folder. Runs never download anything; without the
+model, `-m all` skips this metric. On ORCD, see [`slurm/README.md`](../../../../slurm/README.md).
 
 ## Adding another model
 
