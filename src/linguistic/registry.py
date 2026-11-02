@@ -41,6 +41,7 @@ class Metric:
     requires: frozenset[str] = frozenset()
     description: str = ""
     nan_reason: str = ""          # why a condition is excluded, documented with the metric
+    resources: tuple[str, ...] = ()   # names in linguistic.resources.RESOURCES it needs
 
     def compute(self, ctx: Context) -> pd.DataFrame:
         raise NotImplementedError
@@ -49,7 +50,7 @@ class Metric:
         return {"name": self.name, "family": self.family, "level": self.level,
                 "columns": list(self.columns), "conditions": sorted(self.conditions),
                 "requires": sorted(self.requires), "description": self.description,
-                "nan_reason": self.nan_reason}
+                "nan_reason": self.nan_reason, "resources": list(self.resources)}
 
 
 _REGISTRY: dict[str, Metric] = {}
@@ -82,21 +83,50 @@ def all_metrics() -> list[Metric]:
 
 
 def select(spec: list[str]) -> list[Metric]:
-    """Resolve 'all', family names and metric names to metrics (registry order, no duplicates)."""
+    """Resolve 'all', family names and metric names to metrics (registry order, no duplicates).
+
+    A metric chosen through 'all' or its family is dropped (see `skipped`) when a resource it
+    needs is not installed; a metric named explicitly is kept, so its run fails with the
+    instructions for getting the resource.
+    """
     _load_builtin()
     families = {m.family for m in _REGISTRY.values()}
     chosen: set[str] = set()
+    explicit: set[str] = set()
     for item in spec:
         if item == "all":
             chosen |= set(_REGISTRY)
         elif item in _REGISTRY:
             chosen.add(item)
+            explicit.add(item)
         elif item in families:
             chosen |= {n for n, m in _REGISTRY.items() if m.family == item}
         else:
             raise KeyError(f"unknown metric or family '{item}'; "
                            f"known: {sorted(_REGISTRY)} / families {sorted(families)}")
-    return [m for n, m in _REGISTRY.items() if n in chosen]
+    skipped.clear()
+    out = []
+    for n, m in _REGISTRY.items():
+        if n not in chosen:
+            continue
+        missing = [r for r in m.resources if not _installed(r)]
+        if missing and n not in explicit:
+            skipped[n] = missing
+            continue
+        out.append(m)
+    return out
+
+
+skipped: dict[str, list[str]] = {}   # metric -> missing resources, from the last select()
+
+
+def _installed(name: str) -> bool:
+    from . import resources
+    try:
+        resources.path(name)
+        return True
+    except resources.ResourceMissing:
+        return False
 
 
 def _load_builtin() -> None:
