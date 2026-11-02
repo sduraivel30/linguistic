@@ -32,15 +32,18 @@ def main(out_dir: str, words_csv: str) -> int:
     print(f"words: reference {len(ref)}, ours {len(ours)}, matched {(m['_merge'] == 'both').sum()}")
     b = m[m["_merge"] == "both"]
     ref_nats = b["word_surprisal_mean_subtoken_nats"] * math.log(2)
-    rows = [_cmp("word (lowercase)", b["word"].str.lower(), b["word_ref"].str.lower(), exact=True),
+    unk = b["word_ref"] == "<unk>"                    # the reference stores OOV words as <unk>
+    rows = [_cmp("word (lowercase; <unk> = OOV)", b["word"].str.lower().where(~unk, "<unk>"),
+                 b["word_ref"].str.lower(), exact=True),
+            _cmp("OOV flag vs reference <unk>", b["ngram_oov_5gram"].astype(bool), unk, exact=True),
             _cmp("n tokens", b["ngram_n_tokens_5gram"], b["n_subtokens_merged"], exact=True),
             _cmp("surprisal (nats) vs reference x ln2", b["ngram_surprisal_5gram"], ref_nats)]
     res = pd.DataFrame(rows)
-    res["n_over_tol"] = [0, 0, int(((b["ngram_surprisal_5gram"] - ref_nats).abs() > TOL).sum())]
+    res["n_over_tol"] = [0, 0, 0, int(((b["ngram_surprisal_5gram"] - ref_nats).abs() > TOL).sum())]
     res.to_csv(out / "comparison.csv", index=False)
     print(res.to_string(index=False))
     print(f"OOV words: {int(b['ngram_oov_5gram'].sum())}")
-    return int((m["_merge"] != "both").any() or res.loc[:1, "n_differ"].gt(0).any() or res["n_over_tol"].gt(0).any())
+    return int((m["_merge"] != "both").any() or res.loc[:2, "n_differ"].gt(0).any() or res["n_over_tol"].gt(0).any())
 
 
 if __name__ == "__main__":
