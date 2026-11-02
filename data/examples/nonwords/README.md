@@ -29,16 +29,19 @@ The first command keeps the `N` rows and writes the pipeline input. The second p
 
 ```
 skipped elp_frequency: resource elp not installed (`linguistic fetch` or see the family README)
-24 stimuli, 288 words, 227 phones; phone sources {'missing': 177, 'cmudict': 111}; 9 metric(s) -> data/examples/nonwords/output
+skipped lm_gpt2-xl: resource gpt2-xl not installed (`linguistic fetch` or see the family README)
+24 stimuli, 288 words, 227 phones; phone sources {'missing': 177, 'cmudict': 111}; 10 metric(s) -> data/examples/nonwords/output
 177 word(s) need hand phones: see data/examples/nonwords/output/missing_phones.csv
 ```
 
 Metrics in this output:
 
-- phonological (`phoneme_tp_cross`, `phoneme_tp_within`, `phoneme_tp_backward`, `blick_word`,
-  `blick_cross`, `blick_within`): `src/linguistic/metrics/phonological/README.md`
+- phonological (`phonetic_features`, `phoneme_tp_cross`, `phoneme_tp_within`,
+  `phoneme_tp_backward`, `blick_word`, `blick_cross`, `blick_within`):
+  `src/linguistic/metrics/phonological/README.md`
 - lexical (`cohort`, `word_duration`, `subtlex_frequency`): `src/linguistic/metrics/lexical/README.md`.
-  `elp_frequency` is skipped because the ELP export is not installed. `word_duration_ms`
+  `elp_frequency` and `lm_gpt2-xl` are skipped because the ELP export and the GPT-2 XL
+  model are not installed. `word_duration_ms`
   and `uniqueness_point_ms` are empty: these stimuli have no hand-label timing. Word
   frequency is sentence-only, so its columns are empty for nonwords.
 
@@ -54,8 +57,9 @@ nonword_01,nonword,POME OY REE HOLILY SHOURN NE SLEOMING WHIMP REE RERE OS OFUKE
 | File | One row per | What it holds |
 | --- | --- | --- |
 | `phones.csv` | phone | only nonwords whose spelling is in CMUdict have phones; one column per phone-level metric value; `start`/`end` are empty (no hand labels) |
-| `words.csv` | nonword | position, CMUdict tag (`in_lexicon`, `lexicon_route`), phones and their source, then each metric (phone-level metrics as the mean over the word's phones) |
+| `words.csv` | nonword | position, CMUdict tag (`in_lexicon`, `lexicon_route`), phones and their source, then each metric, context-independent first (phone-level metrics as the mean over the word's phones) |
 | `stimuli.csv` | nonword list | `n_words`, then for each metric the mean over the list's nonwords and `n_valid_<metric>` |
+| `columns.csv` | output column | which table it is in, its context label (independent / dependent at that level), metric, how it was aggregated, definition |
 | `missing_phones.csv` | nonword without phones | nonwords that need hand-extracted phones |
 | `manifest.json` | run | input checksum, package versions, lexicon, metric definitions, code commit |
 
