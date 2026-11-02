@@ -70,7 +70,7 @@ e.g. `-m phone:independent`, `-m word:dependent`.
 | Level | Context-independent | Context-dependent |
 | --- | --- | --- |
 | phone | phonetic features (`feat_*`), single-phone BLICK (`blick_w1_*`) | phoneme transitional probability (cross, within, backward), BLICK 2–4-phone windows and deltas |
-| word | phonetic-feature shares, single-phone BLICK mean, within-word phoneme TP mean, cohort density, uniqueness point, word duration, word frequency (SUBTLEX, ELP) | cross-word and backward phoneme TP means, BLICK (whole word, windows), language-model surprisal and entropy |
+| word | phonetic-feature shares, single-phone BLICK mean, word duration, word frequency (SUBTLEX, ELP) | phoneme TP means (cross, within, backward), BLICK (whole word, windows), cohort density, uniqueness point, language-model surprisal and entropy |
 | stimulus | means of the word-level independent columns | means of the word-level dependent columns |
 
 ## Metric families
