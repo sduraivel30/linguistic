@@ -23,32 +23,60 @@ The first phone of a stimulus has no forward value; the last one (two for trigra
 backward value. A word without phones breaks the cross-word context on both sides, so no
 transition is ever scored across a missing word.
 
+### BLICK
+
+BLICK (Hayes) scores a phone string with weighted phonotactic constraints and returns a
+penalty: 0 = fully English-like, higher = less English-like (`blick` 0.116, `bnick` 5.95).
+Every vowel gets primary stress (`IH1`), because stress is undefined for nonwords.
+
+| Metric (`-m` name) | Level | Columns | Definition |
+| --- | --- | --- | --- |
+| `blick_word` | word | `blick_word` | BLICK score of the whole word's phones |
+| `blick_cross` | phone | `blick_w1_cross` … `blick_w4_cross` | BLICK score of the last N phones ending at this phone (N = 1–4; fewer at the start), window running across word boundaries |
+| | | `delta_blick_w2_cross` … `delta_blick_w4_cross` | change in the N-phone score from the previous phone (NaN at a sequence's first phone) |
+| `blick_within` | phone | `blick_w1_within` … `blick_w4_within`, `delta_blick_w2_within` … `delta_blick_w4_within` | same, window reset at each word boundary (delta NaN at a word's first phone) |
+
 ## Source
 
 Vendored from `word_form_boundary_analysis` @ `33e104f` (`src/tp_analysis/corpus.py`,
-`scripts/run_tp_blick_analysis.py`) and `Speech_Lang_iEEG` @ `1ec9f82`
-(`surprisal/phoneme/build_backward_values.py`). The only changes: counts are kept in ARPAbet
-rather than IPA (the source's ARPAbet→IPA map is one-to-one, so values are identical), and
-the missing-word context break above.
+`src/tp_analysis/blick_analysis.py`, `scripts/run_tp_blick_analysis.py`) and
+`Speech_Lang_iEEG` @ `1ec9f82` (`surprisal/phoneme/build_backward_values.py`). Changes:
+counts are kept in ARPAbet rather than IPA (the source's ARPAbet→IPA map is one-to-one, so
+values are identical); a word without phones breaks cross-word contexts and windows;
+`blick_word` is new.
 
 ## Resources and setup
 
-Only CMUdict is needed, via nltk (installed with this package).
+Two resources, both installed with this package.
 
-1. Install the package: `pip install -e .` (pulls in `nltk`).
+**CMUdict** (phone counts, phone lookup), via nltk:
+
+1. `pip install -e .` (pulls in `nltk`).
 2. Download CMUdict once:
    ```bash
    python -c "import nltk; nltk.download('cmudict')"
    ```
-   It goes to `~/nltk_data/corpora/cmudict`. If it's missing, the first run downloads it
-   automatically. Source: http://www.speech.cs.cmu.edu/cgi-bin/cmudict
-3. Check: `linguistic list` should show the three `phonological` metrics.
+   It goes to `~/nltk_data/corpora/cmudict`; the first run downloads it automatically if
+   missing. Source: http://www.speech.cs.cmu.edu/cgi-bin/cmudict
+
+**BLICK**, via python-BLICK 0.2.12 (McAuliffe & Hayes; pure Python, no model files):
+
+1. `pip install -e .` installs it (pinned in `pyproject.toml`). By hand:
+   `pip install python-BLICK==0.2.12`
+2. Check: `python -c "from blick import BlickLoader; print(BlickLoader().assessWord('B L IH1 K'))"`
+   prints `0.116`.
+3. Links: package https://pypi.org/project/python-BLICK/0.2.12/ · code
+   https://github.com/mmcauliffe/python-BLICK · original BLICK (Hayes)
+   http://www.linguistics.ucla.edu/people/hayes/BLICK/
+
+Then `linguistic list` should show six `phonological` metrics.
 
 ## Run
 
 ```bash
-linguistic run -i stimuli.csv -o out/ -m phonological          # all three
+linguistic run -i stimuli.csv -o out/ -m phonological          # all six
 linguistic run -i stimuli.csv -o out/ -m phoneme_tp_cross       # just one
+linguistic run -i stimuli.csv -o out/ -m blick_word -m blick_cross
 ```
 
 ## Regression check
@@ -59,5 +87,12 @@ linguistic run -i stimuli.csv -o out/ -m phoneme_tp_cross       # just one
 `plots/backward_values_<cond>.npz`, matching phones by item, start time and label.
 
 Result (2026-11-02): 5045 / 5045 phones matched. Phone labels, word assignment
-(`word_idx`, `phone_in_word`) and the NaN pattern are identical, and all 11 value columns
-agree within 2e-15.
+(`word_idx`, `phone_in_word`) and the NaN pattern are identical. All 8 n-gram columns and
+all 14 BLICK columns agree within 1e-14. The reference has the within-word BLICK columns
+blank for the phones whose word assignment was repaired on 2026-10-21; this port fills them
+(335 window values and 232 deltas in these 114 items). `blick_word` has no reference
+(new); a unit test checks it equals the 4-phone within-word window for words of up to 4 phones.
+
+```bash
+python scripts/regression/phonological_vs_langloc.py <out dir>     # exits 1 on any difference
+```
