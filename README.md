@@ -47,7 +47,8 @@ linguistic prepare -i stimuli.csv -o out/         # word/phone tables + missing 
 linguistic run -i stimuli.csv -o out/ -m all      # or family / metric names, repeatable
 ```
 
-Outputs: `words.csv`, `phones.csv`, `stimuli.csv`, `missing_phones.csv`, `manifest.json`.
+Outputs: `phones.csv`, `words.csv`, `stimuli.csv`, `columns.csv` (column dictionary: table,
+column, context, metric, aggregation, definition), `missing_phones.csv`, `manifest.json`.
 
 - A phone-level metric appears in `words.csv` as the mean over the word's phones.
 - `stimuli.csv` averages every numeric word-level metric over the stimulus's words
@@ -58,10 +59,25 @@ Outputs: `words.csv`, `phones.csv`, `stimuli.csv`, `missing_phones.csv`, `manife
 - Read the CSVs with `keep_default_na=False, na_values=['']`: some nonwords (`nan`) are
   otherwise read as missing.
 
+## Metric map
+
+Every metric column is labelled per level (`columns.csv` in each run lists them all):
+**context-independent** = depends only on the unit itself; **context-dependent** = depends
+on a sequence (preceding phones, the word's other phones, preceding words). Within each
+table the independent columns come first. Select by label with `-m <level>:<context>`,
+e.g. `-m phone:independent`, `-m word:dependent`.
+
+| Level | Context-independent | Context-dependent |
+| --- | --- | --- |
+| phone | phonetic features (`feat_*`), single-phone BLICK (`blick_w1_*`) | phoneme transitional probability (cross, within, backward), BLICK 2–4-phone windows and deltas |
+| word | phonetic-feature shares, single-phone BLICK mean, within-word phoneme TP mean, cohort density, uniqueness point, word duration, word frequency (SUBTLEX, ELP) | cross-word and backward phoneme TP means, BLICK (whole word, windows), language-model surprisal and entropy |
+| stimulus | means of the word-level independent columns | means of the word-level dependent columns |
+
 ## Metric families
 
 Each family is a folder under `src/linguistic/metrics/` with its own `README.md`: metric
-definitions and how to download and set up any model or lexicon it needs.
+definitions with their context labels, and how to download and set up any model or
+lexicon it needs.
 
 | Family | README |
 | --- | --- |
