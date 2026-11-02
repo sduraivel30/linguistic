@@ -44,6 +44,7 @@ context-dependent (D) means it depends on a sequence of phones or words.
 | single-phone BLICK (`blick_w1_*`) | I: score | I: mean over phones | – |
 | phoneme transitional probability (`*_surp_cross/_within/_back`) | D: surprisal | D: mean over phones | – |
 | BLICK windows (`blick_w2-4_*`, `delta_*`) | D: score | D: mean over phones | – |
+| cohort surprisal, entropy (`cohort_*`) | D: value | D: mean over phones | – |
 | BLICK whole word (`blick_word`) | – | D: score | D: mean over words |
 | cohort density, uniqueness point | – | D: value | D: mean over words |
 | word frequency (SUBTLEX, ELP) | – | I: value | I: mean over words |
