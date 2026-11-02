@@ -33,22 +33,23 @@ Examples: [`data/examples/`](data/examples/).
 
 ## What is computed at each level
 
-A metric is defined at one level and carried up: a phone value becomes the mean over the
-word's phones, a word value the mean over the stimulus's words. Context-independent (I)
-means the value depends only on that unit; context-dependent (D) means it depends on a
-sequence of phones or words.
+A metric is defined at one level and carried up one level: a phone value to the word (mean
+over the word's phones, never across words), a word value to the stimulus (mean over its
+words). Context-independent (I) means the value depends only on that unit;
+context-dependent (D) means it depends on a sequence of phones or words.
 
 | Metric | Phone | Word | Stimulus |
 | --- | --- | --- | --- |
-| phonetic features (`feat_*`) | I: 1/0 per feature | I: share of phones | I: mean over words |
-| single-phone BLICK (`blick_w1_*`) | I: score | I: mean over phones | I: mean over words |
-| phoneme transitional probability (`*_surp_cross/_within/_back`) | D: surprisal | D: mean over phones | D: mean over words |
-| BLICK windows (`blick_w2-4_*`, `delta_*`) | D: score | D: mean over phones | D: mean over words |
+| phonetic features (`feat_*`) | I: 1/0 per feature | I: share of phones | – |
+| single-phone BLICK (`blick_w1_*`) | I: score | I: mean over phones | – |
+| phoneme transitional probability (`*_surp_cross/_within/_back`) | D: surprisal | D: mean over phones | – |
+| BLICK windows (`blick_w2-4_*`, `delta_*`) | D: score | D: mean over phones | – |
 | BLICK whole word (`blick_word`) | – | D: score | D: mean over words |
 | cohort density, uniqueness point | – | D: value | D: mean over words |
 | word frequency (SUBTLEX, ELP) | – | I: value | I: mean over words |
 | word duration | – | I: value | I: mean over words |
 | LM surprisal, entropy (`lm_*`) | – | D: value | D: mean over words |
+| 5-gram surprisal (`ngram_*`, sentences) | – | D: value | D: mean over words |
 | LM activations (`represent`) | – | D: per layer | D: last word, mean over words |
 | LM input embeddings (`represent`) | – | I: vector | – |
 
