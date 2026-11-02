@@ -7,6 +7,7 @@ import math
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import pytest
 
 pytest.importorskip("torch")
@@ -180,3 +181,27 @@ def test_missing_model_is_skipped_under_all(monkeypatch, tmp_path):
     monkeypatch.setenv("LINGUISTIC_RESOURCES", str(tmp_path))
     assert "lm_gpt2-xl" not in [m.name for m in select(["lm"])]
     assert registry.skipped["lm_gpt2-xl"] == ["gpt2-xl"]
+
+
+def test_ngram_align_and_units(monkeypatch, tmp_path, lexicon):
+    from linguistic.metrics.lm import ngram
+    assert ngram.align(["He", "didn't", "go"], ["he", "did", "n't", "go"]) == [[0], [1, 2], [3]]
+    with pytest.raises(AssertionError):
+        ngram.align(["cat"], ["dog"])
+    sur = pd.DataFrame({"sentence_id": [1] * 5, "token_id": [1, 2, 3, 4, 5],
+                        "token": ["he", "did", "n't", "<unk>", "</s>"],
+                        "surprisal_bits": [2.0, 4.0, 6.0, 10.0, 1.0]})
+    monkeypatch.setattr(ngram, "run_container",
+                        lambda sif, lines: ([["he", "did", "n't", "zorp", "</s>"]], sur))
+    monkeypatch.setenv("LINGUISTIC_RESOURCES", str(tmp_path))
+    (tmp_path / "lmzoo-ngram").mkdir()
+    (tmp_path / "lmzoo-ngram" / "ngram.sif").write_text("")
+    s = load_stimuli(write_stimuli(tmp_path / "s.csv", [
+        {"stimulus_id": "s", "condition": "sentence", "text": "He didn't zorp"},
+        {"stimulus_id": "n", "condition": "nonword", "text": "blick"}]))
+    u = build_units(s, lexicon)
+    w = run_metrics(Context(s, u.words, u.phones, lexicon), select(["ngram_5gram"])).words
+    ln2 = math.log(2)
+    assert np.allclose(w["ngram_surprisal_5gram"].tolist()[:3], [2 * ln2, 5 * ln2, 10 * ln2])
+    assert w["ngram_oov_5gram"].tolist()[:3] == [0, 0, 1]
+    assert math.isnan(w["ngram_surprisal_5gram"].tolist()[3])           # nonword not scored
