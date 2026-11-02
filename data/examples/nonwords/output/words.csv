@@ -1,0 +1,289 @@
+stimulus_id,condition,word_idx,word,word_key,in_lexicon,lexicon_route,n_pronunciations,phone_source,onset,offset,hand_word_label,phones,n_phones
+nonword_01,nonword,1,POME,pome,False,,0,,,,,,0
+nonword_01,nonword,2,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_01,nonword,3,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_01,nonword,4,HOLILY,holily,False,,0,,,,,,0
+nonword_01,nonword,5,SHOURN,shourn,False,,0,,,,,,0
+nonword_01,nonword,6,NE,ne,True,whole,4,cmudict,,,,N IY,2
+nonword_01,nonword,7,SLEOMING,sleoming,False,,0,,,,,,0
+nonword_01,nonword,8,WHIMP,whimp,False,,0,,,,,,0
+nonword_01,nonword,9,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_01,nonword,10,RERE,rere,False,,0,,,,,,0
+nonword_01,nonword,11,OS,os,True,whole,1,cmudict,,,,AA S,2
+nonword_01,nonword,12,OFUKE,ofuke,False,,0,,,,,,0
+nonword_02,nonword,1,OT,ot,True,whole,2,cmudict,,,,AO T,2
+nonword_02,nonword,2,MOMP,momp,False,,0,,,,,,0
+nonword_02,nonword,3,VO,vo,True,whole,2,cmudict,,,,V OW,2
+nonword_02,nonword,4,DETLERENCE,detlerence,False,,0,,,,,,0
+nonword_02,nonword,5,FROT,frot,False,,0,,,,,,0
+nonword_02,nonword,6,MOGS,mogs,False,,0,,,,,,0
+nonword_02,nonword,7,ELIBONCE,elibonce,False,,0,,,,,,0
+nonword_02,nonword,8,POLVED,polved,False,,0,,,,,,0
+nonword_02,nonword,9,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_02,nonword,10,OP,op,True,whole,2,cmudict,,,,AA P,2
+nonword_02,nonword,11,UMMOSITE,ummosite,False,,0,,,,,,0
+nonword_02,nonword,12,COMBLISION,comblision,False,,0,,,,,,0
+nonword_03,nonword,1,CHITMENTS,chitments,False,,0,,,,,,0
+nonword_03,nonword,2,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_03,nonword,3,ORLS,orls,False,,0,,,,,,0
+nonword_03,nonword,4,TROR,tror,False,,0,,,,,,0
+nonword_03,nonword,5,WENDERT,wendert,False,,0,,,,,,0
+nonword_03,nonword,6,COONGLIES,coonglies,False,,0,,,,,,0
+nonword_03,nonword,7,COURN,courn,False,,0,,,,,,0
+nonword_03,nonword,8,MOMICONLY,momiconly,False,,0,,,,,,0
+nonword_03,nonword,9,NE,ne,True,whole,4,cmudict,,,,N IY,2
+nonword_03,nonword,10,SOOZED,soozed,False,,0,,,,,,0
+nonword_03,nonword,11,AR,ar,True,whole,1,cmudict,,,,AA R,2
+nonword_03,nonword,12,CONTROGOME,controgome,False,,0,,,,,,0
+nonword_04,nonword,1,E,e,True,whole,1,cmudict,,,,IY,1
+nonword_04,nonword,2,WOSE,wose,False,,0,,,,,,0
+nonword_04,nonword,3,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_04,nonword,4,SPEONT,speont,False,,0,,,,,,0
+nonword_04,nonword,5,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_04,nonword,6,INTLOSSION,intlossion,False,,0,,,,,,0
+nonword_04,nonword,7,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_04,nonword,8,O,o,True,whole,1,cmudict,,,,OW,1
+nonword_04,nonword,9,COMBOUSE,combouse,False,,0,,,,,,0
+nonword_04,nonword,10,FUMS,fums,False,,0,,,,,,0
+nonword_04,nonword,11,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_04,nonword,12,CHIGSHEN,chigshen,False,,0,,,,,,0
+nonword_05,nonword,1,KAKE,kake,False,,0,,,,,,0
+nonword_05,nonword,2,WEWS,wews,False,,0,,,,,,0
+nonword_05,nonword,3,BAPS,baps,False,,0,,,,,,0
+nonword_05,nonword,4,OSE,ose,True,whole,1,cmudict,,,,OW Z,2
+nonword_05,nonword,5,RECOSSED,recossed,False,,0,,,,,,0
+nonword_05,nonword,6,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_05,nonword,7,LENCHEN,lenchen,False,,0,,,,,,0
+nonword_05,nonword,8,WESEN,wesen,False,,0,,,,,,0
+nonword_05,nonword,9,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_05,nonword,10,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_05,nonword,11,SUSSER,susser,True,whole,1,cmudict,,,,S AH S ER,4
+nonword_05,nonword,12,PRODENOTIONS,prodenotions,False,,0,,,,,,0
+nonword_06,nonword,1,HU,hu,True,whole,1,cmudict,,,,HH UW,2
+nonword_06,nonword,2,WRELT,wrelt,False,,0,,,,,,0
+nonword_06,nonword,3,DOIL,doil,False,,0,,,,,,0
+nonword_06,nonword,4,ET,et,True,whole,1,cmudict,,,,EH T,2
+nonword_06,nonword,5,HUS,hus,False,,0,,,,,,0
+nonword_06,nonword,6,BEP,bep,False,,0,,,,,,0
+nonword_06,nonword,7,AR,ar,True,whole,1,cmudict,,,,AA R,2
+nonword_06,nonword,8,LONK,lonk,False,,0,,,,,,0
+nonword_06,nonword,9,AR,ar,True,whole,1,cmudict,,,,AA R,2
+nonword_06,nonword,10,HU,hu,True,whole,1,cmudict,,,,HH UW,2
+nonword_06,nonword,11,COURN,courn,False,,0,,,,,,0
+nonword_06,nonword,12,KNEOL,kneol,False,,0,,,,,,0
+nonword_07,nonword,1,TRORE,trore,False,,0,,,,,,0
+nonword_07,nonword,2,OS,os,True,whole,1,cmudict,,,,AA S,2
+nonword_07,nonword,3,VO,vo,True,whole,2,cmudict,,,,V OW,2
+nonword_07,nonword,4,UTROSION,utrosion,False,,0,,,,,,0
+nonword_07,nonword,5,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_07,nonword,6,FEOL,feol,False,,0,,,,,,0
+nonword_07,nonword,7,ONIEDY,oniedy,False,,0,,,,,,0
+nonword_07,nonword,8,OM,om,False,,0,,,,,,0
+nonword_07,nonword,9,DISTOLVES,distolves,False,,0,,,,,,0
+nonword_07,nonword,10,ONIET,oniet,False,,0,,,,,,0
+nonword_07,nonword,11,BLESE,blese,False,,0,,,,,,0
+nonword_07,nonword,12,DOOPLE,doople,False,,0,,,,,,0
+nonword_08,nonword,1,OMOILLY,omoilly,False,,0,,,,,,0
+nonword_08,nonword,2,TRORE,trore,False,,0,,,,,,0
+nonword_08,nonword,3,ONK,onk,False,,0,,,,,,0
+nonword_08,nonword,4,HORE,hore,False,,0,,,,,,0
+nonword_08,nonword,5,FOWBORS,fowbors,False,,0,,,,,,0
+nonword_08,nonword,6,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_08,nonword,7,TOOD,tood,False,,0,,,,,,0
+nonword_08,nonword,8,SIKE,sike,False,,0,,,,,,0
+nonword_08,nonword,9,PLORRING,plorring,False,,0,,,,,,0
+nonword_08,nonword,10,FRON,fron,False,,0,,,,,,0
+nonword_08,nonword,11,FISMS,fisms,False,,0,,,,,,0
+nonword_08,nonword,12,INTLOSSIONS,intlossions,False,,0,,,,,,0
+nonword_09,nonword,1,OT,ot,True,whole,2,cmudict,,,,AO T,2
+nonword_09,nonword,2,WAM,wam,False,,0,,,,,,0
+nonword_09,nonword,3,O,o,True,whole,1,cmudict,,,,OW,1
+nonword_09,nonword,4,DELOOF,deloof,False,,0,,,,,,0
+nonword_09,nonword,5,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_09,nonword,6,SHEFT,sheft,False,,0,,,,,,0
+nonword_09,nonword,7,EN,en,True,whole,1,cmudict,,,,EH N,2
+nonword_09,nonword,8,HUS,hus,False,,0,,,,,,0
+nonword_09,nonword,9,MOND,mond,False,,0,,,,,,0
+nonword_09,nonword,10,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_09,nonword,11,TOSSMICOL,tossmicol,False,,0,,,,,,0
+nonword_09,nonword,12,TROPIENS,tropiens,False,,0,,,,,,0
+nonword_10,nonword,1,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_10,nonword,2,UMLY,umly,False,,0,,,,,,0
+nonword_10,nonword,3,EXPOITION,expoition,False,,0,,,,,,0
+nonword_10,nonword,4,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_10,nonword,5,PLIN,plin,False,,0,,,,,,0
+nonword_10,nonword,6,OS,os,True,whole,1,cmudict,,,,AA S,2
+nonword_10,nonword,7,MERTIVE,mertive,False,,0,,,,,,0
+nonword_10,nonword,8,BOES,boes,True,whole,1,cmudict,,,,B OW Z,3
+nonword_10,nonword,9,FROT,frot,False,,0,,,,,,0
+nonword_10,nonword,10,HABS,habs,True,whole,1,cmudict,,,,HH AE B Z,4
+nonword_10,nonword,11,BEMIME,bemime,False,,0,,,,,,0
+nonword_10,nonword,12,PENORITES,penorites,False,,0,,,,,,0
+nonword_11,nonword,1,OT,ot,True,whole,2,cmudict,,,,AO T,2
+nonword_11,nonword,2,WAM,wam,False,,0,,,,,,0
+nonword_11,nonword,3,LOKE,loke,False,,0,,,,,,0
+nonword_11,nonword,4,O,o,True,whole,1,cmudict,,,,OW,1
+nonword_11,nonword,5,LONK,lonk,False,,0,,,,,,0
+nonword_11,nonword,6,SLIN,slin,False,,0,,,,,,0
+nonword_11,nonword,7,LIGS,ligs,False,,0,,,,,,0
+nonword_11,nonword,8,DRARK,drark,False,,0,,,,,,0
+nonword_11,nonword,9,SCROUGH,scrough,False,,0,,,,,,0
+nonword_11,nonword,10,O,o,True,whole,1,cmudict,,,,OW,1
+nonword_11,nonword,11,PIST,pist,False,,0,,,,,,0
+nonword_11,nonword,12,CIBSLE,cibsle,False,,0,,,,,,0
+nonword_12,nonword,1,E,e,True,whole,1,cmudict,,,,IY,1
+nonword_12,nonword,2,COURN,courn,False,,0,,,,,,0
+nonword_12,nonword,3,VOT,vot,False,,0,,,,,,0
+nonword_12,nonword,4,CLIVE,clive,True,whole,1,cmudict,,,,K L AY V,4
+nonword_12,nonword,5,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_12,nonword,6,HY,hy,True,whole,1,cmudict,,,,HH AY,2
+nonword_12,nonword,7,POMS,poms,False,,0,,,,,,0
+nonword_12,nonword,8,NOM,nom,True,whole,1,cmudict,,,,N AA M,3
+nonword_12,nonword,9,DOD,dod,False,,0,,,,,,0
+nonword_12,nonword,10,E,e,True,whole,1,cmudict,,,,IY,1
+nonword_12,nonword,11,WIBS,wibs,False,,0,,,,,,0
+nonword_12,nonword,12,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_13,nonword,1,EOKS,eoks,False,,0,,,,,,0
+nonword_13,nonword,2,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_13,nonword,3,THOTE,thote,False,,0,,,,,,0
+nonword_13,nonword,4,FOCKETS,fockets,False,,0,,,,,,0
+nonword_13,nonword,5,WAM,wam,False,,0,,,,,,0
+nonword_13,nonword,6,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_13,nonword,7,CREOT,creot,False,,0,,,,,,0
+nonword_13,nonword,8,VOSUE,vosue,False,,0,,,,,,0
+nonword_13,nonword,9,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_13,nonword,10,OTS,ots,False,,0,,,,,,0
+nonword_13,nonword,11,MIGHTBEL,mightbel,False,,0,,,,,,0
+nonword_13,nonword,12,REMETIERS,remetiers,False,,0,,,,,,0
+nonword_14,nonword,1,E,e,True,whole,1,cmudict,,,,IY,1
+nonword_14,nonword,2,RURNED,rurned,False,,0,,,,,,0
+nonword_14,nonword,3,OSE,ose,True,whole,1,cmudict,,,,OW Z,2
+nonword_14,nonword,4,WONCHED,wonched,False,,0,,,,,,0
+nonword_14,nonword,5,HOM,hom,True,whole,1,cmudict,,,,HH AA M,3
+nonword_14,nonword,6,STRILE,strile,False,,0,,,,,,0
+nonword_14,nonword,7,DOIL,doil,False,,0,,,,,,0
+nonword_14,nonword,8,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_14,nonword,9,CISTRE,cistre,False,,0,,,,,,0
+nonword_14,nonword,10,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_14,nonword,11,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_14,nonword,12,FOUD,foud,False,,0,,,,,,0
+nonword_15,nonword,1,HU,hu,True,whole,1,cmudict,,,,HH UW,2
+nonword_15,nonword,2,WAM,wam,False,,0,,,,,,0
+nonword_15,nonword,3,POOTYING,pootying,False,,0,,,,,,0
+nonword_15,nonword,4,O,o,True,whole,1,cmudict,,,,OW,1
+nonword_15,nonword,5,BADES,bades,False,,0,,,,,,0
+nonword_15,nonword,6,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_15,nonword,7,MOURLOUGH,mourlough,False,,0,,,,,,0
+nonword_15,nonword,8,BISPOUTS,bispouts,False,,0,,,,,,0
+nonword_15,nonword,9,FOM,fom,False,,0,,,,,,0
+nonword_15,nonword,10,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_15,nonword,11,TULSH,tulsh,False,,0,,,,,,0
+nonword_15,nonword,12,UDEN,uden,True,whole,1,cmudict,,,,UW D AH N,4
+nonword_16,nonword,1,NIR,nir,True,whole,1,cmudict,,,,N IH R,3
+nonword_16,nonword,2,GLORKS,glorks,False,,0,,,,,,0
+nonword_16,nonword,3,SWUBS,swubs,False,,0,,,,,,0
+nonword_16,nonword,4,POMS,poms,False,,0,,,,,,0
+nonword_16,nonword,5,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_16,nonword,6,CHOINER,choiner,False,,0,,,,,,0
+nonword_16,nonword,7,SLERE,slere,False,,0,,,,,,0
+nonword_16,nonword,8,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_16,nonword,9,WRO,wro,False,,0,,,,,,0
+nonword_16,nonword,10,CLIRERS,clirers,False,,0,,,,,,0
+nonword_16,nonword,11,DERE,dere,False,,0,,,,,,0
+nonword_16,nonword,12,SHENDING,shending,False,,0,,,,,,0
+nonword_17,nonword,1,SNUSTIONS,snustions,False,,0,,,,,,0
+nonword_17,nonword,2,CADE,cade,True,whole,1,cmudict,,,,K EY D,3
+nonword_17,nonword,3,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_17,nonword,4,TE,te,True,whole,1,cmudict,,,,T IY,2
+nonword_17,nonword,5,TROR,tror,False,,0,,,,,,0
+nonword_17,nonword,6,ORS,ors,False,,0,,,,,,0
+nonword_17,nonword,7,SIFFS,siffs,False,,0,,,,,,0
+nonword_17,nonword,8,ONIET,oniet,False,,0,,,,,,0
+nonword_17,nonword,9,HY,hy,True,whole,1,cmudict,,,,HH AY,2
+nonword_17,nonword,10,WONDE,wonde,False,,0,,,,,,0
+nonword_17,nonword,11,CITICORPHIP,citicorphip,False,,0,,,,,,0
+nonword_17,nonword,12,OUDETITIES,oudetities,False,,0,,,,,,0
+nonword_18,nonword,1,E,e,True,whole,1,cmudict,,,,IY,1
+nonword_18,nonword,2,INTROFORNE,introforne,False,,0,,,,,,0
+nonword_18,nonword,3,HY,hy,True,whole,1,cmudict,,,,HH AY,2
+nonword_18,nonword,4,FRIEST,friest,False,,0,,,,,,0
+nonword_18,nonword,5,FANDY,fandy,False,,0,,,,,,0
+nonword_18,nonword,6,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_18,nonword,7,PEPS,peps,False,,0,,,,,,0
+nonword_18,nonword,8,OSE,ose,True,whole,1,cmudict,,,,OW Z,2
+nonword_18,nonword,9,DE,de,True,whole,3,cmudict,,,,D IY,2
+nonword_18,nonword,10,MOMP,momp,False,,0,,,,,,0
+nonword_18,nonword,11,OURBOLVES,ourbolves,False,,0,,,,,,0
+nonword_18,nonword,12,CORCOINOBLE,corcoinoble,False,,0,,,,,,0
+nonword_19,nonword,1,LUT,lut,False,,0,,,,,,0
+nonword_19,nonword,2,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_19,nonword,3,UMLY,umly,False,,0,,,,,,0
+nonword_19,nonword,4,LOND,lond,False,,0,,,,,,0
+nonword_19,nonword,5,E,e,True,whole,1,cmudict,,,,IY,1
+nonword_19,nonword,6,WAM,wam,False,,0,,,,,,0
+nonword_19,nonword,7,GOVING,goving,False,,0,,,,,,0
+nonword_19,nonword,8,HOM,hom,True,whole,1,cmudict,,,,HH AA M,3
+nonword_19,nonword,9,WAM,wam,False,,0,,,,,,0
+nonword_19,nonword,10,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_19,nonword,11,PUNE,pune,False,,0,,,,,,0
+nonword_19,nonword,12,KILE,kile,True,whole,1,cmudict,,,,K AY L,3
+nonword_20,nonword,1,HU,hu,True,whole,1,cmudict,,,,HH UW,2
+nonword_20,nonword,2,BUCKOTES,buckotes,False,,0,,,,,,0
+nonword_20,nonword,3,RO,ro,True,whole,1,cmudict,,,,R OW,2
+nonword_20,nonword,4,NIR,nir,True,whole,1,cmudict,,,,N IH R,3
+nonword_20,nonword,5,TROR,tror,False,,0,,,,,,0
+nonword_20,nonword,6,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_20,nonword,7,WOOR,woor,False,,0,,,,,,0
+nonword_20,nonword,8,OSE,ose,True,whole,1,cmudict,,,,OW Z,2
+nonword_20,nonword,9,CHE,che,True,whole,1,cmudict,,,,CH EY,2
+nonword_20,nonword,10,SLICKED,slicked,True,whole,1,cmudict,,,,S L IH K T,5
+nonword_20,nonword,11,CLIONLY,clionly,False,,0,,,,,,0
+nonword_20,nonword,12,OUTNODE,outnode,False,,0,,,,,,0
+nonword_21,nonword,1,CY,cy,True,whole,1,cmudict,,,,S AY,2
+nonword_21,nonword,2,PLIN,plin,False,,0,,,,,,0
+nonword_21,nonword,3,TICE,tice,True,whole,1,cmudict,,,,T AY S,3
+nonword_21,nonword,4,LOLKS,lolks,False,,0,,,,,,0
+nonword_21,nonword,5,NURGERS,nurgers,False,,0,,,,,,0
+nonword_21,nonword,6,OY,oy,True,whole,1,cmudict,,,,OY,1
+nonword_21,nonword,7,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_21,nonword,8,ORIENCE,orience,False,,0,,,,,,0
+nonword_21,nonword,9,HUD,hud,True,whole,1,cmudict,,,,HH AH D,3
+nonword_21,nonword,10,LELD,leld,False,,0,,,,,,0
+nonword_21,nonword,11,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_21,nonword,12,HORS,hors,True,whole,2,cmudict,,,,HH AO R Z,4
+nonword_22,nonword,1,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_22,nonword,2,GISK,gisk,False,,0,,,,,,0
+nonword_22,nonword,3,KNEENED,kneened,False,,0,,,,,,0
+nonword_22,nonword,4,CY,cy,True,whole,1,cmudict,,,,S AY,2
+nonword_22,nonword,5,NIR,nir,True,whole,1,cmudict,,,,N IH R,3
+nonword_22,nonword,6,HUBTOND,hubtond,False,,0,,,,,,0
+nonword_22,nonword,7,PITH,pith,True,whole,1,cmudict,,,,P IH TH,3
+nonword_22,nonword,8,OVE,ove,False,,0,,,,,,0
+nonword_22,nonword,9,ORL,orl,False,,0,,,,,,0
+nonword_22,nonword,10,ET,et,True,whole,1,cmudict,,,,EH T,2
+nonword_22,nonword,11,HUS,hus,False,,0,,,,,,0
+nonword_22,nonword,12,BAPS,baps,False,,0,,,,,,0
+nonword_23,nonword,1,MIMP,mimp,False,,0,,,,,,0
+nonword_23,nonword,2,CAINTS,caints,False,,0,,,,,,0
+nonword_23,nonword,3,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_23,nonword,4,BOMS,boms,False,,0,,,,,,0
+nonword_23,nonword,5,JUMS,jums,False,,0,,,,,,0
+nonword_23,nonword,6,AR,ar,True,whole,1,cmudict,,,,AA R,2
+nonword_23,nonword,7,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_23,nonword,8,BONCHER,boncher,False,,0,,,,,,0
+nonword_23,nonword,9,SLOD,slod,False,,0,,,,,,0
+nonword_23,nonword,10,INNI,inni,False,,0,,,,,,0
+nonword_23,nonword,11,REE,ree,True,whole,1,cmudict,,,,R IY,2
+nonword_23,nonword,12,BAVE,bave,False,,0,,,,,,0
+nonword_24,nonword,1,SHINNON,shinnon,False,,0,,,,,,0
+nonword_24,nonword,2,TICED,ticed,False,,0,,,,,,0
+nonword_24,nonword,3,OT,ot,True,whole,2,cmudict,,,,AO T,2
+nonword_24,nonword,4,SU,su,True,whole,2,cmudict,,,,S UW,2
+nonword_24,nonword,5,FROT,frot,False,,0,,,,,,0
+nonword_24,nonword,6,QUEY,quey,False,,0,,,,,,0
+nonword_24,nonword,7,ROSS,ross,True,whole,2,cmudict,,,,R AA S,3
+nonword_24,nonword,8,EN,en,True,whole,1,cmudict,,,,EH N,2
+nonword_24,nonword,9,OP,op,True,whole,2,cmudict,,,,AA P,2
+nonword_24,nonword,10,MOUR,mour,False,,0,,,,,,0
+nonword_24,nonword,11,AULER,auler,False,,0,,,,,,0
+nonword_24,nonword,12,PIGHTFOME,pightfome,False,,0,,,,,,0
