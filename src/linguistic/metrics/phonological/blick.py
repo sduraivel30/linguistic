@@ -9,6 +9,11 @@ is new.
 
 BLICK returns a penalty: the weighted sum of phonotactic constraint violations
 (0 = fully English-like, higher = less English-like). BLICK errors give NaN.
+
+Context: BLICK scores a phoneme sequence, so every multi-phone score is context-dependent
+at every level (blick_word included). The 1-phone window (blick_w1_*) is the phone alone,
+hence context-independent -- but BLICK scores it as if the phone were a whole word, so it
+mostly reflects word-level legality (a lone consonant is penalised for having no vowel).
 """
 from __future__ import annotations
 
@@ -79,8 +84,8 @@ class _Base(Metric):
 class BlickCross(_Base):
     name = "blick_cross"
     level = "phone"
-    context = {"phone": "dependent", "word": "dependent"}
-    context_overrides = {"blick_w1_cross": {"phone": "independent", "word": "independent"}}  # the phone alone
+    context = {"phone": "dependent", "word": "dependent"}               # scores a phone sequence
+    context_overrides = {"blick_w1_cross": {"phone": "independent", "word": "independent"}}  # one phone alone
     columns = tuple(f"blick_w{w}_cross" for w in WINDOWS) + tuple(f"delta_blick_w{w}_cross" for w in WINDOWS[1:])
     description = ("BLICK score of the last N phones ending at each phone (N = 1-4), window "
                    "running across word boundaries; delta_wN = change from the previous phone.")
@@ -93,8 +98,8 @@ class BlickCross(_Base):
 class BlickWithin(_Base):
     name = "blick_within"
     level = "phone"
-    context = {"phone": "dependent", "word": "independent"}
-    context_overrides = {"blick_w1_within": {"phone": "independent"}}
+    context = {"phone": "dependent", "word": "dependent"}               # scores a phone sequence
+    context_overrides = {"blick_w1_within": {"phone": "independent", "word": "independent"}}
     columns = tuple(f"blick_w{w}_within" for w in WINDOWS) + tuple(f"delta_blick_w{w}_within" for w in WINDOWS[1:])
     description = ("BLICK score of the last N phones ending at each phone (N = 1-4), window "
                    "reset at each word boundary; delta_wN is NaN at the word's first phone.")
@@ -107,7 +112,7 @@ class BlickWithin(_Base):
 class BlickWord(_Base):
     name = "blick_word"
     level = "word"
-    context = {"word": "independent"}
+    context = {"word": "dependent"}                     # scores the word's phone sequence
     columns = ("blick_word",)
     description = "BLICK score of the whole word's phone string."
 
