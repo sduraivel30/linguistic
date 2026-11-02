@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-11-02T21:53:11+00:00",
+  "created_utc": "2026-11-02T21:59:55+00:00",
   "linguistic_version": "0.1.0",
-  "linguistic_git_commit": "f8e8b637b194dcf355d992902bc09c10fbfcc0ae",
+  "linguistic_git_commit": "336df4bdb034b6206be7f46dae279638d7bdb927",
   "python": "3.11.15",
   "packages": {
     "numpy": "2.4.6",
@@ -32,6 +32,63 @@
   "n_words_missing_phones": 2,
   "metrics": [
     {
+      "name": "cohort",
+      "family": "lexical",
+      "level": "word",
+      "columns": [
+        "cohort_density_log10",
+        "uniqueness_point_idx",
+        "uniqueness_point_ms",
+        "up_reached"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "cohort_density_log10 = log10(1 + sum over the word's phonemes k of the number of CMUdict words, other than the word itself, whose first k phonemes equal the word's first k). uniqueness_point_idx = first k where that number is 0 (no other word shares the prefix); if never, the last phoneme and up_reached = False. uniqueness_point_ms = end of that phoneme minus word onset (needs timing, else NaN).",
+      "nan_reason": "",
+      "resources": []
+    },
+    {
+      "name": "word_duration",
+      "family": "lexical",
+      "level": "word",
+      "columns": [
+        "word_duration_ms"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "timing"
+      ],
+      "description": "Word offset minus onset in ms (hand-label timing; word bounds taken from its phones).",
+      "nan_reason": "",
+      "resources": []
+    },
+    {
+      "name": "subtlex_frequency",
+      "family": "lexical",
+      "level": "word",
+      "columns": [
+        "subtlex_lg10wf",
+        "subtlex_zipf"
+      ],
+      "conditions": [
+        "sentence"
+      ],
+      "requires": [],
+      "description": "SUBTLEX-US (Brysbaert & New 2009): Lg10WF = log10(FREQcount + 1); Zipf = log10((FREQcount + 1) / (51 + 0.074286)) + 3 (van Heuven et al. 2014; 51 M tokens, 74,286 types). Words not in the list are NaN.",
+      "nan_reason": "word frequency is undefined for nonwords",
+      "resources": [
+        "subtlex_us"
+      ]
+    },
+    {
       "name": "phoneme_tp_cross",
       "family": "phonological",
       "level": "phone",
@@ -48,7 +105,8 @@
         "phones"
       ],
       "description": "Forward phoneme transitional probability over the stimulus's phone sequence, context carried across word boundaries. bigram: -ln P(B|A); trigram: -ln P(C|A,B); log_bigram_freq: ln count(A,B). CMUdict counts.",
-      "nan_reason": ""
+      "nan_reason": "",
+      "resources": []
     },
     {
       "name": "phoneme_tp_within",
@@ -67,7 +125,8 @@
         "phones"
       ],
       "description": "Forward phoneme transitional probability with context reset at each word boundary (word-initial phone NaN for bigram, first two for trigram).",
-      "nan_reason": ""
+      "nan_reason": "",
+      "resources": []
     },
     {
       "name": "phoneme_tp_backward",
@@ -85,7 +144,8 @@
         "phones"
       ],
       "description": "Backward phoneme surprisal across word boundaries: for A B C, bigram -ln P(B|C) assigned to B; trigram -ln P(X|Y,Z) assigned to X. NaN for the last one / two phones of a sequence.",
-      "nan_reason": ""
+      "nan_reason": "",
+      "resources": []
     },
     {
       "name": "blick_cross",
@@ -108,7 +168,8 @@
         "phones"
       ],
       "description": "BLICK score of the last N phones ending at each phone (N = 1-4), window running across word boundaries; delta_wN = change from the previous phone.",
-      "nan_reason": ""
+      "nan_reason": "",
+      "resources": []
     },
     {
       "name": "blick_within",
@@ -131,7 +192,8 @@
         "phones"
       ],
       "description": "BLICK score of the last N phones ending at each phone (N = 1-4), window reset at each word boundary; delta_wN is NaN at the word's first phone.",
-      "nan_reason": ""
+      "nan_reason": "",
+      "resources": []
     },
     {
       "name": "blick_word",
@@ -148,10 +210,39 @@
         "phones"
       ],
       "description": "BLICK score of the whole word's phone string.",
-      "nan_reason": ""
+      "nan_reason": "",
+      "resources": []
     }
   ],
   "report": [
+    {
+      "metric": "cohort",
+      "level": "word",
+      "n_valid_sentence": {
+        "cohort_density_log10": 286,
+        "uniqueness_point_idx": 286,
+        "uniqueness_point_ms": 0,
+        "up_reached": 286
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "word_duration",
+      "level": "word",
+      "n_valid_sentence": {
+        "word_duration_ms": 0
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "subtlex_frequency",
+      "level": "word",
+      "n_valid_sentence": {
+        "subtlex_lg10wf": 284,
+        "subtlex_zipf": 284
+      },
+      "n_words_sentence": 288
+    },
     {
       "metric": "phoneme_tp_cross",
       "level": "phone",
@@ -216,6 +307,19 @@
         "blick_word": 286
       },
       "n_words_sentence": 288
+    }
+  ],
+  "skipped_metrics": {
+    "elp_frequency": [
+      "elp"
+    ]
+  },
+  "resources": [
+    {
+      "name": "subtlex_us",
+      "path": "/Users/dsuseendar/.cache/linguistic/subtlex_us/SUBTLEXus74286wordstextversion.txt",
+      "url": "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus/subtlexus2.zip",
+      "md5": "ee7be8db21f26e1925ac0ea3ab598f32"
     }
   ]
 }
