@@ -62,6 +62,17 @@ def test_hand_phones_for_unknown_nonword(tmp_path, lexicon):
     assert bool(u.words.loc[0, "in_lexicon"]) is False
 
 
+def test_hyphenated_word_split_in_labels_is_merged(tmp_path, lexicon):
+    write_labels(tmp_path / "w.txt", [(0.0, 0.3, "ice"), (0.3, 0.7, "cream")])
+    write_labels(tmp_path / "p.txt", [(0.0, 0.15, "AY"), (0.15, 0.3, "S"), (0.3, 0.4, "K"),
+                                      (0.4, 0.5, "R"), (0.5, 0.6, "IY"), (0.6, 0.7, "M")])
+    u = _units(tmp_path, [{"stimulus_id": "s1", "condition": "sentence", "text": "ice-cream",
+                           "words_labels": "w.txt", "phones_labels": "p.txt"}], lexicon)
+    assert len(u.words) == 1
+    assert u.words.loc[0, "phones"] == "AY S K R IY M"
+    assert u.words.loc[0, "hand_word_label"] == "ice cream"
+
+
 @pytest.mark.parametrize("words,phones,msg", [
     ([(0, 1, "after")], [(0, 1, "AE")], "1 words in"),
     ([(0, 1, "after"), (1, 2, "the")], [(0, 1, "æ")], "not ARPAbet"),
