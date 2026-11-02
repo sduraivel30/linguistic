@@ -2,6 +2,10 @@
 
 Word-level metrics. In `stimuli.csv` each is the mean over the stimulus's words.
 
+**Context:** all lexical metrics are context-independent at the word and stimulus level:
+they depend on the word itself (its spelling, phones or timing) and a reference lexicon,
+never on the neighbouring words.
+
 ## Metrics
 
 | Metric (`-m` name) | Columns | Conditions | Needs | Definition |
