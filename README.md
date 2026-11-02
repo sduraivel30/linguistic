@@ -65,5 +65,8 @@ Running on a SLURM cluster: [`slurm/README.md`](slurm/README.md).
 ## Tests
 
 ```bash
-PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 .venv/bin/python -m pytest
+python -m pytest
 ```
+
+Language-model tests use small test models from the local Hugging Face cache and are
+skipped when those are not downloaded.
