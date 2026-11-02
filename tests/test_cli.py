@@ -23,3 +23,13 @@ def test_prepare_writes_tables_and_manifest(tmp_path):
     assert m["input"]["n_stimuli"] == 2
     assert m["lexicon"]["name"] == "CMUdict (nltk)"
     assert "need hand phones" in res.output
+
+
+def test_fetch_resolves_model_names(monkeypatch):
+    from linguistic import resources
+    got = []
+    monkeypatch.setattr(resources, "fetch", lambda n: got.append(n) or n)
+    res = CliRunner().invoke(app, ["fetch", "t5-large"])
+    assert res.exit_code == 0, res.output
+    assert got == ["t5-large"]
+    assert CliRunner().invoke(app, ["fetch", "no-such-model"]).exit_code != 0
