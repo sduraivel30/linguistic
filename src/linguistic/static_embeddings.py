@@ -2,7 +2,7 @@
 
 GloVe 840B, cased, 300 dimensions (Pennington et al. 2014;
 https://nlp.stanford.edu/projects/glove/). `linguistic fetch glove-840b` downloads
-glove.840B.300d.zip (2.0 GB) and converts it once into vocab.txt + vectors.npy
+glove.840B.300d.zip (2.2 GB, Stanford's copy on Hugging Face, sha256-checked) and converts it once into vocab.txt + vectors.npy
 (float32, 2.2 M x 300, 2.6 GB) in $LINGUISTIC_RESOURCES/glove-840b/.
 Lookup: the word as written, else lowercased; otherwise out of vocabulary (NaN vector).
 """
