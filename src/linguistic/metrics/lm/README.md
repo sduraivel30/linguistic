@@ -70,6 +70,11 @@ Step by step:
 
 The model is loaded with `local_files_only=True`, so a run never downloads anything.
 
+## Running on a server
+
+Step-by-step notes for ORCD / SLURM (environment, model placement, GPU jobs, pulling
+results back): [`slurm/README.md`](../../../../slurm/README.md).
+
 ## Adding another model
 
 Add one line to `MODELS` in `causal.py`: a name, the Hugging Face repo, a pinned revision
