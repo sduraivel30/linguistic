@@ -39,7 +39,7 @@ TOL = 1e-3
 def main(out_dir: str, words_csv: str | None = None, input_only: bool = False) -> int:
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
-    ref = pd.read_csv(SURP, dtype={"item_id": str})
+    ref = pd.read_csv(SURP, dtype={"item_id": str}, keep_default_na=False, na_values=[""])   # a nonword is "nan"
     stim = (ref.drop_duplicates("stimulus_id")[["stimulus_id", "condition", "stimulus_text"]]
             .rename(columns={"stimulus_text": "text"}))
     stim["condition"] = stim["condition"].map({"English": "sentence", "Nonsense": "nonword"})
