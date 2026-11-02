@@ -1,11 +1,8 @@
 #!/bin/bash
-# Run the pipeline on a SLURM cluster. Submit from the repo root:
-#     sbatch slurm/run_metrics.sh <stimuli.csv> <out dir> [metric selectors ...]
-# e.g. sbatch --gres=gpu:1 slurm/run_metrics.sh data/my_stimuli.csv out/my_run lm
-# Selectors are passed to `linguistic run -m` (default: all). Add --gres=gpu:1 for
-# language models; small stimulus sets also run on CPU.
+# Run the pipeline as a batch job. Submit from the repo root:
+#     sbatch -p <partition> [--gres=gpu:1] slurm/run_metrics.sh <stimuli.csv> <out dir> [metrics ...]
+# Metrics are passed to `linguistic run -m` (default: all).
 #SBATCH --job-name=linguistic_run
-#SBATCH --partition=pi_evelina9,ou_bcs_normal
 #SBATCH --time=04:00:00
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=48G
