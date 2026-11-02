@@ -10,6 +10,18 @@ column per name in `columns`:
     level 'phone' -> keys stimulus_id, word_idx, phone_in_word
 Rows may be omitted; missing values become NaN. The runner (assemble.py)
 enforces `conditions` and `requires`, so `compute` does not need to.
+
+Context, per level. At each level a column is
+    'independent' -- its value depends only on that unit itself (a phone's identity,
+                     a word's spelling/phones/frequency), or
+    'dependent'   -- it depends on neighbouring units at that level or on the larger
+                     unit the unit sits in (preceding phones, preceding words).
+The same column can change class between levels: within-word phoneme surprisal is
+dependent for a phone (it uses the preceding phones of the word) but independent for
+the word (its per-word mean depends only on the word). `context` gives the class at
+every level the column appears at ('phone' metrics also appear at 'word' and
+'stimulus'; 'word' metrics at 'word' and 'stimulus'); the stimulus level takes the
+word-level class. `context_overrides` sets it per column where one metric mixes classes.
 """
 from __future__ import annotations
 
@@ -22,6 +34,7 @@ from .normalize import Lexicon
 LEVELS = {"word": ("stimulus_id", "word_idx"),
           "phone": ("stimulus_id", "word_idx", "phone_in_word")}
 REQUIREMENTS = {"phones", "timing", "audio"}
+CONTEXTS = ("independent", "dependent")
 
 
 @dataclass
@@ -42,6 +55,15 @@ class Metric:
     description: str = ""
     nan_reason: str = ""          # why a condition is excluded, documented with the metric
     resources: tuple[str, ...] = ()   # names in linguistic.resources.RESOURCES it needs
+    context: dict = {}                # level -> 'independent' | 'dependent' (see module docstring)
+    context_overrides: dict = {}      # column -> {level: context}
+
+    def levels(self) -> tuple[str, ...]:
+        return ("phone", "word", "stimulus") if self.level == "phone" else ("word", "stimulus")
+
+    def column_context(self, column: str, level: str) -> str:
+        c = {**self.context, **self.context_overrides.get(column, {})}
+        return c.get(level, c["word"]) if level == "stimulus" else c[level]
 
     def compute(self, ctx: Context) -> pd.DataFrame:
         raise NotImplementedError
@@ -50,7 +72,9 @@ class Metric:
         return {"name": self.name, "family": self.family, "level": self.level,
                 "columns": list(self.columns), "conditions": sorted(self.conditions),
                 "requires": sorted(self.requires), "description": self.description,
-                "nan_reason": self.nan_reason, "resources": list(self.resources)}
+                "nan_reason": self.nan_reason, "resources": list(self.resources),
+                "context": {c: {lv: self.column_context(c, lv) for lv in self.levels()}
+                            for c in self.columns}}
 
 
 _REGISTRY: dict[str, Metric] = {}
@@ -67,6 +91,14 @@ def register(cls: type[Metric]) -> type[Metric]:
     unknown = set(m.requires) - REQUIREMENTS
     if unknown:
         raise TypeError(f"{m.name}: unknown requirement(s) {unknown}")
+    for col in m.columns:
+        for lv in m.levels():
+            try:
+                c = m.column_context(col, lv)
+            except KeyError:
+                raise TypeError(f"{m.name}: no context given for {col!r} at level {lv!r}") from None
+            if c not in CONTEXTS:
+                raise TypeError(f"{m.name}: context must be one of {CONTEXTS}, got {c!r}")
     if m.name in _REGISTRY:
         raise TypeError(f"metric '{m.name}' registered twice")
     _REGISTRY[m.name] = m
@@ -83,7 +115,9 @@ def all_metrics() -> list[Metric]:
 
 
 def select(spec: list[str]) -> list[Metric]:
-    """Resolve 'all', family names and metric names to metrics (registry order, no duplicates).
+    """Resolve 'all', family names, metric names and '<level>:<context>' selectors
+    (e.g. 'phone:independent', 'word:dependent': every metric with a column of that class
+    at that level) to metrics (registry order, no duplicates).
 
     A metric chosen through 'all' or its family is dropped (see `skipped`) when a resource it
     needs is not installed; a metric named explicitly is kept, so its run fails with the
@@ -101,6 +135,10 @@ def select(spec: list[str]) -> list[Metric]:
             explicit.add(item)
         elif item in families:
             chosen |= {n for n, m in _REGISTRY.items() if m.family == item}
+        elif ":" in item and item.split(":", 1)[1] in CONTEXTS:
+            lv, cx = item.split(":", 1)
+            chosen |= {n for n, m in _REGISTRY.items() if lv in m.levels()
+                       and any(m.column_context(c, lv) == cx for c in m.columns)}
         else:
             raise KeyError(f"unknown metric or family '{item}'; "
                            f"known: {sorted(_REGISTRY)} / families {sorted(families)}")
