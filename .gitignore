@@ -16,3 +16,11 @@ data/*
 !data/examples/
 !data/examples/**
 slurm/logs/
+# activations / embeddings are never committed, not even under data/examples
+reps/
+scratch/
+*.npy
+*.npz
+*.safetensors
+*.bin
+*.sif
