@@ -1,12 +1,12 @@
 {
-  "created_utc": "2026-11-02T22:24:35+00:00",
+  "created_utc": "2026-11-02T23:30:58+00:00",
   "linguistic_version": "0.1.0",
-  "linguistic_git_commit": "eea7310f854831b9f4b04d6078d068d5faa5d2a0",
-  "python": "3.11.15",
+  "linguistic_git_commit": "5726eaa86da3b97665530377cc114f18835a57c0",
+  "python": "3.14.7",
   "packages": {
-    "numpy": "2.4.6",
-    "pandas": "3.0.3",
-    "nltk": "3.10.3",
+    "numpy": "2.5.4",
+    "pandas": "3.1.0",
+    "nltk": "3.10.4",
     "typer": "0.27.3"
   },
   "input": {
@@ -20,7 +20,7 @@
   "label_files": {},
   "lexicon": {
     "name": "CMUdict (nltk)",
-    "nltk_version": "3.10.3",
+    "nltk_version": "3.10.4",
     "n_entries": 123455,
     "stress": "stripped",
     "pronunciation": "first listed"
@@ -123,6 +123,209 @@
       }
     },
     {
+      "name": "lm_gpt2-xl",
+      "family": "lm",
+      "level": "word",
+      "columns": [
+        "lm_surprisal_gpt2xl",
+        "lm_entropy_gpt2xl",
+        "lm_n_subtokens_gpt2xl"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [],
+      "description": "openai-community/gpt2-xl@15ea56d (causal; the word is scored given the preceding words of its stimulus): mean sub-token surprisal and entropy of the prediction for the word (nats).",
+      "nan_reason": "",
+      "resources": [
+        "gpt2-xl"
+      ],
+      "context": {
+        "lm_surprisal_gpt2xl": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_entropy_gpt2xl": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_n_subtokens_gpt2xl": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
+    },
+    {
+      "name": "lm_albert-xxlarge-v1",
+      "family": "lm",
+      "level": "word",
+      "columns": [
+        "lm_surprisal_albertxxl",
+        "lm_entropy_albertxxl",
+        "lm_n_subtokens_albertxxl"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [],
+      "description": "albert/albert-xxlarge-v1@4312906 (masked; the word is scored given the words on both sides of its stimulus): mean sub-token surprisal and entropy of the prediction for the word (nats).",
+      "nan_reason": "",
+      "resources": [
+        "albert-xxlarge-v1"
+      ],
+      "context": {
+        "lm_surprisal_albertxxl": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_entropy_albertxxl": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_n_subtokens_albertxxl": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
+    },
+    {
+      "name": "lm_bert-large-uncased",
+      "family": "lm",
+      "level": "word",
+      "columns": [
+        "lm_surprisal_bertlarge",
+        "lm_entropy_bertlarge",
+        "lm_n_subtokens_bertlarge"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [],
+      "description": "google-bert/bert-large-uncased@6da4b6a (masked; the word is scored given the words on both sides of its stimulus): mean sub-token surprisal and entropy of the prediction for the word (nats).",
+      "nan_reason": "",
+      "resources": [
+        "bert-large-uncased"
+      ],
+      "context": {
+        "lm_surprisal_bertlarge": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_entropy_bertlarge": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_n_subtokens_bertlarge": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
+    },
+    {
+      "name": "lm_xlnet-large-cased",
+      "family": "lm",
+      "level": "word",
+      "columns": [
+        "lm_surprisal_xlnetlarge",
+        "lm_entropy_xlnetlarge",
+        "lm_n_subtokens_xlnetlarge"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [],
+      "description": "xlnet/xlnet-large-cased@37658b4 (xlnet; the word is scored given the preceding words of its stimulus): mean sub-token surprisal and entropy of the prediction for the word (nats).",
+      "nan_reason": "",
+      "resources": [
+        "xlnet-large-cased"
+      ],
+      "context": {
+        "lm_surprisal_xlnetlarge": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_entropy_xlnetlarge": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_n_subtokens_xlnetlarge": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
+    },
+    {
+      "name": "lm_t5-large",
+      "family": "lm",
+      "level": "word",
+      "columns": [
+        "lm_surprisal_t5large",
+        "lm_entropy_t5large",
+        "lm_n_subtokens_t5large"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [],
+      "description": "google-t5/t5-large@150ebc2 (t5; the word is scored given the words on both sides of its stimulus): mean sub-token surprisal and entropy of the prediction for the word (nats).",
+      "nan_reason": "",
+      "resources": [
+        "t5-large"
+      ],
+      "context": {
+        "lm_surprisal_t5large": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_entropy_t5large": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "lm_n_subtokens_t5large": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
+    },
+    {
+      "name": "ngram_5gram",
+      "family": "lm",
+      "level": "word",
+      "columns": [
+        "ngram_surprisal_5gram",
+        "ngram_n_tokens_5gram",
+        "ngram_oov_5gram"
+      ],
+      "conditions": [
+        "sentence"
+      ],
+      "requires": [],
+      "description": "SRILM Kneser-Ney 5-gram (English Wikipedia, lm-zoo): surprisal of the word given the preceding words of its sentence, nats (mean over its tokens); number of tokens; 1 if out of vocabulary (<unk>).",
+      "nan_reason": "the 5-gram vocabulary has no nonwords",
+      "resources": [
+        "lmzoo-ngram"
+      ],
+      "context": {
+        "ngram_surprisal_5gram": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "ngram_n_tokens_5gram": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "ngram_oov_5gram": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
+    },
+    {
       "name": "phonetic_features",
       "family": "phonological",
       "level": "phone",
@@ -155,73 +358,59 @@
       "context": {
         "feat_dorsal": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_coronal": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_labial": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_high": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_front": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_low": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_back": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_plosive": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_fricative": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_syllabic": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_nasal": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_voiced": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_obstruent": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "feat_sonorant": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         }
       }
     },
@@ -247,18 +436,15 @@
       "context": {
         "bigram_surp_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "trigram_surp_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "log_bigram_freq_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         }
       }
     },
@@ -284,18 +470,15 @@
       "context": {
         "bigram_surp_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "trigram_surp_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "log_bigram_freq_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         }
       }
     },
@@ -320,13 +503,11 @@
       "context": {
         "bigram_surp_back": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "trigram_surp_back": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         }
       }
     },
@@ -356,38 +537,31 @@
       "context": {
         "blick_w1_cross": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "blick_w2_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "blick_w3_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "blick_w4_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "delta_blick_w2_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "delta_blick_w3_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "delta_blick_w4_cross": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         }
       }
     },
@@ -417,38 +591,31 @@
       "context": {
         "blick_w1_within": {
           "phone": "independent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "independent"
         },
         "blick_w2_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "blick_w3_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "blick_w4_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "delta_blick_w2_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "delta_blick_w3_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         },
         "delta_blick_w4_within": {
           "phone": "dependent",
-          "word": "dependent",
-          "stimulus": "dependent"
+          "word": "dependent"
         }
       }
     },
@@ -503,6 +670,66 @@
       "n_valid_sentence": {
         "subtlex_lg10wf": 284,
         "subtlex_zipf": 284
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "lm_gpt2-xl",
+      "level": "word",
+      "n_valid_sentence": {
+        "lm_surprisal_gpt2xl": 288,
+        "lm_entropy_gpt2xl": 288,
+        "lm_n_subtokens_gpt2xl": 288
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "lm_albert-xxlarge-v1",
+      "level": "word",
+      "n_valid_sentence": {
+        "lm_surprisal_albertxxl": 288,
+        "lm_entropy_albertxxl": 288,
+        "lm_n_subtokens_albertxxl": 288
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "lm_bert-large-uncased",
+      "level": "word",
+      "n_valid_sentence": {
+        "lm_surprisal_bertlarge": 288,
+        "lm_entropy_bertlarge": 288,
+        "lm_n_subtokens_bertlarge": 288
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "lm_xlnet-large-cased",
+      "level": "word",
+      "n_valid_sentence": {
+        "lm_surprisal_xlnetlarge": 288,
+        "lm_entropy_xlnetlarge": 288,
+        "lm_n_subtokens_xlnetlarge": 288
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "lm_t5-large",
+      "level": "word",
+      "n_valid_sentence": {
+        "lm_surprisal_t5large": 288,
+        "lm_entropy_t5large": 288,
+        "lm_n_subtokens_t5large": 288
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "ngram_5gram",
+      "level": "word",
+      "n_valid_sentence": {
+        "ngram_surprisal_5gram": 288,
+        "ngram_n_tokens_5gram": 288,
+        "ngram_oov_5gram": 288
       },
       "n_words_sentence": 288
     },
@@ -596,17 +823,54 @@
   "skipped_metrics": {
     "elp_frequency": [
       "elp"
-    ],
-    "lm_gpt2-xl": [
-      "gpt2-xl"
     ]
   },
   "resources": [
     {
+      "name": "albert-xxlarge-v1",
+      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/albert-xxlarge-v1/config.json",
+      "url": "https://huggingface.co/albert/albert-xxlarge-v1",
+      "hf_repo": "albert/albert-xxlarge-v1",
+      "hf_revision": "43129068ee5f6a481c148daeac11cc593b8ff440"
+    },
+    {
+      "name": "bert-large-uncased",
+      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/bert-large-uncased/config.json",
+      "url": "https://huggingface.co/google-bert/bert-large-uncased",
+      "hf_repo": "google-bert/bert-large-uncased",
+      "hf_revision": "6da4b6a26a1877e173fca3225479512db81a5e5b"
+    },
+    {
+      "name": "gpt2-xl",
+      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/gpt2-xl/config.json",
+      "url": "https://huggingface.co/openai-community/gpt2-xl",
+      "hf_repo": "openai-community/gpt2-xl",
+      "hf_revision": "15ea56dee5df4983c59b2538573817e1667135e2"
+    },
+    {
+      "name": "lmzoo-ngram",
+      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/lmzoo-ngram/ngram.sif",
+      "url": "docker://cpllab/language-models@sha256:cbecfb418878930a06514c2a55e66f116ba56dbc03ece722f73b84fea725df6a"
+    },
+    {
       "name": "subtlex_us",
-      "path": "/Users/dsuseendar/.cache/linguistic/subtlex_us/SUBTLEXus74286wordstextversion.txt",
+      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/subtlex_us/SUBTLEXus74286wordstextversion.txt",
       "url": "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus/subtlexus2.zip",
       "md5": "ee7be8db21f26e1925ac0ea3ab598f32"
+    },
+    {
+      "name": "t5-large",
+      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/t5-large/config.json",
+      "url": "https://huggingface.co/google-t5/t5-large",
+      "hf_repo": "google-t5/t5-large",
+      "hf_revision": "150ebc2c4b72291e770f58e6057481c8d2ed331a"
+    },
+    {
+      "name": "xlnet-large-cased",
+      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/xlnet-large-cased/config.json",
+      "url": "https://huggingface.co/xlnet/xlnet-large-cased",
+      "hf_repo": "xlnet/xlnet-large-cased",
+      "hf_revision": "37658b4f179eaf971d127d16bfbd9ca676a93034"
     }
   ]
 }
