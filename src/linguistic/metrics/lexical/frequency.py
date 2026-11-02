@@ -50,6 +50,7 @@ def _elp() -> dict[str, float]:
 
 class _Freq(Metric):
     family = "lexical"
+    context = {"word": "independent"}
     level = "word"
     conditions = frozenset({"sentence"})
     nan_reason = "word frequency is undefined for nonwords"
