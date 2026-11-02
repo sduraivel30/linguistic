@@ -24,8 +24,12 @@ sentence), `columns.csv` (what each column is), `missing_phones.csv`, `manifest.
 stimulus_id,word_idx,word,phones,bigram_surp_cross,blick_word,subtlex_zipf
 sentence_01,1,JUST,JH AH S T,2.003,1.72,6.676
 sentence_01,2,THE,DH AH,6.075,10.612,7.468
+
+word,lm_surprisal_gpt2xl,lm_surprisal_albertxxl,lm_surprisal_xlnetlarge,lm_surprisal_t5large,ngram_surprisal_5gram
+JUST,9.24,3.85,6.85,3.13,7.65
+THE,4.46,0.07,3.48,1.31,5.02
 ```
 
-ELP frequency and GPT-2 XL are not in this output (not installed when it was made). Phones
-come from CMUdict, so timing columns are empty. `CLOTHESBRUSH` and `MORTARED` have no
-phones.
+Made on a GPU node with every model installed except ELP. The text is ALL CAPS as in the
+source, which the language models score as written. Phones come from CMUdict, so timing
+columns are empty. `CLOTHESBRUSH` and `MORTARED` have no phones.
