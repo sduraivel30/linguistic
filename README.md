@@ -85,6 +85,11 @@ lexicon it needs.
 | lexical | [src/linguistic/metrics/lexical/README.md](src/linguistic/metrics/lexical/README.md) |
 | lm | [src/linguistic/metrics/lm/README.md](src/linguistic/metrics/lm/README.md) |
 
+## Running on a server
+
+See [`slurm/README.md`](slurm/README.md): environment setup, model placement, GPU jobs
+and pulling results back, step by step.
+
 ## Adding a metric
 
 Subclass `linguistic.registry.Metric` in a module under `src/linguistic/metrics/<family>/`,
