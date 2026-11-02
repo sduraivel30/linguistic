@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-11-02T21:50:28+00:00",
+  "created_utc": "2026-11-02T21:53:11+00:00",
   "linguistic_version": "0.1.0",
-  "linguistic_git_commit": "e4628ce7c0e836bf382d9a30303a77f9d30c561d",
+  "linguistic_git_commit": "f8e8b637b194dcf355d992902bc09c10fbfcc0ae",
   "python": "3.11.15",
   "packages": {
     "numpy": "2.4.6",
@@ -86,6 +86,69 @@
       ],
       "description": "Backward phoneme surprisal across word boundaries: for A B C, bigram -ln P(B|C) assigned to B; trigram -ln P(X|Y,Z) assigned to X. NaN for the last one / two phones of a sequence.",
       "nan_reason": ""
+    },
+    {
+      "name": "blick_cross",
+      "family": "phonological",
+      "level": "phone",
+      "columns": [
+        "blick_w1_cross",
+        "blick_w2_cross",
+        "blick_w3_cross",
+        "blick_w4_cross",
+        "delta_blick_w2_cross",
+        "delta_blick_w3_cross",
+        "delta_blick_w4_cross"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "BLICK score of the last N phones ending at each phone (N = 1-4), window running across word boundaries; delta_wN = change from the previous phone.",
+      "nan_reason": ""
+    },
+    {
+      "name": "blick_within",
+      "family": "phonological",
+      "level": "phone",
+      "columns": [
+        "blick_w1_within",
+        "blick_w2_within",
+        "blick_w3_within",
+        "blick_w4_within",
+        "delta_blick_w2_within",
+        "delta_blick_w3_within",
+        "delta_blick_w4_within"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "BLICK score of the last N phones ending at each phone (N = 1-4), window reset at each word boundary; delta_wN is NaN at the word's first phone.",
+      "nan_reason": ""
+    },
+    {
+      "name": "blick_word",
+      "family": "phonological",
+      "level": "word",
+      "columns": [
+        "blick_word"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "BLICK score of the whole word's phone string.",
+      "nan_reason": ""
     }
   ],
   "report": [
@@ -115,6 +178,42 @@
       "n_valid_sentence": {
         "bigram_surp_back": 286,
         "trigram_surp_back": 273
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "blick_cross",
+      "level": "phone",
+      "n_valid_sentence": {
+        "blick_w1_cross": 286,
+        "blick_w2_cross": 286,
+        "blick_w3_cross": 286,
+        "blick_w4_cross": 286,
+        "delta_blick_w2_cross": 284,
+        "delta_blick_w3_cross": 284,
+        "delta_blick_w4_cross": 284
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "blick_within",
+      "level": "phone",
+      "n_valid_sentence": {
+        "blick_w1_within": 286,
+        "blick_w2_within": 286,
+        "blick_w3_within": 286,
+        "blick_w4_within": 286,
+        "delta_blick_w2_within": 277,
+        "delta_blick_w3_within": 277,
+        "delta_blick_w4_within": 277
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "blick_word",
+      "level": "word",
+      "n_valid_sentence": {
+        "blick_word": 286
       },
       "n_words_sentence": 288
     }
