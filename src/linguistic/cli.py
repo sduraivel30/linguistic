@@ -9,6 +9,7 @@ from .assemble import run_metrics
 from .io import load_stimuli
 from .manifest import build_manifest, write_manifest
 from .normalize import Lexicon, build_units
+from . import registry, resources
 from .registry import Context, all_metrics, select
 
 app = typer.Typer(add_completion=False, no_args_is_help=True)
@@ -30,6 +31,18 @@ def run(input: Path = typer.Option(..., "--input", "-i", exists=True),
     _run(input, out, metric_spec=metrics)
 
 
+@app.command()
+def fetch(name: str = typer.Argument(..., help="resource name, or 'all'")):
+    """Download and verify an external lexicon/model into $LINGUISTIC_RESOURCES."""
+    names = list(resources.RESOURCES) if name == "all" else [name]
+    for n in names:
+        r = resources.RESOURCES[n]
+        if r.manual:
+            typer.echo(f"{n}: manual download, see {r.readme}")
+            continue
+        typer.echo(f"{n}: {resources.fetch(n)}")
+
+
 @app.command("list")
 def list_metrics():
     """Show the registered metrics."""
@@ -46,11 +59,16 @@ def _run(input: Path, out: Path, metric_spec: list[str]) -> None:
     lexicon = Lexicon()
     units = build_units(stimuli, lexicon)
     metrics = select(metric_spec) if metric_spec else []
+    for name, missing in registry.skipped.items():
+        typer.echo(f"skipped {name}: resource {', '.join(missing)} not installed "
+                   f"(`linguistic fetch` or see the family README)")
     ctx = Context(stimuli=stimuli, words=units.words, phones=units.phones, lexicon=lexicon)
     tables = run_metrics(ctx, metrics)
 
     # built before writing, so the code-commit check is not affected by these outputs
     manifest = build_manifest(input, stimuli, metrics, lexicon.info(), tables.report, units)
+    manifest["skipped_metrics"] = dict(registry.skipped)
+    manifest["resources"] = [resources.info(r) for r in sorted({r for m in metrics for r in m.resources})]
     out.mkdir(parents=True, exist_ok=True)
     tables.words.to_csv(out / "words.csv", index=False)
     tables.phones.to_csv(out / "phones.csv", index=False)
