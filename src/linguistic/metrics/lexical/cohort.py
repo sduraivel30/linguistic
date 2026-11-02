@@ -44,7 +44,7 @@ def cohort_values(phones: list[str], word: str, pre) -> dict:
 class Cohort(Metric):
     name = "cohort"
     family = "lexical"
-    context = {"word": "independent"}
+    context = {"word": "dependent"}                     # built phone by phone over the word's sequence
     level = "word"
     requires = frozenset({"phones"})
     columns = ("cohort_density_log10", "uniqueness_point_idx", "uniqueness_point_ms", "up_reached")
