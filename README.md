@@ -61,8 +61,7 @@ Outputs: `words.csv`, `phones.csv`, `stimuli.csv`, `missing_phones.csv`, `manife
 ## Metric families
 
 Each family is a folder under `src/linguistic/metrics/` with its own `README.md`: metric
-definitions, source, how to download and set up any model or lexicon it needs, and its
-regression check.
+definitions and how to download and set up any model or lexicon it needs.
 
 | Family | README |
 | --- | --- |
