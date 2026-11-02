@@ -61,8 +61,9 @@ def _git_commit() -> str | None:
         root = Path(__file__).resolve().parents[2]
         out = subprocess.run(["git", "-C", str(root), "rev-parse", "HEAD"],
                              capture_output=True, text=True, check=True)
+        # dirty = uncommitted changes to the code itself (outputs and data don't count)
         dirty = subprocess.run(["git", "-C", str(root), "status", "--porcelain",
-                                "--untracked-files=no"],
+                                "--untracked-files=no", "--", "src", "pyproject.toml"],
                                capture_output=True, text=True, check=True).stdout.strip()
         return out.stdout.strip() + ("-dirty" if dirty else "")
     except (OSError, subprocess.CalledProcessError):
