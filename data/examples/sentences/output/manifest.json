@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-11-02T21:59:55+00:00",
+  "created_utc": "2026-11-02T22:22:24+00:00",
   "linguistic_version": "0.1.0",
-  "linguistic_git_commit": "336df4bdb034b6206be7f46dae279638d7bdb927",
+  "linguistic_git_commit": "e43f5a20eda72a01323b758fa3e6db0e509b16c0",
   "python": "3.11.15",
   "packages": {
     "numpy": "2.4.6",
@@ -50,7 +50,25 @@
       ],
       "description": "cohort_density_log10 = log10(1 + sum over the word's phonemes k of the number of CMUdict words, other than the word itself, whose first k phonemes equal the word's first k). uniqueness_point_idx = first k where that number is 0 (no other word shares the prefix); if never, the last phoneme and up_reached = False. uniqueness_point_ms = end of that phoneme minus word onset (needs timing, else NaN).",
       "nan_reason": "",
-      "resources": []
+      "resources": [],
+      "context": {
+        "cohort_density_log10": {
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "uniqueness_point_idx": {
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "uniqueness_point_ms": {
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "up_reached": {
+          "word": "independent",
+          "stimulus": "independent"
+        }
+      }
     },
     {
       "name": "word_duration",
@@ -68,7 +86,13 @@
       ],
       "description": "Word offset minus onset in ms (hand-label timing; word bounds taken from its phones).",
       "nan_reason": "",
-      "resources": []
+      "resources": [],
+      "context": {
+        "word_duration_ms": {
+          "word": "independent",
+          "stimulus": "independent"
+        }
+      }
     },
     {
       "name": "subtlex_frequency",
@@ -86,7 +110,120 @@
       "nan_reason": "word frequency is undefined for nonwords",
       "resources": [
         "subtlex_us"
-      ]
+      ],
+      "context": {
+        "subtlex_lg10wf": {
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "subtlex_zipf": {
+          "word": "independent",
+          "stimulus": "independent"
+        }
+      }
+    },
+    {
+      "name": "phonetic_features",
+      "family": "phonological",
+      "level": "phone",
+      "columns": [
+        "feat_dorsal",
+        "feat_coronal",
+        "feat_labial",
+        "feat_high",
+        "feat_front",
+        "feat_low",
+        "feat_back",
+        "feat_plosive",
+        "feat_fricative",
+        "feat_syllabic",
+        "feat_nasal",
+        "feat_voiced",
+        "feat_obstruent",
+        "feat_sonorant"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "1 if the phone belongs to the feature, else 0 (14 features: place, vowel position, manner, voicing/major class). Word level: share of the word's phones that have the feature.",
+      "nan_reason": "",
+      "resources": [],
+      "context": {
+        "feat_dorsal": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_coronal": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_labial": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_high": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_front": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_low": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_back": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_plosive": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_fricative": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_syllabic": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_nasal": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_voiced": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_obstruent": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "feat_sonorant": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        }
+      }
     },
     {
       "name": "phoneme_tp_cross",
@@ -106,7 +243,24 @@
       ],
       "description": "Forward phoneme transitional probability over the stimulus's phone sequence, context carried across word boundaries. bigram: -ln P(B|A); trigram: -ln P(C|A,B); log_bigram_freq: ln count(A,B). CMUdict counts.",
       "nan_reason": "",
-      "resources": []
+      "resources": [],
+      "context": {
+        "bigram_surp_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "trigram_surp_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "log_bigram_freq_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
     },
     {
       "name": "phoneme_tp_within",
@@ -126,7 +280,24 @@
       ],
       "description": "Forward phoneme transitional probability with context reset at each word boundary (word-initial phone NaN for bigram, first two for trigram).",
       "nan_reason": "",
-      "resources": []
+      "resources": [],
+      "context": {
+        "bigram_surp_within": {
+          "phone": "dependent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "trigram_surp_within": {
+          "phone": "dependent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "log_bigram_freq_within": {
+          "phone": "dependent",
+          "word": "independent",
+          "stimulus": "independent"
+        }
+      }
     },
     {
       "name": "phoneme_tp_backward",
@@ -145,7 +316,19 @@
       ],
       "description": "Backward phoneme surprisal across word boundaries: for A B C, bigram -ln P(B|C) assigned to B; trigram -ln P(X|Y,Z) assigned to X. NaN for the last one / two phones of a sequence.",
       "nan_reason": "",
-      "resources": []
+      "resources": [],
+      "context": {
+        "bigram_surp_back": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "trigram_surp_back": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
     },
     {
       "name": "blick_cross",
@@ -169,7 +352,44 @@
       ],
       "description": "BLICK score of the last N phones ending at each phone (N = 1-4), window running across word boundaries; delta_wN = change from the previous phone.",
       "nan_reason": "",
-      "resources": []
+      "resources": [],
+      "context": {
+        "blick_w1_cross": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "blick_w2_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "blick_w3_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "blick_w4_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "delta_blick_w2_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "delta_blick_w3_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "delta_blick_w4_cross": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
     },
     {
       "name": "blick_within",
@@ -193,7 +413,44 @@
       ],
       "description": "BLICK score of the last N phones ending at each phone (N = 1-4), window reset at each word boundary; delta_wN is NaN at the word's first phone.",
       "nan_reason": "",
-      "resources": []
+      "resources": [],
+      "context": {
+        "blick_w1_within": {
+          "phone": "independent",
+          "word": "independent",
+          "stimulus": "independent"
+        },
+        "blick_w2_within": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "blick_w3_within": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "blick_w4_within": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "delta_blick_w2_within": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "delta_blick_w3_within": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        },
+        "delta_blick_w4_within": {
+          "phone": "dependent",
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
     },
     {
       "name": "blick_word",
@@ -211,7 +468,13 @@
       ],
       "description": "BLICK score of the whole word's phone string.",
       "nan_reason": "",
-      "resources": []
+      "resources": [],
+      "context": {
+        "blick_word": {
+          "word": "dependent",
+          "stimulus": "dependent"
+        }
+      }
     }
   ],
   "report": [
@@ -240,6 +503,27 @@
       "n_valid_sentence": {
         "subtlex_lg10wf": 284,
         "subtlex_zipf": 284
+      },
+      "n_words_sentence": 288
+    },
+    {
+      "metric": "phonetic_features",
+      "level": "phone",
+      "n_valid_sentence": {
+        "feat_dorsal": 286,
+        "feat_coronal": 286,
+        "feat_labial": 286,
+        "feat_high": 286,
+        "feat_front": 286,
+        "feat_low": 286,
+        "feat_back": 286,
+        "feat_plosive": 286,
+        "feat_fricative": 286,
+        "feat_syllabic": 286,
+        "feat_nasal": 286,
+        "feat_voiced": 286,
+        "feat_obstruent": 286,
+        "feat_sonorant": 286
       },
       "n_words_sentence": 288
     },
@@ -312,6 +596,9 @@
   "skipped_metrics": {
     "elp_frequency": [
       "elp"
+    ],
+    "lm_gpt2-xl": [
+      "gpt2-xl"
     ]
   },
   "resources": [
