@@ -79,6 +79,8 @@ class _Base(Metric):
 class BlickCross(_Base):
     name = "blick_cross"
     level = "phone"
+    context = {"phone": "dependent", "word": "dependent"}
+    context_overrides = {"blick_w1_cross": {"phone": "independent", "word": "independent"}}  # the phone alone
     columns = tuple(f"blick_w{w}_cross" for w in WINDOWS) + tuple(f"delta_blick_w{w}_cross" for w in WINDOWS[1:])
     description = ("BLICK score of the last N phones ending at each phone (N = 1-4), window "
                    "running across word boundaries; delta_wN = change from the previous phone.")
@@ -91,6 +93,8 @@ class BlickCross(_Base):
 class BlickWithin(_Base):
     name = "blick_within"
     level = "phone"
+    context = {"phone": "dependent", "word": "independent"}
+    context_overrides = {"blick_w1_within": {"phone": "independent"}}
     columns = tuple(f"blick_w{w}_within" for w in WINDOWS) + tuple(f"delta_blick_w{w}_within" for w in WINDOWS[1:])
     description = ("BLICK score of the last N phones ending at each phone (N = 1-4), window "
                    "reset at each word boundary; delta_wN is NaN at the word's first phone.")
@@ -103,6 +107,7 @@ class BlickWithin(_Base):
 class BlickWord(_Base):
     name = "blick_word"
     level = "word"
+    context = {"word": "independent"}
     columns = ("blick_word",)
     description = "BLICK score of the whole word's phone string."
 
