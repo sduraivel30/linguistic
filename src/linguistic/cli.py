@@ -51,7 +51,9 @@ def list_metrics():
     if not ms:
         typer.echo("no metrics registered yet")
     for m in ms:
-        typer.echo(f"{m.family:14s} {m.name:28s} {m.level:6s} "
+        ctx = sorted({f"{lv}:{m.column_context(c, lv)[:3]}" for c in m.columns for lv in m.levels()
+                      if lv != "stimulus"})
+        typer.echo(f"{m.family:14s} {m.name:22s} {m.level:6s} {' '.join(ctx):28s} "
                    f"conditions={','.join(sorted(m.conditions))} requires={','.join(sorted(m.requires)) or '-'}")
 
 
