@@ -4,9 +4,9 @@ Levels:
   phone table    -- phone-level metric values, one row per phone
   word table     -- word-level metric values; a phone-level metric appears here as
                     the mean over that word's phones
-  stimulus table -- every numeric word-table metric averaged over the words of the
-                    stimulus (NaN words skipped), with n_valid_<column>; phone-level
-                    metrics are therefore a mean of per-word means (each word counts once)
+  stimulus table -- every numeric word-level metric averaged over the words of the
+                    stimulus (NaN words skipped), with n_valid_<column>. Phone-level
+                    metrics are not carried to the stimulus (only up to the word).
 
 The runner enforces each metric's declared validity: values are set to NaN for
 conditions the metric excludes, for words without phones when it requires
@@ -61,7 +61,8 @@ def run_metrics(ctx: Context, metrics: list[Metric]) -> Tables:
             per_word = phones.groupby(["stimulus_id", "word_idx"])[list(m.columns)].mean()
             words = words.merge(per_word.reset_index(), on=["stimulus_id", "word_idx"],
                                 how="left")
-        word_cols += list(m.columns)
+        if m.level == "word":                     # phone metrics stop at the word
+            word_cols += list(m.columns)
         report.append(_report(m, words))
 
     stimuli = stimulus_table(ctx.stimuli, words, word_cols)
