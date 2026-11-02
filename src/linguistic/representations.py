@@ -75,8 +75,44 @@ def word_vectors(words: list[str], tok, model, kind: str, context: str, pool: st
     return torch.stack(acts).cpu().numpy(), torch.stack(emb).cpu().numpy()
 
 
+def represent_static(stimuli_path, words: pd.DataFrame, stimuli: pd.DataFrame, name: str, out_dir,
+                     dtype: str = "float32") -> Path:
+    """GloVe: embeddings.npy (n_words, 300), stimuli_last/mean.npy (n_stimuli, 300)."""
+    from .static_embeddings import lookup
+    out = Path(out_dir) / name
+    out.mkdir(parents=True, exist_ok=True)
+    w = words.sort_values(["stimulus_id", "word_idx"], kind="stable").reset_index(drop=True)
+    vec, found = lookup(w["word"].tolist())
+    np.save(out / "embeddings.npy", vec.astype(dtype))
+    order = list(dict.fromkeys(w["stimulus_id"]))
+    starts = w.groupby("stimulus_id", sort=False).indices
+    last = np.stack([vec[starts[s][-1]] for s in order])
+    with np.errstate(invalid="ignore"):
+        mean = np.stack([np.nanmean(vec[starts[s]], axis=0) if np.isfinite(vec[starts[s]]).any()
+                         else np.full(vec.shape[1], np.nan, np.float32) for s in order])
+    np.save(out / "stimuli_last.npy", last.astype(dtype))
+    np.save(out / "stimuli_mean.npy", mean.astype(dtype))
+    w.assign(row=range(len(w)), in_vocab=found)[["row", "stimulus_id", "condition", "word_idx", "word", "in_vocab"]].to_csv(out / "words.csv", index=False)
+    st = stimuli.set_index("stimulus_id").loc[order, ["condition"]].reset_index()
+    st.insert(0, "row", range(len(st)))
+    st.to_csv(out / "stimuli.csv", index=False)
+    (out / "manifest.json").write_text(json.dumps({
+        "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "linguistic_version": __version__, "linguistic_git_commit": _git_commit(),
+        "input": {"path": str(stimuli_path), "sha256": sha256(stimuli_path)},
+        "model": {"name": name, "kind": "static", "source": "https://nlp.stanford.edu/data/glove.840B.300d.zip"},
+        "lookup": "as written, else lowercase; out of vocabulary = NaN (stimulus mean skips them)",
+        "n_out_of_vocab": int(len(found) - sum(found)), "dtype": dtype,
+        "shapes": {"embeddings": list(vec.shape), "stimuli_last": list(last.shape), "stimuli_mean": list(mean.shape)},
+    }, indent=2))
+    return out
+
+
 def represent(stimuli_path, words: pd.DataFrame, stimuli: pd.DataFrame, name: str, out_dir,
               context: str = "incremental", pool: str = "last", dtype: str = "float32") -> Path:
+    from .static_embeddings import STATIC
+    if name in STATIC:
+        return represent_static(stimuli_path, words, stimuli, name, out_dir, dtype=dtype)
     if context not in ("incremental", "full") or pool not in ("last", "mean"):
         raise ValueError("context must be incremental|full and pool last|mean")
     tok, model, spec = load(name)
