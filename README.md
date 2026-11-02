@@ -1,6 +1,8 @@
 # linguistic
 
-Linguistic metrics for sentence and nonword lists, at the phone, word and stimulus level.
+Linguistic metrics for sentence and nonword lists. Every metric is reported at three
+levels: per **phone**, per **word** (word or nonword) and per **stimulus** (sentence or
+nonword list), in `phones.csv`, `words.csv` and `stimuli.csv`.
 
 ## Install
 
@@ -13,7 +15,7 @@ linguistic fetch all          # lexicons and models with a public download
 
 CSV with `stimulus_id`, `condition` (`sentence` / `nonword`) and `text`. Optional hand
 labels (Audacity format): `words_labels` + `phones_labels`, or one `labels` file with both
-tiers. Optional `audio_path`.
+tiers.
 
 Phones come from the hand labels, else from CMUdict. Words with neither are listed in
 `missing_phones.csv` and their phone-based metrics are NaN.
@@ -23,24 +25,32 @@ Phones come from the hand labels, else from CMUdict. Words with neither are list
 ```bash
 linguistic list                                   # available metrics
 linguistic run -i stimuli.csv -o out/ -m all      # or a family, a metric, or level:context
+linguistic represent -i stimuli.csv -o reps/ -m gpt2-xl     # layer activations, embeddings
 ```
 
-Outputs: `phones.csv`, `words.csv`, `stimuli.csv`, `columns.csv` (what each column is),
-`missing_phones.csv`, `manifest.json`. Word values of phone metrics are means over the
-word's phones; stimulus values are means over its words.
-
+`columns.csv` in each output lists every column with its level and context.
 Examples: [`data/examples/`](data/examples/).
 
-## Metrics
+## What is computed at each level
 
-Each column is context-independent (depends only on the unit) or context-dependent
-(depends on a phone or word sequence) at each level.
+A metric is defined at one level and carried up: a phone value becomes the mean over the
+word's phones, a word value the mean over the stimulus's words. Context-independent (I)
+means the value depends only on that unit; context-dependent (D) means it depends on a
+sequence of phones or words.
 
-| Level | Context-independent | Context-dependent |
-| --- | --- | --- |
-| phone | phonetic features, single-phone BLICK | phoneme transitional probability, BLICK windows |
-| word | feature shares, word duration, word frequency | phoneme TP, BLICK, cohort density, uniqueness point, LM surprisal and entropy |
-| stimulus | means of the word-level columns | means of the word-level columns |
+| Metric | Phone | Word | Stimulus |
+| --- | --- | --- | --- |
+| phonetic features (`feat_*`) | I: 1/0 per feature | I: share of phones | I: mean over words |
+| single-phone BLICK (`blick_w1_*`) | I: score | I: mean over phones | I: mean over words |
+| phoneme transitional probability (`*_surp_cross/_within/_back`) | D: surprisal | D: mean over phones | D: mean over words |
+| BLICK windows (`blick_w2-4_*`, `delta_*`) | D: score | D: mean over phones | D: mean over words |
+| BLICK whole word (`blick_word`) | – | D: score | D: mean over words |
+| cohort density, uniqueness point | – | D: value | D: mean over words |
+| word frequency (SUBTLEX, ELP) | – | I: value | I: mean over words |
+| word duration | – | I: value | I: mean over words |
+| LM surprisal, entropy (`lm_*`) | – | D: value | D: mean over words |
+| LM activations (`represent`) | – | D: per layer | D: last word, mean over words |
+| LM input embeddings (`represent`) | – | I: vector | – |
 
 Definitions and setup per family:
 [phonological](src/linguistic/metrics/phonological/README.md) ·
