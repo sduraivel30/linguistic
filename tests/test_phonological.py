@@ -54,10 +54,11 @@ def test_missing_word_breaks_cross_context(tmp_path, lexicon):
     assert math.isnan(t["bigram_surp_back"])
 
 
-def test_stimulus_level_is_mean_of_word_means(tmp_path, lexicon):
+def test_phone_metrics_stop_at_word(tmp_path, lexicon):
     t = _run(tmp_path, lexicon, "cat sat")
-    w = t.words["bigram_surp_cross"]
-    assert math.isclose(t.stimuli.loc[0, "bigram_surp_cross"], w.mean())
+    assert "bigram_surp_cross" in t.words.columns
+    assert not any(c.startswith(("bigram_", "feat_", "blick_w1", "blick_w2", "blick_w3", "blick_w4", "delta_")) for c in t.stimuli.columns)
+    assert "blick_word" in t.stimuli.columns                            # word metric -> stimulus
 
 
 def test_blick_scores_and_windows(tmp_path, lexicon):
@@ -91,7 +92,7 @@ def test_context_ordering_and_dictionary(tmp_path, lexicon):
     w = cols[cols["table"] == "word"]
     assert (w["context"].tolist() == sorted(w["context"].tolist(), key=["independent", "dependent"].index))
     within = cols[(cols["column"] == "bigram_surp_within")].set_index("table")["context"]
-    assert within.to_dict() == {"phone": "dependent", "word": "dependent", "stimulus": "dependent"}
+    assert within.to_dict() == {"phone": "dependent", "word": "dependent"}
     w1 = cols[(cols["column"] == "blick_w1_within")].set_index("table")["context"]
     assert set(w1) == {"independent"}                                    # single-phone BLICK
     metric_cols = [c for c in t.words.columns if c in set(w["column"])]
