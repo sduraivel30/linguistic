@@ -23,6 +23,8 @@ Columns per model (`<tag>` = `gpt2xl`, `xlnetlarge`, `albertxxl`, `bertlarge`, `
 Encoder-only models: the word is masked and predicted left to right within the word
 (whole-word pseudo-log-likelihood, Kauf & Ivanova 2023). T5: the word is replaced by a
 blank (`<extra_id_0>`) and the model fills it in.
+XLNet reads every stimulus after a fixed padding passage (the standard one from the Hugging
+Face XLNet examples), because it predicts poorly from a short context.
 
 ## Activations and embeddings
 
