@@ -14,7 +14,7 @@ context: 'incremental' (default) -- word i is read with words 1..i only, so no m
          once (for bidirectional models later words are then visible). Causal models give
          the same values either way.
 pool:    'last' (default) -- the word's last sub-token, 'mean' -- mean over its sub-tokens.
-T5: the encoder's hidden states.
+T5: the encoder's hidden states. XLNet: read after the same padding passage as its scoring.
 """
 from __future__ import annotations
 
@@ -28,7 +28,7 @@ import pandas as pd
 from . import __version__
 from .manifest import _git_commit, sha256
 from .metrics.lm import causal
-from .metrics.lm.bidirectional import word_spans
+from .metrics.lm.bidirectional import word_spans, xlnet_prefix
 from .metrics.lm.models import MODELS, load
 
 
@@ -39,7 +39,8 @@ def encode(words: list[str], tok, kind: str):
         return ids, [list(range(s, e)) for s, e in spans]
     if kind == "xlnet":
         enc = tok(words, is_split_into_words=True, add_special_tokens=False)
-        return [tok.bos_token_id] + enc["input_ids"], [[p + 1 for p in s] for s in word_spans(enc, len(words))]
+        prefix = xlnet_prefix(tok)                          # same padding passage as scoring
+        return prefix + enc["input_ids"], [[p + len(prefix) for p in s] for s in word_spans(enc, len(words))]
     enc = tok(words, is_split_into_words=True)              # masked: [CLS] .. [SEP]; t5: .. </s>
     return enc["input_ids"], word_spans(enc, len(words))
 
