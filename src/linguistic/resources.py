@@ -24,10 +24,13 @@ class Resource:
     archive_md5: str = ""
     file_md5: str = ""
     readme: str = ""           # README that documents it
+    hf_repo: str = ""          # Hugging Face model: repo id + pinned revision
+    hf_revision: str = ""
+    hf_patterns: tuple[str, ...] = ("*.json", "*.txt", "*.model", "model*.safetensors")
 
     @property
     def manual(self) -> bool:
-        return not self.url
+        return not (self.url or self.hf_repo)
 
 
 RESOURCES = {
@@ -82,6 +85,11 @@ def fetch(name: str) -> Path:
         raise ResourceMissing(f"{r.name} has no public download URL; see {r.readme}")
     d = root() / r.name
     d.mkdir(parents=True, exist_ok=True)
+    if r.hf_repo:
+        from huggingface_hub import snapshot_download
+        snapshot_download(repo_id=r.hf_repo, revision=r.hf_revision, local_dir=d,
+                          allow_patterns=list(r.hf_patterns))
+        return d / r.filename
     target = d / r.filename
     if target.exists() and (not r.file_md5 or md5(target) == r.file_md5):
         return target
@@ -103,5 +111,17 @@ def fetch(name: str) -> Path:
 def info(name: str) -> dict:
     r = RESOURCES[name]
     p = root() / r.name / r.filename
-    return {"name": r.name, "path": str(p), "url": r.url or "manual",
-            "md5": md5(p) if p.exists() else None}
+    out = {"name": r.name, "path": str(p), "url": r.url or "manual"}
+    if r.hf_repo:
+        out.update(url=f"https://huggingface.co/{r.hf_repo}", hf_repo=r.hf_repo,
+                   hf_revision=r.hf_revision)
+    elif p.exists():
+        out["md5"] = md5(p)
+    return out
+
+
+def register_model(name: str, hf_repo: str, revision: str, readme: str) -> None:
+    """A Hugging Face model kept at root/<name>/ (config.json + tokenizer + safetensors)."""
+    RESOURCES[name] = Resource(name=name, filename="config.json",
+                               description=f"Hugging Face model {hf_repo}@{revision[:7]}",
+                               readme=readme, hf_repo=hf_repo, hf_revision=revision)
