@@ -29,12 +29,6 @@ How a stimulus is scored:
 - Float32. Device: CUDA if available, else Apple MPS, else CPU; override with
   `LINGUISTIC_DEVICE=cpu`.
 
-## Source
-
-Scoring is vendored from `Speech_Lang_iEEG` @ `a79857d`
-(`surprisal/linguistic/code/linguistic_surprisal_utils.py`, `extract_linguistic_surprisal.py`,
-Greta's extractor). New: entropy, the per-model registry, device selection.
-
 ## Get the model (not stored in this repo)
 
 Models live outside the repo, in `$LINGUISTIC_RESOURCES/<model name>/` (default
@@ -87,14 +81,3 @@ counts and per-sub-token surprisal differ.
 linguistic run -i stimuli.csv -o out/ -m lm            # every registered model that is installed
 linguistic run -i stimuli.csv -o out/ -m lm_gpt2-xl
 ```
-
-## Regression check
-
-`scripts/regression/lm_vs_langloc.py` scores the 120 langloc stimuli and compares with
-`Speech_Lang_iEEG/surprisal/linguistic/results/gpt2-xl/word_level.csv` (mean sub-token
-surprisal, sub-token counts) and `ieeg_lanA_correspondence/data/gpt2xl_word_level_with_entropy.csv`
-(entropy), tolerance 1e-3 nats. The two references are separate runs whose surprisal
-values agree within 2.2e-5.
-
-Status: **not yet run**, because it needs the GPT-2 XL weights. Unit tests check the
-scoring against a brute-force computation with GPT-2 small.
