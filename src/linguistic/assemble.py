@@ -11,6 +11,10 @@ Levels:
 The runner enforces each metric's declared validity: values are set to NaN for
 conditions the metric excludes, for words without phones when it requires
 phones, and for units without timing when it requires timing.
+
+In every table the metric columns come after the unit's own columns, context-independent
+ones first, then context-dependent ones (registry order within each). `Tables.columns`
+is the column dictionary: one row per (table, column) with metric, family and context.
 """
 from __future__ import annotations
 
@@ -28,6 +32,7 @@ class Tables:
     phones: pd.DataFrame
     stimuli: pd.DataFrame
     report: list[dict] = field(default_factory=list)
+    columns: pd.DataFrame = field(default_factory=pd.DataFrame)
 
 
 def run_metrics(ctx: Context, metrics: list[Metric]) -> Tables:
@@ -60,7 +65,33 @@ def run_metrics(ctx: Context, metrics: list[Metric]) -> Tables:
         report.append(_report(m, words))
 
     stimuli = stimulus_table(ctx.stimuli, words, word_cols)
-    return Tables(words=words, phones=phones, stimuli=stimuli, report=report)
+    cols = column_dictionary(metrics, stimuli)
+    order = {lv: cols.loc[cols["table"] == lv, "column"].tolist() for lv in ("phone", "word", "stimulus")}
+    phones = phones[[c for c in phones.columns if c not in order["phone"]] + order["phone"]]
+    words = words[[c for c in words.columns if c not in order["word"]] + order["word"]]
+    st_cols = [x for c in order["stimulus"] for x in (c, f"n_valid_{c}") if x in stimuli.columns]
+    stimuli = stimuli[[c for c in stimuli.columns if c not in st_cols] + st_cols]
+    return Tables(words=words, phones=phones, stimuli=stimuli, report=report, columns=cols)
+
+
+def column_dictionary(metrics: list[Metric], stimuli: pd.DataFrame) -> pd.DataFrame:
+    rows = []
+    for m in metrics:
+        for c in m.columns:
+            for lv in m.levels():
+                if lv == "stimulus" and c not in stimuli.columns:
+                    continue                      # non-numeric columns are not averaged
+                rows.append({"table": lv, "column": c, "context": m.column_context(c, lv),
+                             "metric": m.name, "family": m.family,
+                             "aggregation": ("value" if lv == m.level else
+                                             "mean over the word's phones" if lv == "word" else
+                                             "mean over the stimulus's words"),
+                             "description": m.description})
+    df = pd.DataFrame(rows, columns=["table", "column", "context", "metric", "family",
+                                     "aggregation", "description"])
+    df["_c"] = df["context"].map({"independent": 0, "dependent": 1})
+    df["_t"] = df["table"].map({"phone": 0, "word": 1, "stimulus": 2})
+    return df.sort_values(["_t", "_c"], kind="stable").drop(columns=["_c", "_t"]).reset_index(drop=True)
 
 
 def stimulus_table(stimuli: pd.DataFrame, words: pd.DataFrame, cols: list[str]) -> pd.DataFrame:
