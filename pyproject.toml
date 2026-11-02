@@ -12,6 +12,7 @@ dependencies = [
     "pandas",
     "nltk",
     "typer",
+    "python-BLICK==0.2.12",
 ]
 
 [project.optional-dependencies]
