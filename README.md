@@ -87,8 +87,7 @@ lexicon it needs.
 
 ## Running on a server
 
-See [`slurm/README.md`](slurm/README.md): environment setup, model placement, GPU jobs
-and pulling results back, step by step.
+See [`slurm/README.md`](slurm/README.md).
 
 ## Adding a metric
 
