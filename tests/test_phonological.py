@@ -1,0 +1,60 @@
+import math
+
+import pytest
+
+from linguistic.assemble import run_metrics
+from linguistic.io import load_stimuli
+from linguistic.metrics.phonological.ngram import PhonemeCounts
+from linguistic.normalize import build_units
+from linguistic.registry import Context, select
+
+from conftest import write_stimuli
+
+
+@pytest.fixture(scope="module")
+def counts(lexicon):
+    return PhonemeCounts(lexicon)
+
+
+def _run(tmp_path, lexicon, text, condition="sentence"):
+    s = load_stimuli(write_stimuli(tmp_path / "s.csv", [
+        {"stimulus_id": "x", "condition": condition, "text": text}]))
+    u = build_units(s, lexicon)
+    return run_metrics(Context(s, u.words, u.phones, lexicon), select(["phonological"]))
+
+
+def test_counts_definitions(counts):
+    assert math.isclose(counts.fwd_bigram("K", "AE"),
+                        -math.log(counts.bi[("K", "AE")] / counts.uni["K"]))
+    assert math.isclose(counts.back_bigram("K", "AE"),
+                        -math.log(counts.bi[("K", "AE")] / counts.uni["AE"]))
+    assert math.isnan(counts.fwd_bigram("NG", "NG"))           # unseen -> NaN
+
+
+def test_cross_within_backward_positions(tmp_path, lexicon, counts):
+    # "cat sat" = K AE T | S AE T
+    p = _run(tmp_path, lexicon, "cat sat").phones
+    s = p[p["word_idx"] == 2].iloc[0]                           # S, word-initial
+    assert math.isclose(s["bigram_surp_cross"], counts.fwd_bigram("T", "S"))
+    assert math.isnan(s["bigram_surp_within"])                  # context reset at the boundary
+    assert math.isclose(s["trigram_surp_cross"], counts.fwd_trigram("AE", "T", "S"))
+    t1 = p[(p["word_idx"] == 1) & (p["phone_in_word"] == 3)].iloc[0]   # T of "cat"
+    assert math.isclose(t1["bigram_surp_back"], counts.back_bigram("T", "S"))
+    last = p.iloc[-1]
+    assert math.isnan(last["bigram_surp_back"]) and math.isnan(p.iloc[-2]["trigram_surp_back"])
+    assert math.isnan(p.iloc[0]["bigram_surp_cross"])
+
+
+def test_missing_word_breaks_cross_context(tmp_path, lexicon):
+    # zorpleth has no phones: "sat" must not be scored against "cat"
+    p = _run(tmp_path, lexicon, "cat zorpleth sat", condition="nonword").phones
+    s = p[p["word_idx"] == 3].iloc[0]
+    assert math.isnan(s["bigram_surp_cross"])
+    t = p[(p["word_idx"] == 1) & (p["phone_in_word"] == 3)].iloc[0]
+    assert math.isnan(t["bigram_surp_back"])
+
+
+def test_stimulus_level_is_mean_of_word_means(tmp_path, lexicon):
+    t = _run(tmp_path, lexicon, "cat sat")
+    w = t.words["bigram_surp_cross"]
+    assert math.isclose(t.stimuli.loc[0, "bigram_surp_cross"], w.mean())
