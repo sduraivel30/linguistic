@@ -19,7 +19,7 @@ from dataclasses import dataclass
 
 import pandas as pd
 
-from .io import InputError, read_audacity_labels
+from .io import InputError, read_audacity_labels, read_combined_labels
 
 _EDGE_PUNCT = re.compile(r"^[^\w']+|[^\w']+$")
 _STRESS = re.compile(r"\d")
@@ -115,10 +115,16 @@ class Units:
 
 def build_units(stimuli: pd.DataFrame, lexicon: Lexicon | None = None) -> Units:
     lexicon = lexicon or Lexicon()
-    word_rows, phone_rows = [], []
+    word_rows, phone_rows, errors = [], [], []
     for s in stimuli.itertuples(index=False):
         tokens = tokenize(s.text)
-        hand = _hand_words(s, tokens, lexicon) if s.phones_labels else None
+        hand = None
+        if s.phones_labels or s.labels:
+            try:
+                hand = _hand_words(s, tokens, lexicon)
+            except InputError as e:          # report every bad stimulus, not just the first
+                errors.append(str(e))
+                continue
         for i, w in enumerate(tokens):
             prons, route = lexicon.resolve(w)
             row = {
@@ -148,6 +154,8 @@ def build_units(stimuli: pd.DataFrame, lexicon: Lexicon | None = None) -> Units:
                     "phone": p["phone"], "start": p["start"], "end": p["end"],
                 })
 
+    if errors:
+        raise InputError(f"{len(errors)} stimulus label problem(s):\n  " + "\n  ".join(errors))
     words = pd.DataFrame(word_rows)
     phones = pd.DataFrame(phone_rows, columns=[
         "stimulus_id", "condition", "word_idx", "phone_in_word", "phone", "start", "end"])
@@ -165,21 +173,27 @@ def _hand_words(s, tokens: list[str], lexicon: Lexicon) -> list[dict]:
 
     Word bounds are then re-derived from the phones (phone timing is ground truth).
     """
+    if s.labels:
+        src = s.labels
+        raw_words, raw_phones = read_combined_labels(src)
+    else:
+        src = f"{s.words_labels} + {s.phones_labels}"
+        raw_words, raw_phones = read_audacity_labels(s.words_labels), read_audacity_labels(s.phones_labels)
     words = _merge_hyphen_parts(
-        [w for w in read_audacity_labels(s.words_labels) if w["label"].strip()], tokens)
+        [w for w in raw_words if w["label"].strip().upper() not in SILENCE], tokens)
     if len(words) != len(tokens):
         raise InputError(
-            f"{s.stimulus_id}: {len(words)} words in {s.words_labels} "
+            f"{s.stimulus_id}: {len(words)} words in {src} "
             f"but {len(tokens)} in text {tokens}"
         )
     phones = []
-    for p in read_audacity_labels(s.phones_labels):
+    for p in raw_phones:
         label = strip_stress(p["label"])
         if label in SILENCE:
             continue
         if label not in lexicon.symbols:
             raise InputError(
-                f"{s.stimulus_id}: phone '{p['label']}' in {s.phones_labels} is not ARPAbet"
+                f"{s.stimulus_id}: phone '{p['label']}' in {src} is not ARPAbet"
             )
         phones.append({**p, "phone": label})
 
