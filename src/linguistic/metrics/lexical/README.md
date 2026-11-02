@@ -2,22 +2,23 @@
 
 Word-level metrics. In `stimuli.csv` each is the mean over the stimulus's words.
 
-**Context:** all lexical metrics are context-independent at the word and stimulus level:
-they depend on the word itself (its spelling, phones or timing) and a reference lexicon,
-never on the neighbouring words.
+**Context** (word and stimulus level): `word_duration`, `subtlex_frequency` and
+`elp_frequency` are context-independent (a property of the word itself). `cohort` is
+context-dependent: density and uniqueness point are built phone by phone over the word's
+phoneme sequence.
 
 ## Metrics
 
-| Metric (`-m` name) | Columns | Conditions | Needs | Definition |
-| --- | --- | --- | --- | --- |
-| `cohort` | `cohort_density_log10` | sentence, nonword | phones | log10(1 + Σ_k n_k), where n_k = number of CMUdict words, other than the word itself, whose first k phonemes equal the word's first k |
-| | `uniqueness_point_idx` | | | first k with n_k = 0 (no other word shares the prefix); if that never happens, the last phoneme |
-| | `up_reached` | | | 1 if such a k exists, 0 if the word never becomes unique (it is a prefix or homophone of another word); the stimulus mean is the proportion reached |
-| | `uniqueness_point_ms` | | phones + timing | end of phoneme `uniqueness_point_idx` minus word onset, ms (NaN without hand-label timing) |
-| `word_duration` | `word_duration_ms` | sentence, nonword | timing | word offset minus onset, ms; word bounds come from its phones |
-| `subtlex_frequency` | `subtlex_lg10wf` | sentence | SUBTLEX-US | Lg10WF = log10(FREQcount + 1) |
-| | `subtlex_zipf` | | | log10((FREQcount + 1) / (51 + 0.074286)) + 3 (van Heuven et al. 2014; corpus 51 M tokens, 74,286 types) |
-| `elp_frequency` | `elp_log_freq_hal` | sentence | ELP export | ELP `Log_Freq_HAL`, the log frequency in the HAL corpus |
+| Metric (`-m` name) | Columns | Context | Conditions | Needs | Definition |
+| --- | --- | --- | --- | --- | --- |
+| `cohort` | `cohort_density_log10` | dependent | sentence, nonword | phones | log10(1 + Σ_k n_k), where n_k = number of CMUdict words, other than the word itself, whose first k phonemes equal the word's first k |
+| | `uniqueness_point_idx` | dependent | | | first k with n_k = 0 (no other word shares the prefix); if that never happens, the last phoneme |
+| | `up_reached` | dependent | | | 1 if such a k exists, 0 if the word never becomes unique (it is a prefix or homophone of another word); the stimulus mean is the proportion reached |
+| | `uniqueness_point_ms` | dependent | | phones + timing | end of phoneme `uniqueness_point_idx` minus word onset, ms (NaN without hand-label timing) |
+| `word_duration` | `word_duration_ms` | independent | sentence, nonword | timing | word offset minus onset, ms; word bounds come from its phones |
+| `subtlex_frequency` | `subtlex_lg10wf` | independent | sentence | SUBTLEX-US | Lg10WF = log10(FREQcount + 1) |
+| | `subtlex_zipf` | independent | | | log10((FREQcount + 1) / (51 + 0.074286)) + 3 (van Heuven et al. 2014; corpus 51 M tokens, 74,286 types) |
+| `elp_frequency` | `elp_log_freq_hal` | independent | sentence | ELP export | ELP `Log_Freq_HAL`, the log frequency in the HAL corpus |
 
 - Cohort lexicon: every CMUdict pronunciation, stress stripped. A nonword is compared
   against real words, so its density counts real words sharing each prefix, and its
