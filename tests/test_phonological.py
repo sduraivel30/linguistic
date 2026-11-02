@@ -72,3 +72,25 @@ def test_blick_scores_and_windows(tmp_path, lexicon):
     s = p[(p["word_idx"] == 2) & (p["phone_in_word"] == 1)].iloc[0]
     assert math.isclose(s["blick_w2_cross"], score(("T", "S")))            # window crosses the boundary
     assert math.isnan(s["delta_blick_w2_within"])                         # word-initial
+
+
+def test_phonetic_features_membership_and_word_share(tmp_path, lexicon):
+    from linguistic.metrics.phonological.features import FEATURES
+    assert len(FEATURES) == 14
+    assert set().union(*FEATURES.values()) == lexicon.symbols          # every ARPAbet phone covered
+    t = _run(tmp_path, lexicon, "cat")                                   # K AE T
+    p = t.phones.set_index("phone")
+    assert p.loc["K", ["feat_dorsal", "feat_plosive", "feat_obstruent", "feat_voiced"]].tolist() == [1, 1, 1, 0]
+    assert p.loc["AE", ["feat_front", "feat_low", "feat_syllabic", "feat_voiced", "feat_sonorant"]].tolist() == [1] * 5
+    assert math.isclose(t.words.loc[0, "feat_plosive"], 2 / 3)          # K, T of K AE T
+
+
+def test_context_ordering_and_dictionary(tmp_path, lexicon):
+    t = _run(tmp_path, lexicon, "cat sat")
+    cols = t.columns
+    w = cols[cols["table"] == "word"]
+    assert (w["context"].tolist() == sorted(w["context"].tolist(), key=["independent", "dependent"].index))
+    within = cols[(cols["column"] == "bigram_surp_within")].set_index("table")["context"]
+    assert within.to_dict() == {"phone": "dependent", "word": "independent", "stimulus": "independent"}
+    metric_cols = [c for c in t.words.columns if c in set(w["column"])]
+    assert metric_cols == w["column"].tolist()
