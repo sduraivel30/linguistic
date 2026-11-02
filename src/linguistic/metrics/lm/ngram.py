@@ -2,7 +2,7 @@
 
 Model: the lm-zoo `ngram` image (SRILM, Kneser-Ney 5-gram trained on English Wikipedia,
 closed vocabulary of 43,507 words; https://github.com/cpllab/lm-zoo), run with Apptainer.
-The image's own `tokenize` (lowercases, splits contractions: didn't -> did n't) and
+The image's own tokenizer (lowercases, splits contractions: didn't -> did n't) and
 `get_surprisals` (SRILM -ppl -debug 2 -order 5) are used. get_surprisals reports bits;
 values here are converted to nats. A word split into several tokens gets the mean over
 its tokens; the end-of-sentence token is dropped. Words outside the vocabulary are scored
@@ -40,7 +40,8 @@ def run_container(sif: Path, lines: list[str]) -> tuple[list[list[str]], pd.Data
         f = Path(d) / "input.txt"
         f.write_text("\n".join(lines) + "\n")
         base = [exe, "exec", "--contain", "--bind", f"{d}:/data", str(sif)]   # private /tmp
-        tok = subprocess.run(base + ["tokenize", "/data/input.txt"], check=True,
+        # raw tokens (before <unk> replacement) to align with our words
+        tok = subprocess.run(base + ["tokenize_inner", "/data/input.txt"], check=True,
                              capture_output=True, text=True).stdout
         sur = subprocess.run(base + ["get_surprisals", "/data/input.txt"], check=True,
                              capture_output=True, text=True).stdout
