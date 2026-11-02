@@ -6,7 +6,7 @@ stimulus level. Setup plan: https://claude.ai/artifact/Up1mTvhWmRzu9ePv13TBYa
 ## Install
 
 ```bash
-python -m venv .venv && .venv/bin/pip install -e ".[dev]"
+python -m venv .venv && .venv/bin/pip install -e ".[dev]"      # add ,lm for language-model metrics
 ```
 
 ## Input
@@ -41,7 +41,7 @@ No grapheme-to-phoneme prediction is used.
 ## Run
 
 ```bash
-linguistic fetch all                              # download the lexicons that have a public URL
+linguistic fetch all                              # download every lexicon/model with a public URL (GPT-2 XL is 6.4 GB)
 linguistic list                                   # registered metrics
 linguistic prepare -i stimuli.csv -o out/         # word/phone tables + missing phones only
 linguistic run -i stimuli.csv -o out/ -m all      # or family / metric names, repeatable
@@ -68,6 +68,7 @@ regression check.
 | --- | --- |
 | phonological | [src/linguistic/metrics/phonological/README.md](src/linguistic/metrics/phonological/README.md) |
 | lexical | [src/linguistic/metrics/lexical/README.md](src/linguistic/metrics/lexical/README.md) |
+| lm | [src/linguistic/metrics/lm/README.md](src/linguistic/metrics/lm/README.md) |
 
 ## Adding a metric
 
