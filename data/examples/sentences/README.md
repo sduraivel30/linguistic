@@ -29,16 +29,19 @@ The first command keeps the `S` rows and writes the pipeline input. The second p
 
 ```
 skipped elp_frequency: resource elp not installed (`linguistic fetch` or see the family README)
-24 stimuli, 288 words, 1039 phones; phone sources {'cmudict': 286, 'missing': 2}; 9 metric(s) -> data/examples/sentences/output
+skipped lm_gpt2-xl: resource gpt2-xl not installed (`linguistic fetch` or see the family README)
+24 stimuli, 288 words, 1039 phones; phone sources {'cmudict': 286, 'missing': 2}; 10 metric(s) -> data/examples/sentences/output
 2 word(s) need hand phones: see data/examples/sentences/output/missing_phones.csv
 ```
 
 Metrics in this output:
 
-- phonological (`phoneme_tp_cross`, `phoneme_tp_within`, `phoneme_tp_backward`, `blick_word`,
-  `blick_cross`, `blick_within`): `src/linguistic/metrics/phonological/README.md`
+- phonological (`phonetic_features`, `phoneme_tp_cross`, `phoneme_tp_within`,
+  `phoneme_tp_backward`, `blick_word`, `blick_cross`, `blick_within`):
+  `src/linguistic/metrics/phonological/README.md`
 - lexical (`cohort`, `word_duration`, `subtlex_frequency`): `src/linguistic/metrics/lexical/README.md`.
-  `elp_frequency` is skipped because the ELP export is not installed. `word_duration_ms`
+  `elp_frequency` and `lm_gpt2-xl` are skipped because the ELP export and the GPT-2 XL
+  model are not installed. `word_duration_ms`
   and `uniqueness_point_ms` are empty: these stimuli have no hand-label timing.
 
 ## Input: `stimuli.csv`
@@ -52,9 +55,10 @@ sentence_01,sentence,JUST THE BAREST SUGGESTION OF A HEEL IS FOUND ON TEENAGE PU
 
 | File | One row per | What it holds |
 | --- | --- | --- |
-| `phones.csv` | phone | phone label and position, then one column per phone-level metric value; `start`/`end` are empty because these phones come from CMUdict, not hand labels |
-| `words.csv` | word | position, CMUdict tag (`in_lexicon`, `lexicon_route`), phones and their source, then each metric (phone-level metrics as the mean over the word's phones) |
+| `phones.csv` | phone | phone label and position, then the metric columns, context-independent first; `start`/`end` are empty because these phones come from CMUdict, not hand labels |
+| `words.csv` | word | position, CMUdict tag (`in_lexicon`, `lexicon_route`), phones and their source, then each metric, context-independent first (phone-level metrics as the mean over the word's phones) |
 | `stimuli.csv` | sentence | `n_words`, then for each metric the mean over the sentence's words and `n_valid_<metric>` (how many words had a value) |
+| `columns.csv` | output column | which table it is in, its context label (independent / dependent at that level), metric, how it was aggregated, definition |
 | `missing_phones.csv` | word without phones | words that need hand-extracted phones |
 | `manifest.json` | run | input checksum, package versions, lexicon, metric definitions, code commit |
 
