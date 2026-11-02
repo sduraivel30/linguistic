@@ -61,17 +61,15 @@ def test_condition_mask_and_stimulus_mean(ctx, metrics):
     assert st.loc["n1", "n_valid_t_letters"] == 0
 
 
-def test_phone_metric_is_mean_of_word_means(ctx, metrics):
+def test_phone_metric_reaches_word_not_stimulus(ctx, metrics):
     t = run_metrics(ctx, metrics)
     w = t.words.set_index(["stimulus_id", "word_idx"])
     # "a" = AH (1 phone) -> 1; "cat" = K AE T -> mean(1,2,3) = 2; "sat" -> 2
     assert w.loc[("s1", 1), "t_phone_idx"] == 1
     assert w.loc[("s1", 2), "t_phone_idx"] == 2
-    st = t.stimuli.set_index("stimulus_id")
-    assert math.isclose(st.loc["s1", "t_phone_idx"], (1 + 2 + 2) / 3)   # not the all-phone mean 1.857
-    # "zorpleth" has no phones -> NaN, excluded from n_valid
-    assert math.isnan(w.loc[("n1", 1), "t_phone_idx"])
-    assert st.loc["n1", "n_valid_t_phone_idx"] == 1
+    assert math.isnan(w.loc[("n1", 1), "t_phone_idx"])                 # "zorpleth" has no phones
+    assert "t_phone_idx" not in t.stimuli.columns                       # not averaged across words
+    assert "t_letters" in t.stimuli.columns                             # word metrics are
 
 
 def test_duplicate_registration_and_unknown_names(metrics):
