@@ -93,3 +93,23 @@ def test_hand_label_errors(tmp_path, lexicon, words, phones, msg):
     with pytest.raises(InputError, match=msg):
         _units(tmp_path, [{"stimulus_id": "s1", "condition": "sentence", "text": "after the",
                            "words_labels": "w.txt", "phones_labels": "p.txt"}], lexicon)
+
+
+def test_combined_label_file(tmp_path, lexicon):
+    # one file, both tiers (MT style: words lowercase, phones uppercase; silence word dropped)
+    (tmp_path / "mt.txt").write_text(
+        "0.0\t0.3\tcat\n0.3\t0.4\tsil\n0.4\t0.7\tsat\n"
+        "0.0\t0.1\tK\n0.1\t0.2\tAE1\n0.2\t0.3\tT\n0.4\t0.5\tS\n0.5\t0.6\tAE1\n0.6\t0.7\tT\n")
+    u = _units(tmp_path, [{"stimulus_id": "s1", "condition": "sentence", "text": "cat sat",
+                           "labels": "mt.txt"}], lexicon)
+    assert u.words["phones"].tolist() == ["K AE T", "S AE T"]
+    assert (u.words["phone_source"] == "hand").all()
+
+
+def test_all_bad_stimuli_reported_together(tmp_path, lexicon):
+    write_labels(tmp_path / "w.txt", [(0, 1, "after")])
+    write_labels(tmp_path / "p.txt", [(0, 1, "AE")])
+    rows = [{"stimulus_id": f"s{i}", "condition": "sentence", "text": "after the",
+             "words_labels": "w.txt", "phones_labels": "p.txt"} for i in (1, 2)]
+    with pytest.raises(InputError, match="2 stimulus label problem"):
+        _units(tmp_path, rows, lexicon)
