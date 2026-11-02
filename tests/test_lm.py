@@ -205,3 +205,26 @@ def test_ngram_align_and_units(monkeypatch, tmp_path, lexicon):
     assert np.allclose(w["ngram_surprisal_5gram"].tolist()[:3], [2 * ln2, 5 * ln2, 10 * ln2])
     assert w["ngram_oov_5gram"].tolist()[:3] == [0, 0, 1]
     assert math.isnan(w["ngram_surprisal_5gram"].tolist()[3])           # nonword not scored
+
+
+def test_glove_convert_and_represent(tmp_path, monkeypatch, lexicon):
+    import zipfile
+    from linguistic import static_embeddings as se
+    monkeypatch.setattr(se, "DIM", 3)
+    z = tmp_path / "g.zip"
+    with zipfile.ZipFile(z, "w") as f:
+        f.writestr("glove.txt", "the 1 0 0\ncat 0 1 0\n. . 0 0 1\nthe 9 9 9\n")
+    res = tmp_path / "res" / "glove-840b"
+    res.mkdir(parents=True)
+    se.convert_glove(z, res)
+    assert (res / "vocab.txt").read_text().split("\n")[:3] == ["the", "cat", ". ."]   # token with a space
+    monkeypatch.setenv("LINGUISTIC_RESOURCES", str(tmp_path / "res"))
+    se.load_glove.cache_clear()
+    vec, found = se.lookup(["the", "CAT", "zorp"])
+    assert found == [True, True, False] and vec[0].tolist() == [1, 0, 0]     # duplicate keeps the first
+    assert vec[1].tolist() == [0, 1, 0] and np.isnan(vec[2]).all()            # lowercase fallback
+    p = write_stimuli(tmp_path / "s.csv", [{"stimulus_id": "a", "condition": "sentence", "text": "the cat zorp"}])
+    s = load_stimuli(p)
+    out = represent(p, build_units(s, lexicon).words, s, "glove-840b", tmp_path / "rep")
+    assert np.allclose(np.load(out / "stimuli_mean.npy")[0], [0.5, 0.5, 0])  # OOV skipped
+    se.load_glove.cache_clear()
