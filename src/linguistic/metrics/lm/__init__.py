@@ -1,2 +1,2 @@
-"""Contextual language-model metrics. See README.md in this folder."""
-from . import causal  # noqa: F401  (registers one metric per model in causal.MODELS)
+"""Language-model metrics. See README.md in this folder."""
+from . import metric  # noqa: F401  (registers lm_<model> for every model in models.MODELS)
