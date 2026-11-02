@@ -141,7 +141,7 @@ class PhonemeTPCross(_Base):
 @register
 class PhonemeTPWithin(_Base):
     name = "phoneme_tp_within"
-    context = {"phone": "dependent", "word": "independent"}   # stays inside the word
+    context = {"phone": "dependent", "word": "dependent"}     # a phoneme sequence, even inside the word
     columns = ("bigram_surp_within", "trigram_surp_within", "log_bigram_freq_within")
     description = ("Forward phoneme transitional probability with context reset at each "
                    "word boundary (word-initial phone NaN for bigram, first two for trigram).")
