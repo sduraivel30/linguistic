@@ -5,6 +5,9 @@ GPT-2 XL is the only model registered so far. Scored for sentences and nonwords 
 are scored as strings, through the model's sub-word tokens). In `stimuli.csv` each is the
 mean over the stimulus's words.
 
+**Context:** context-dependent at the word and stimulus level: every value is conditioned
+on the preceding words of the stimulus.
+
 ## Metrics
 
 | Metric (`-m` name) | Columns | Definition |
