@@ -52,6 +52,7 @@ context-dependent (D) means it depends on a sequence of phones or words.
 | 5-gram surprisal (`ngram_*`, sentences) | – | D: value | D: mean over words |
 | LM activations (`represent`) | – | D: per layer | D: last word, mean over words |
 | LM input embeddings (`represent`) | – | I: vector | – |
+| GloVe embeddings (`represent -m glove-840b`) | – | I: vector | I: last word, mean over words |
 
 Definitions and setup per family:
 [phonological](src/linguistic/metrics/phonological/README.md) ·
