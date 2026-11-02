@@ -22,6 +22,7 @@ class Resource:
     description: str
     url: str = ""              # empty -> manual
     archive_md5: str = ""
+    archive_sha256: str = ""
     file_md5: str = ""
     readme: str = ""           # README that documents it
     hf_repo: str = ""          # Hugging Face model: repo id + pinned revision
@@ -56,7 +57,9 @@ RESOURCES = {
         name="glove-840b",
         filename="vectors.npy",
         description="GloVe 840B cased 300-d word vectors (Pennington et al. 2014)",
-        url="https://nlp.stanford.edu/data/glove.840B.300d.zip",
+        # Stanford's official copy on Hugging Face (nlp.stanford.edu is not reachable from some clusters)
+        url="https://huggingface.co/stanfordnlp/glove/resolve/1db2080b2d94def6e5b0386a523102f9d8849e9d/glove.840B.300d.zip",
+        archive_sha256="f47355dd5b267bd10f08671e513790690233c76a9ffd73aa915d78f894a8912e",
         convert="glove",
         readme="src/linguistic/metrics/lm/README.md",
     ),
@@ -122,6 +125,10 @@ def fetch(name: str) -> Path:
         shutil.copyfileobj(resp, f)
     if r.archive_md5 and md5(archive) != r.archive_md5:
         raise ValueError(f"{archive}: md5 {md5(archive)} != expected {r.archive_md5}")
+    if r.archive_sha256:
+        from .manifest import sha256
+        if sha256(archive) != r.archive_sha256:
+            raise ValueError(f"{archive}: sha256 does not match {r.archive_sha256}")
     if r.convert == "glove":
         from .static_embeddings import convert_glove
         out = convert_glove(archive, d)
