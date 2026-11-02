@@ -1,0 +1,289 @@
+stimulus_id,condition,word_idx,word,word_key,in_lexicon,lexicon_route,n_pronunciations,phone_source,onset,offset,hand_word_label,phones,n_phones
+sentence_01,sentence,1,JUST,just,True,whole,2,cmudict,,,,JH AH S T,4
+sentence_01,sentence,2,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_01,sentence,3,BAREST,barest,True,whole,1,cmudict,,,,B EH R AH S T,6
+sentence_01,sentence,4,SUGGESTION,suggestion,True,whole,1,cmudict,,,,S AH G JH EH S CH AH N,9
+sentence_01,sentence,5,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_01,sentence,6,A,a,True,whole,2,cmudict,,,,AH,1
+sentence_01,sentence,7,HEEL,heel,True,whole,1,cmudict,,,,HH IY L,3
+sentence_01,sentence,8,IS,is,True,whole,2,cmudict,,,,IH Z,2
+sentence_01,sentence,9,FOUND,found,True,whole,1,cmudict,,,,F AW N D,4
+sentence_01,sentence,10,ON,on,True,whole,2,cmudict,,,,AA N,2
+sentence_01,sentence,11,TEENAGE,teenage,True,whole,1,cmudict,,,,T IY N EY JH,5
+sentence_01,sentence,12,PUMPS,pumps,True,whole,1,cmudict,,,,P AH M P S,5
+sentence_02,sentence,1,TO,to,True,whole,3,cmudict,,,,T UW,2
+sentence_02,sentence,2,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_02,sentence,3,DIRECTORS,directors,True,whole,4,cmudict,,,,D ER EH K T ER Z,7
+sentence_02,sentence,4,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_02,sentence,5,PROBLEM,problem,True,whole,1,cmudict,,,,P R AA B L AH M,7
+sentence_02,sentence,6,APPEARED,appeared,True,whole,1,cmudict,,,,AH P IH R D,5
+sentence_02,sentence,7,A,a,True,whole,2,cmudict,,,,AH,1
+sentence_02,sentence,8,MATTER,matter,True,whole,1,cmudict,,,,M AE T ER,4
+sentence_02,sentence,9,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_02,sentence,10,INTRIGUE,intrigue,True,whole,2,cmudict,,,,IH N T R IY G,6
+sentence_02,sentence,11,OR,or,True,whole,2,cmudict,,,,AO R,2
+sentence_02,sentence,12,DIPLOMACY,diplomacy,True,whole,1,cmudict,,,,D IH P L OW M AH S IY,9
+sentence_03,sentence,1,THERE,there,True,whole,1,cmudict,,,,DH EH R,3
+sentence_03,sentence,2,WAS,was,True,whole,4,cmudict,,,,W AA Z,3
+sentence_03,sentence,3,LITTLE,little,True,whole,1,cmudict,,,,L IH T AH L,5
+sentence_03,sentence,4,LIKELIHOOD,likelihood,True,whole,1,cmudict,,,,L AY K L IY HH UH D,8
+sentence_03,sentence,5,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_03,sentence,6,ANY,any,True,whole,1,cmudict,,,,EH N IY,3
+sentence_03,sentence,7,CUSTOMERS,customers,True,whole,1,cmudict,,,,K AH S T AH M ER Z,8
+sentence_03,sentence,8,WALKING,walking,True,whole,1,cmudict,,,,W AO K IH NG,5
+sentence_03,sentence,9,IN,in,True,whole,2,cmudict,,,,IH N,2
+sentence_03,sentence,10,AT,at,True,whole,1,cmudict,,,,AE T,2
+sentence_03,sentence,11,THAT,that,True,whole,2,cmudict,,,,DH AE T,3
+sentence_03,sentence,12,HOUR,hour,True,whole,2,cmudict,,,,AW ER,2
+sentence_04,sentence,1,HE,he,True,whole,1,cmudict,,,,HH IY,2
+sentence_04,sentence,2,STOPPED,stopped,True,whole,1,cmudict,,,,S T AA P T,5
+sentence_04,sentence,3,PACING,pacing,True,whole,1,cmudict,,,,P EY S IH NG,5
+sentence_04,sentence,4,TO,to,True,whole,3,cmudict,,,,T UW,2
+sentence_04,sentence,5,STARE,stare,True,whole,1,cmudict,,,,S T EH R,4
+sentence_04,sentence,6,AT,at,True,whole,1,cmudict,,,,AE T,2
+sentence_04,sentence,7,HAL,hal,True,whole,1,cmudict,,,,HH AE L,3
+sentence_04,sentence,8,WITH,with,True,whole,4,cmudict,,,,W IH DH,3
+sentence_04,sentence,9,HIS,his,True,whole,2,cmudict,,,,HH IH Z,3
+sentence_04,sentence,10,PALE,pale,True,whole,1,cmudict,,,,P EY L,3
+sentence_04,sentence,11,BLUE,blue,True,whole,1,cmudict,,,,B L UW,3
+sentence_04,sentence,12,EYES,eyes,True,whole,1,cmudict,,,,AY Z,2
+sentence_05,sentence,1,A,a,True,whole,2,cmudict,,,,AH,1
+sentence_05,sentence,2,NUMBER,number,True,whole,1,cmudict,,,,N AH M B ER,5
+sentence_05,sentence,3,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_05,sentence,4,CONSIDERATIONS,considerations,True,whole,1,cmudict,,,,K AH N S IH D ER EY SH AH N Z,12
+sentence_05,sentence,5,SUGGEST,suggest,True,whole,1,cmudict,,,,S AH G JH EH S T,7
+sentence_05,sentence,6,THAT,that,True,whole,2,cmudict,,,,DH AE T,3
+sentence_05,sentence,7,THIS,this,True,whole,2,cmudict,,,,DH IH S,3
+sentence_05,sentence,8,OCCURS,occurs,True,whole,1,cmudict,,,,AH K ER Z,4
+sentence_05,sentence,9,EARLY,early,True,whole,1,cmudict,,,,ER L IY,3
+sentence_05,sentence,10,IN,in,True,whole,2,cmudict,,,,IH N,2
+sentence_05,sentence,11,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_05,sentence,12,PROCESS,process,True,whole,2,cmudict,,,,P R AA S EH S,6
+sentence_06,sentence,1,TO,to,True,whole,3,cmudict,,,,T UW,2
+sentence_06,sentence,2,COMPUTE,compute,True,whole,1,cmudict,,,,K AH M P Y UW T,7
+sentence_06,sentence,3,YOUR,your,True,whole,2,cmudict,,,,Y AO R,3
+sentence_06,sentence,4,ADJUSTED,adjusted,True,whole,2,cmudict,,,,AH JH AH S T AH D,7
+sentence_06,sentence,5,GROSS,gross,True,whole,1,cmudict,,,,G R OW S,4
+sentence_06,sentence,6,INCOME,income,True,whole,1,cmudict,,,,IH N K AH M,5
+sentence_06,sentence,7,YOU,you,True,whole,1,cmudict,,,,Y UW,2
+sentence_06,sentence,8,TOTAL,total,True,whole,1,cmudict,,,,T OW T AH L,5
+sentence_06,sentence,9,ALL,all,True,whole,1,cmudict,,,,AO L,2
+sentence_06,sentence,10,ITEMS,items,True,whole,1,cmudict,,,,AY T AH M Z,5
+sentence_06,sentence,11,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_06,sentence,12,INCOME,income,True,whole,1,cmudict,,,,IH N K AH M,5
+sentence_07,sentence,1,HIS,his,True,whole,2,cmudict,,,,HH IH Z,3
+sentence_07,sentence,2,WIFE,wife,True,whole,1,cmudict,,,,W AY F,3
+sentence_07,sentence,3,WAS,was,True,whole,4,cmudict,,,,W AA Z,3
+sentence_07,sentence,4,IN,in,True,whole,2,cmudict,,,,IH N,2
+sentence_07,sentence,5,DELICATE,delicate,True,whole,1,cmudict,,,,D EH L AH K AH T,7
+sentence_07,sentence,6,HEALTH,health,True,whole,1,cmudict,,,,HH EH L TH,4
+sentence_07,sentence,7,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_07,sentence,8,NURSING,nursing,True,whole,1,cmudict,,,,N ER S IH NG,5
+sentence_07,sentence,9,AN,an,True,whole,2,cmudict,,,,AE N,2
+sentence_07,sentence,10,INFANT,infant,True,whole,1,cmudict,,,,IH N F AH N T,6
+sentence_07,sentence,11,WITH,with,True,whole,4,cmudict,,,,W IH DH,3
+sentence_07,sentence,12,MEASLES,measles,True,whole,1,cmudict,,,,M IY Z AH L Z,6
+sentence_08,sentence,1,HE,he,True,whole,1,cmudict,,,,HH IY,2
+sentence_08,sentence,2,AVOIDED,avoided,True,whole,2,cmudict,,,,AH V OY D AH D,6
+sentence_08,sentence,3,SHOWING,showing,True,whole,1,cmudict,,,,SH OW IH NG,4
+sentence_08,sentence,4,ANY,any,True,whole,1,cmudict,,,,EH N IY,3
+sentence_08,sentence,5,SURPRISE,surprise,True,whole,2,cmudict,,,,S ER P R AY Z,6
+sentence_08,sentence,6,OR,or,True,whole,2,cmudict,,,,AO R,2
+sentence_08,sentence,7,ANNOYANCE,annoyance,True,whole,1,cmudict,,,,AH N OY AH N S,6
+sentence_08,sentence,8,WHEN,when,True,whole,4,cmudict,,,,W EH N,3
+sentence_08,sentence,9,NO,no,True,whole,1,cmudict,,,,N OW,2
+sentence_08,sentence,10,ONE,one,True,whole,2,cmudict,,,,W AH N,3
+sentence_08,sentence,11,ANSWERED,answered,True,whole,1,cmudict,,,,AE N S ER D,5
+sentence_08,sentence,12,HIM,him,True,whole,2,cmudict,,,,HH IH M,3
+sentence_09,sentence,1,KEITH,keith,True,whole,1,cmudict,,,,K IY TH,3
+sentence_09,sentence,2,TOLD,told,True,whole,1,cmudict,,,,T OW L D,4
+sentence_09,sentence,3,PENNY,penny,True,whole,1,cmudict,,,,P EH N IY,4
+sentence_09,sentence,4,ABOUT,about,True,whole,1,cmudict,,,,AH B AW T,4
+sentence_09,sentence,5,HIS,his,True,whole,2,cmudict,,,,HH IH Z,3
+sentence_09,sentence,6,DREAM,dream,True,whole,1,cmudict,,,,D R IY M,4
+sentence_09,sentence,7,TO,to,True,whole,3,cmudict,,,,T UW,2
+sentence_09,sentence,8,RETURN,return,True,whole,2,cmudict,,,,R IH T ER N,5
+sentence_09,sentence,9,TO,to,True,whole,3,cmudict,,,,T UW,2
+sentence_09,sentence,10,INDIA,india,True,whole,1,cmudict,,,,IH N D IY AH,5
+sentence_09,sentence,11,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_09,sentence,12,BURMA,burma,True,whole,1,cmudict,,,,B ER M AH,4
+sentence_10,sentence,1,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_10,sentence,2,REPORTER,reporter,True,whole,1,cmudict,,,,R IH P AO R T ER,7
+sentence_10,sentence,3,NODDED,nodded,True,whole,2,cmudict,,,,N AA D AH D,5
+sentence_10,sentence,4,AS,as,True,whole,2,cmudict,,,,AE Z,2
+sentence_10,sentence,5,HE,he,True,whole,1,cmudict,,,,HH IY,2
+sentence_10,sentence,6,MOVED,moved,True,whole,1,cmudict,,,,M UW V D,4
+sentence_10,sentence,7,UP,up,True,whole,1,cmudict,,,,AH P,2
+sentence_10,sentence,8,BESIDE,beside,True,whole,2,cmudict,,,,B IH S AY D,5
+sentence_10,sentence,9,HIM,him,True,whole,2,cmudict,,,,HH IH M,3
+sentence_10,sentence,10,AT,at,True,whole,1,cmudict,,,,AE T,2
+sentence_10,sentence,11,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_10,sentence,12,BAR,bar,True,whole,1,cmudict,,,,B AA R,3
+sentence_11,sentence,1,IN,in,True,whole,2,cmudict,,,,IH N,2
+sentence_11,sentence,2,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_11,sentence,3,STARLIGHT,starlight,True,whole,1,cmudict,,,,S T AA R L AY T,7
+sentence_11,sentence,4,HE,he,True,whole,1,cmudict,,,,HH IY,2
+sentence_11,sentence,5,COULD,could,True,whole,1,cmudict,,,,K UH D,3
+sentence_11,sentence,6,SEE,see,True,whole,1,cmudict,,,,S IY,2
+sentence_11,sentence,7,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_11,sentence,8,TREES,trees,True,whole,1,cmudict,,,,T R IY Z,4
+sentence_11,sentence,9,STRIPPED,stripped,True,whole,1,cmudict,,,,S T R IH P T,6
+sentence_11,sentence,10,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_11,sentence,11,THEIR,their,True,whole,1,cmudict,,,,DH EH R,3
+sentence_11,sentence,12,LEAVES,leaves,True,whole,1,cmudict,,,,L IY V Z,4
+sentence_12,sentence,1,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_12,sentence,2,TARGET,target,True,whole,2,cmudict,,,,T AA R G AH T,6
+sentence_12,sentence,3,CHART,chart,True,whole,1,cmudict,,,,CH AA R T,4
+sentence_12,sentence,4,QUICKLY,quickly,True,whole,1,cmudict,,,,K W IH K L IY,6
+sentence_12,sentence,5,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_12,sentence,6,BRIEFLY,briefly,True,whole,1,cmudict,,,,B R IY F L IY,6
+sentence_12,sentence,7,TELLS,tells,True,whole,1,cmudict,,,,T EH L Z,4
+sentence_12,sentence,8,YOU,you,True,whole,1,cmudict,,,,Y UW,2
+sentence_12,sentence,9,WHICH,which,True,whole,2,cmudict,,,,W IH CH,3
+sentence_12,sentence,10,ADDITIVES,additives,True,whole,2,cmudict,,,,AE D AH T IH V Z,7
+sentence_12,sentence,11,DO,do,True,whole,1,cmudict,,,,D UW,2
+sentence_12,sentence,12,WHAT,what,True,whole,2,cmudict,,,,W AH T,3
+sentence_13,sentence,1,NEVER,never,True,whole,1,cmudict,,,,N EH V ER,4
+sentence_13,sentence,2,AGAIN,again,True,whole,2,cmudict,,,,AH G EH N,4
+sentence_13,sentence,3,DID,did,True,whole,2,cmudict,,,,D IH D,3
+sentence_13,sentence,4,HE,he,True,whole,1,cmudict,,,,HH IY,2
+sentence_13,sentence,5,ENTER,enter,True,whole,2,cmudict,,,,EH N T ER,4
+sentence_13,sentence,6,INTO,into,True,whole,3,cmudict,,,,IH N T UW,4
+sentence_13,sentence,7,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_13,sentence,8,RITUAL,ritual,True,whole,1,cmudict,,,,R IH CH UW AH L,6
+sentence_13,sentence,9,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_13,sentence,10,SHOWING,showing,True,whole,1,cmudict,,,,SH OW IH NG,4
+sentence_13,sentence,11,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_13,sentence,12,APARTMENT,apartment,True,whole,1,cmudict,,,,AH P AA R T M AH N T,9
+sentence_14,sentence,1,THEN,then,True,whole,1,cmudict,,,,DH EH N,3
+sentence_14,sentence,2,ANGELINA,angelina,True,whole,1,cmudict,,,,AE N JH EH L IY N AH,8
+sentence_14,sentence,3,TURNED,turned,True,whole,1,cmudict,,,,T ER N D,4
+sentence_14,sentence,4,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_14,sentence,5,WITH,with,True,whole,4,cmudict,,,,W IH DH,3
+sentence_14,sentence,6,AN,an,True,whole,2,cmudict,,,,AE N,2
+sentence_14,sentence,7,EASY,easy,True,whole,1,cmudict,,,,IY Z IY,3
+sentence_14,sentence,8,GRACE,grace,True,whole,1,cmudict,,,,G R EY S,4
+sentence_14,sentence,9,WALKED,walked,True,whole,1,cmudict,,,,W AO K T,4
+sentence_14,sentence,10,TOWARD,toward,True,whole,2,cmudict,,,,T AH W AO R D,6
+sentence_14,sentence,11,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_14,sentence,12,KITCHEN,kitchen,True,whole,1,cmudict,,,,K IH CH AH N,5
+sentence_15,sentence,1,MANY,many,True,whole,1,cmudict,,,,M EH N IY,4
+sentence_15,sentence,2,TIMES,times,True,whole,1,cmudict,,,,T AY M Z,4
+sentence_15,sentence,3,SINCE,since,True,whole,1,cmudict,,,,S IH N S,4
+sentence_15,sentence,4,HIS,his,True,whole,2,cmudict,,,,HH IH Z,3
+sentence_15,sentence,5,DEATH,death,True,whole,1,cmudict,,,,D EH TH,3
+sentence_15,sentence,6,THAT,that,True,whole,2,cmudict,,,,DH AE T,3
+sentence_15,sentence,7,MEMORY,memory,True,whole,1,cmudict,,,,M EH M ER IY,5
+sentence_15,sentence,8,HAD,had,True,whole,1,cmudict,,,,HH AE D,3
+sentence_15,sentence,9,WORRIED,worried,True,whole,1,cmudict,,,,W ER IY D,4
+sentence_15,sentence,10,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_15,sentence,11,TROUBLED,troubled,True,whole,1,cmudict,,,,T R AH B AH L D,7
+sentence_15,sentence,12,HER,her,True,whole,2,cmudict,,,,HH ER,2
+sentence_16,sentence,1,KYOTO,kyoto,True,whole,1,cmudict,,,,K Y OW T OW,5
+sentence_16,sentence,2,IS,is,True,whole,2,cmudict,,,,IH Z,2
+sentence_16,sentence,3,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_16,sentence,4,ANCIENT,ancient,True,whole,2,cmudict,,,,EY N CH AH N T,6
+sentence_16,sentence,5,CAPITAL,capital,True,whole,2,cmudict,,,,K AE P AH T AH L,7
+sentence_16,sentence,6,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_16,sentence,7,JAPAN,japan,True,whole,1,cmudict,,,,JH AH P AE N,5
+sentence_16,sentence,8,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_16,sentence,9,STILL,still,True,whole,1,cmudict,,,,S T IH L,4
+sentence_16,sentence,10,ITS,its,True,whole,2,cmudict,,,,IH T S,3
+sentence_16,sentence,11,CULTURAL,cultural,True,whole,1,cmudict,,,,K AH L CH ER AH L,7
+sentence_16,sentence,12,CENTER,center,True,whole,2,cmudict,,,,S EH N T ER,5
+sentence_17,sentence,1,IT,it,True,whole,2,cmudict,,,,IH T,2
+sentence_17,sentence,2,IS,is,True,whole,2,cmudict,,,,IH Z,2
+sentence_17,sentence,3,VERY,very,True,whole,1,cmudict,,,,V EH R IY,4
+sentence_17,sentence,4,MUCH,much,True,whole,1,cmudict,,,,M AH CH,3
+sentence_17,sentence,5,A,a,True,whole,2,cmudict,,,,AH,1
+sentence_17,sentence,6,MATTER,matter,True,whole,1,cmudict,,,,M AE T ER,4
+sentence_17,sentence,7,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_17,sentence,8,BUILDING,building,True,whole,1,cmudict,,,,B IH L D IH NG,6
+sentence_17,sentence,9,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_17,sentence,10,FOUNDATIONS,foundations,True,whole,1,cmudict,,,,F AW N D EY SH AH N Z,9
+sentence_17,sentence,11,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_17,sentence,12,COMMUNITY,community,True,whole,2,cmudict,,,,K AH M Y UW N AH T IY,9
+sentence_18,sentence,1,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_18,sentence,2,IMAGES,images,True,whole,2,cmudict,,,,IH M AH JH AH Z,6
+sentence_18,sentence,3,CAN,can,True,whole,2,cmudict,,,,K AE N,3
+sentence_18,sentence,4,EASILY,easily,True,whole,1,cmudict,,,,IY Z AH L IY,5
+sentence_18,sentence,5,BE,be,True,whole,2,cmudict,,,,B IY,2
+sentence_18,sentence,6,ALIGNED,aligned,True,whole,1,cmudict,,,,AH L AY N D,5
+sentence_18,sentence,7,WITH,with,True,whole,4,cmudict,,,,W IH DH,3
+sentence_18,sentence,8,A,a,True,whole,2,cmudict,,,,AH,1
+sentence_18,sentence,9,HIGH,high,True,whole,1,cmudict,,,,HH AY,2
+sentence_18,sentence,10,DEGREE,degree,True,whole,1,cmudict,,,,D IH G R IY,5
+sentence_18,sentence,11,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_18,sentence,12,ACCURACY,accuracy,True,whole,1,cmudict,,,,AE K Y ER AH S IY,7
+sentence_19,sentence,1,THIS,this,True,whole,2,cmudict,,,,DH IH S,3
+sentence_19,sentence,2,HAPPENED,happened,True,whole,1,cmudict,,,,HH AE P AH N D,6
+sentence_19,sentence,3,IN,in,True,whole,2,cmudict,,,,IH N,2
+sentence_19,sentence,4,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_19,sentence,5,MIDDLE,middle,True,whole,1,cmudict,,,,M IH D AH L,5
+sentence_19,sentence,6,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_19,sentence,7,A,a,True,whole,2,cmudict,,,,AH,1
+sentence_19,sentence,8,DRINKING,drinking,True,whole,1,cmudict,,,,D R IH NG K IH NG,7
+sentence_19,sentence,9,BOUT,bout,True,whole,1,cmudict,,,,B AW T,3
+sentence_19,sentence,10,WITH,with,True,whole,4,cmudict,,,,W IH DH,3
+sentence_19,sentence,11,ANOTHER,another,True,whole,1,cmudict,,,,AH N AH DH ER,5
+sentence_19,sentence,12,BUM,bum,True,whole,1,cmudict,,,,B AH M,3
+sentence_20,sentence,1,WINSTON,winston,True,whole,1,cmudict,,,,W IH N S T AH N,7
+sentence_20,sentence,2,TOOK,took,True,whole,1,cmudict,,,,T UH K,3
+sentence_20,sentence,3,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_20,sentence,4,CLOTHESBRUSH,clothesbrush,False,,0,,,,,,0
+sentence_20,sentence,5,OUT,out,True,whole,1,cmudict,,,,AW T,2
+sentence_20,sentence,6,OF,of,True,whole,2,cmudict,,,,AH V,2
+sentence_20,sentence,7,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_20,sentence,8,CLOSET,closet,True,whole,1,cmudict,,,,K L AA Z AH T,6
+sentence_20,sentence,9,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_20,sentence,10,WENT,went,True,whole,1,cmudict,,,,W EH N T,4
+sentence_20,sentence,11,TO,to,True,whole,3,cmudict,,,,T UW,2
+sentence_20,sentence,12,WORK,work,True,whole,1,cmudict,,,,W ER K,3
+sentence_21,sentence,1,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_21,sentence,2,ROOF,roof,True,whole,2,cmudict,,,,R UW F,3
+sentence_21,sentence,3,BLOCKS,blocks,True,whole,1,cmudict,,,,B L AA K S,5
+sentence_21,sentence,4,ARE,are,True,whole,2,cmudict,,,,AA R,2
+sentence_21,sentence,5,IN,in,True,whole,2,cmudict,,,,IH N,2
+sentence_21,sentence,6,TWO,two,True,whole,1,cmudict,,,,T UW,2
+sentence_21,sentence,7,LAYERS,layers,True,whole,1,cmudict,,,,L EY ER Z,4
+sentence_21,sentence,8,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_21,sentence,9,ARE,are,True,whole,2,cmudict,,,,AA R,2
+sentence_21,sentence,10,NOT,not,True,whole,1,cmudict,,,,N AA T,3
+sentence_21,sentence,11,MORTARED,mortared,False,,0,,,,,,0
+sentence_21,sentence,12,TOGETHER,together,True,whole,1,cmudict,,,,T AH G EH DH ER,6
+sentence_22,sentence,1,I,i,True,whole,1,cmudict,,,,AY,1
+sentence_22,sentence,2,WAS,was,True,whole,4,cmudict,,,,W AA Z,3
+sentence_22,sentence,3,HELD,held,True,whole,1,cmudict,,,,HH EH L D,4
+sentence_22,sentence,4,UP,up,True,whole,1,cmudict,,,,AH P,2
+sentence_22,sentence,5,A,a,True,whole,2,cmudict,,,,AH,1
+sentence_22,sentence,6,BIT,bit,True,whole,1,cmudict,,,,B IH T,3
+sentence_22,sentence,7,TRYING,trying,True,whole,2,cmudict,,,,T R AY IH NG,5
+sentence_22,sentence,8,TO,to,True,whole,3,cmudict,,,,T UW,2
+sentence_22,sentence,9,MAKE,make,True,whole,1,cmudict,,,,M EY K,3
+sentence_22,sentence,10,A,a,True,whole,2,cmudict,,,,AH,1
+sentence_22,sentence,11,LEFT,left,True,whole,1,cmudict,,,,L EH F T,4
+sentence_22,sentence,12,TURN,turn,True,whole,1,cmudict,,,,T ER N,3
+sentence_23,sentence,1,HE,he,True,whole,1,cmudict,,,,HH IY,2
+sentence_23,sentence,2,CALLED,called,True,whole,1,cmudict,,,,K AO L D,4
+sentence_23,sentence,3,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_23,sentence,4,STORE,store,True,whole,1,cmudict,,,,S T AO R,4
+sentence_23,sentence,5,OWNER,owner,True,whole,1,cmudict,,,,OW N ER,3
+sentence_23,sentence,6,AND,and,True,whole,2,cmudict,,,,AH N D,3
+sentence_23,sentence,7,TOGETHER,together,True,whole,1,cmudict,,,,T AH G EH DH ER,6
+sentence_23,sentence,8,THEY,they,True,whole,1,cmudict,,,,DH EY,2
+sentence_23,sentence,9,WENT,went,True,whole,1,cmudict,,,,W EH N T,4
+sentence_23,sentence,10,INTO,into,True,whole,3,cmudict,,,,IH N T UW,4
+sentence_23,sentence,11,THE,the,True,whole,3,cmudict,,,,DH AH,2
+sentence_23,sentence,12,STOCKROOM,stockroom,True,whole,1,cmudict,,,,S T AA K R UW M,7
+sentence_24,sentence,1,AFTER,after,True,whole,1,cmudict,,,,AE F T ER,4
+sentence_24,sentence,2,THAT,that,True,whole,2,cmudict,,,,DH AE T,3
+sentence_24,sentence,3,HE,he,True,whole,1,cmudict,,,,HH IY,2
+sentence_24,sentence,4,WAS,was,True,whole,4,cmudict,,,,W AA Z,3
+sentence_24,sentence,5,NEVER,never,True,whole,1,cmudict,,,,N EH V ER,4
+sentence_24,sentence,6,KNOWN,known,True,whole,1,cmudict,,,,N OW N,3
+sentence_24,sentence,7,TO,to,True,whole,3,cmudict,,,,T UW,2
+sentence_24,sentence,8,RUN,run,True,whole,1,cmudict,,,,R AH N,3
+sentence_24,sentence,9,OR,or,True,whole,2,cmudict,,,,AO R,2
+sentence_24,sentence,10,EVEN,even,True,whole,1,cmudict,,,,IY V IH N,4
+sentence_24,sentence,11,WALK,walk,True,whole,2,cmudict,,,,W AO K,3
+sentence_24,sentence,12,FAST,fast,True,whole,1,cmudict,,,,F AE S T,4
