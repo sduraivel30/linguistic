@@ -17,6 +17,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest"]
+lm = ["torch", "transformers", "huggingface_hub"]
 
 [project.scripts]
 linguistic = "linguistic.cli:app"
