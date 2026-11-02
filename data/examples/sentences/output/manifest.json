@@ -1,0 +1,35 @@
+{
+  "created_utc": "2026-11-02T21:42:12+00:00",
+  "linguistic_version": "0.1.0",
+  "linguistic_git_commit": "e2344a339fcc7c46336657793a26c42d7c92b091",
+  "python": "3.11.15",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.3",
+    "nltk": "3.10.3",
+    "typer": "0.27.3"
+  },
+  "input": {
+    "path": "data/examples/sentences/stimuli.csv",
+    "sha256": "e4434242304d44fd9d341fefdfd1b4bc612233bd46a5f5fbd8d804ca6e7df4bc",
+    "n_stimuli": 24,
+    "n_by_condition": {
+      "sentence": 24
+    }
+  },
+  "label_files": {},
+  "lexicon": {
+    "name": "CMUdict (nltk)",
+    "nltk_version": "3.10.3",
+    "n_entries": 123455,
+    "stress": "stripped",
+    "pronunciation": "first listed"
+  },
+  "phone_sources": {
+    "cmudict": 286,
+    "missing": 2
+  },
+  "n_words_missing_phones": 2,
+  "metrics": [],
+  "report": []
+}
