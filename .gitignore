@@ -6,9 +6,12 @@ __pycache__/
 # outputs and data never go in git
 out/
 results/
-data/
+data/*
 *.csv
 *.npz
 *.pdf
 *.png
 !tests/fixtures/**
+# small public example inputs + their outputs, kept so users can see the I/O
+!data/examples/
+!data/examples/**
