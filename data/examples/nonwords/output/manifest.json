@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-11-02T22:22:27+00:00",
+  "created_utc": "2026-11-02T22:24:39+00:00",
   "linguistic_version": "0.1.0",
-  "linguistic_git_commit": "e43f5a20eda72a01323b758fa3e6db0e509b16c0",
+  "linguistic_git_commit": "eea7310f854831b9f4b04d6078d068d5faa5d2a0",
   "python": "3.11.15",
   "packages": {
     "numpy": "2.4.6",
@@ -53,20 +53,20 @@
       "resources": [],
       "context": {
         "cohort_density_log10": {
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "dependent",
+          "stimulus": "dependent"
         },
         "uniqueness_point_idx": {
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "dependent",
+          "stimulus": "dependent"
         },
         "uniqueness_point_ms": {
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "dependent",
+          "stimulus": "dependent"
         },
         "up_reached": {
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "dependent",
+          "stimulus": "dependent"
         }
       }
     },
@@ -284,18 +284,18 @@
       "context": {
         "bigram_surp_within": {
           "phone": "dependent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "dependent",
+          "stimulus": "dependent"
         },
         "trigram_surp_within": {
           "phone": "dependent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "dependent",
+          "stimulus": "dependent"
         },
         "log_bigram_freq_within": {
           "phone": "dependent",
-          "word": "independent",
-          "stimulus": "independent"
+          "word": "dependent",
+          "stimulus": "dependent"
         }
       }
     },
