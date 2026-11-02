@@ -44,6 +44,7 @@ def cohort_values(phones: list[str], word: str, pre) -> dict:
 class Cohort(Metric):
     name = "cohort"
     family = "lexical"
+    context = {"word": "independent"}
     level = "word"
     requires = frozenset({"phones"})
     columns = ("cohort_density_log10", "uniqueness_point_idx", "uniqueness_point_ms", "up_reached")
@@ -74,6 +75,7 @@ class Cohort(Metric):
 class WordDuration(Metric):
     name = "word_duration"
     family = "lexical"
+    context = {"word": "independent"}
     level = "word"
     requires = frozenset({"timing"})
     columns = ("word_duration_ms",)
