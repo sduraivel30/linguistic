@@ -1,0 +1,14 @@
+__pycache__/
+*.egg-info/
+.venv/
+.pytest_cache/
+.DS_Store
+# outputs and data never go in git
+out/
+results/
+data/
+*.csv
+*.npz
+*.pdf
+*.png
+!tests/fixtures/**
