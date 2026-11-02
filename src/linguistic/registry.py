@@ -19,9 +19,9 @@ Context, per level. At each level a column is
 The same column can change class between levels: within-word phoneme surprisal is
 dependent for a phone (it uses the preceding phones of the word) but independent for
 the word (its per-word mean depends only on the word). `context` gives the class at
-every level the column appears at ('phone' metrics also appear at 'word' and
-'stimulus'; 'word' metrics at 'word' and 'stimulus'); the stimulus level takes the
-word-level class. `context_overrides` sets it per column where one metric mixes classes.
+level the column appears at: a 'phone' metric also appears at 'word' (mean over the
+word's phones), a 'word' metric at 'stimulus' (mean over its words, same class as at
+'word'); phone metrics are never carried to the stimulus. `context_overrides` sets it per column where one metric mixes classes.
 """
 from __future__ import annotations
 
@@ -59,7 +59,9 @@ class Metric:
     context_overrides: dict = {}      # column -> {level: context}
 
     def levels(self) -> tuple[str, ...]:
-        return ("phone", "word", "stimulus") if self.level == "phone" else ("word", "stimulus")
+        # carried up one level only: phone -> word (mean over the word's phones),
+        # word -> stimulus (mean over the stimulus's words); never phone -> stimulus
+        return ("phone", "word") if self.level == "phone" else ("word", "stimulus")
 
     def column_context(self, column: str, level: str) -> str:
         c = {**self.context, **self.context_overrides.get(column, {})}
