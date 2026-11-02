@@ -58,3 +58,17 @@ def test_stimulus_level_is_mean_of_word_means(tmp_path, lexicon):
     t = _run(tmp_path, lexicon, "cat sat")
     w = t.words["bigram_surp_cross"]
     assert math.isclose(t.stimuli.loc[0, "bigram_surp_cross"], w.mean())
+
+
+def test_blick_scores_and_windows(tmp_path, lexicon):
+    from linguistic.metrics.phonological.blick import blick_string, score
+    assert blick_string(("B", "L", "IH", "K")) == "B L IH1 K"
+    assert score(("B", "L", "IH", "K")) < score(("B", "N", "IH", "K"))     # blick vs bnick
+    t = _run(tmp_path, lexicon, "cat sat")
+    p, w = t.phones, t.words
+    last = p[(p["word_idx"] == 1) & (p["phone_in_word"] == 3)].iloc[0]
+    # a word of <= 4 phones: the 4-phone within-word window at its last phone is the whole word
+    assert math.isclose(last["blick_w4_within"], w.loc[0, "blick_word"])
+    s = p[(p["word_idx"] == 2) & (p["phone_in_word"] == 1)].iloc[0]
+    assert math.isclose(s["blick_w2_cross"], score(("T", "S")))            # window crosses the boundary
+    assert math.isnan(s["delta_blick_w2_within"])                         # word-initial
