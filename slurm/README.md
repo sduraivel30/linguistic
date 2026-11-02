@@ -133,6 +133,7 @@ The outputs are small CSVs plus `manifest.json`. Pull them with the marker metho
 QUOTA banner is removed:
 
 ```bash
+mkdir -p my_run
 ssh orcd-login.mit.edu 'cd /orcd/data/evelina9/001/USERS/sdurai30/repos/linguistic/out/my_run \
   && echo @@START && tar czf - . | base64 && echo @@END' \
   | sed -n '/^@@START$/,/^@@END$/p' | sed '1d;$d' | base64 -D | tar xzf - -C ./my_run
