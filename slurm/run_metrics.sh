@@ -2,6 +2,7 @@
 # Run the pipeline as a batch job. Submit from the repo root:
 #     sbatch -p <partition> [--gres=gpu:1] slurm/run_metrics.sh <stimuli.csv> <out dir> [metrics ...]
 # Metrics are passed to `linguistic run -m` (default: all).
+# Optional: APPTAINER_MODULE=<module> for the 5-gram model (needs apptainer on PATH).
 #SBATCH --job-name=linguistic_run
 #SBATCH --time=04:00:00
 #SBATCH --cpus-per-task=8
@@ -10,6 +11,8 @@
 set -euo pipefail
 cd "${SLURM_SUBMIT_DIR}"
 : "${LINGUISTIC_RESOURCES:?export LINGUISTIC_RESOURCES=<shared folder for lexicons/models> before sbatch}"
+
+if [ -n "${APPTAINER_MODULE:-}" ]; then module load "$APPTAINER_MODULE"; fi
 
 input=$1; out=$2; shift 2
 sel=(); for m in "${@:-all}"; do sel+=(-m "$m"); done
