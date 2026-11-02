@@ -1,7 +1,8 @@
 # Example: sentence list
 
-24 English sentences, 12 words each, run through the pipeline so you can see the input and
-output formats. No metrics are registered yet, so this is the output of `linguistic prepare`.
+24 English sentences, 12 words each, run through the pipeline with every registered
+metric (`-m all`) so you can see the input and output formats. Regenerate this output
+whenever a metric family is added.
 
 ## Where it comes from
 
@@ -21,15 +22,18 @@ From the repo root:
 ```bash
 python scripts/make_example_evlab_langloc.py langloc_fmri_run1_stim_set1.csv \
     data/examples/sentences/stimuli.csv sentence
-linguistic prepare -i data/examples/sentences/stimuli.csv -o data/examples/sentences/output
+linguistic run -i data/examples/sentences/stimuli.csv -o data/examples/sentences/output -m all
 ```
 
 The first command keeps the `S` rows and writes the pipeline input. The second prints:
 
 ```
-24 stimuli, 288 words, 1039 phones; phone sources {'cmudict': 286, 'missing': 2}; 0 metric(s) -> data/examples/sentences/output
+24 stimuli, 288 words, 1039 phones; phone sources {'cmudict': 286, 'missing': 2}; 3 metric(s) -> data/examples/sentences/output
 2 word(s) need hand phones: see data/examples/sentences/output/missing_phones.csv
 ```
+
+Metrics in this output: the phonological family (`phoneme_tp_cross`, `phoneme_tp_within`,
+`phoneme_tp_backward`; see `src/linguistic/metrics/phonological/README.md`).
 
 ## Input: `stimuli.csv`
 
@@ -42,24 +46,38 @@ sentence_01,sentence,JUST THE BAREST SUGGESTION OF A HEEL IS FOUND ON TEENAGE PU
 
 | File | One row per | What it holds |
 | --- | --- | --- |
-| `words.csv` | word | position, CMUdict tag (`in_lexicon`, `lexicon_route`), phones and their source |
-| `phones.csv` | phone | phone label and position; `start`/`end` are empty because these phones come from CMUdict, not hand labels |
-| `stimuli.csv` | sentence | `n_words`; per-sentence metric means will be added as columns |
+| `phones.csv` | phone | phone label and position, then one column per phone-level metric value; `start`/`end` are empty because these phones come from CMUdict, not hand labels |
+| `words.csv` | word | position, CMUdict tag (`in_lexicon`, `lexicon_route`), phones and their source, then each metric (phone-level metrics as the mean over the word's phones) |
+| `stimuli.csv` | sentence | `n_words`, then for each metric the mean over the sentence's words and `n_valid_<metric>` (how many words had a value) |
 | `missing_phones.csv` | word without phones | words that need hand-extracted phones |
-| `manifest.json` | run | input checksum, package versions, lexicon, code commit |
+| `manifest.json` | run | input checksum, package versions, lexicon, metric definitions, code commit |
 
-`words.csv`:
-
-```
-stimulus_id,condition,word_idx,word,word_key,in_lexicon,lexicon_route,n_pronunciations,phone_source,onset,offset,hand_word_label,phones,n_phones
-sentence_01,sentence,1,JUST,just,True,whole,2,cmudict,,,,JH AH S T,4
-```
-
-`phones.csv`:
+`phones.csv` (selected columns; values in nats):
 
 ```
-stimulus_id,condition,word_idx,phone_in_word,phone,start,end,phone_idx
-sentence_01,sentence,1,1,JH,,,1
+stimulus_id,word_idx,phone_in_word,phone,bigram_surp_cross,bigram_surp_within,bigram_surp_back
+sentence_01,1,1,JH,,,4.132
+sentence_01,1,2,AH,1.721,1.721,2.29
+sentence_01,1,3,S,2.638,2.638,1.613
+sentence_01,1,4,T,1.651,1.651,4.97
+```
+
+`words.csv` (selected columns): `THE` gets a high cross-word value because its `DH`
+follows the `T` of `JUST`:
+
+```
+stimulus_id,word_idx,word,phones,bigram_surp_cross,bigram_surp_within,bigram_surp_back
+sentence_01,1,JUST,JH AH S T,2.003,2.003,3.251
+sentence_01,2,THE,DH AH,6.075,2.745,4.877
+sentence_01,3,BAREST,B EH R AH S T,2.387,2.182,2.35
+```
+
+`stimuli.csv` (selected columns): `trigram_surp_within` is defined for only 7 of the 12
+words, because words with fewer than 3 phones have no within-word trigram:
+
+```
+stimulus_id,n_words,bigram_surp_cross,n_valid_bigram_surp_cross,trigram_surp_within,n_valid_trigram_surp_within
+sentence_01,12,3.298,12,2.371,7
 ```
 
 `missing_phones.csv` (the 2 words not in CMUdict):
