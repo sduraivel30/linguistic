@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-11-02T23:31:43+00:00",
+  "created_utc": "2026-11-02T23:51:20+00:00",
   "linguistic_version": "0.1.0",
-  "linguistic_git_commit": "5726eaa86da3b97665530377cc114f18835a57c0",
+  "linguistic_git_commit": "04526e6e147d1b42dc21e99e3cec5a6e3a341f71",
   "python": "3.14.7",
   "packages": {
     "numpy": "2.5.4",
@@ -642,6 +642,42 @@
           "stimulus": "dependent"
         }
       }
+    },
+    {
+      "name": "cohort_phoneme",
+      "family": "phonological",
+      "level": "phone",
+      "columns": [
+        "cohort_surprisal",
+        "cohort_entropy",
+        "cohort_size"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "Frequency-weighted cohort, within the word: surprisal of the phoneme given the word's earlier phonemes, entropy over the remaining candidate words, and their number (CMUdict, SUBTLEX-US counts + 1).",
+      "nan_reason": "",
+      "resources": [
+        "subtlex_us"
+      ],
+      "context": {
+        "cohort_surprisal": {
+          "phone": "dependent",
+          "word": "dependent"
+        },
+        "cohort_entropy": {
+          "phone": "dependent",
+          "word": "dependent"
+        },
+        "cohort_size": {
+          "phone": "dependent",
+          "word": "dependent"
+        }
+      }
     }
   ],
   "report": [
@@ -816,6 +852,16 @@
       "level": "word",
       "n_valid_nonword": {
         "blick_word": 111
+      },
+      "n_words_nonword": 288
+    },
+    {
+      "metric": "cohort_phoneme",
+      "level": "phone",
+      "n_valid_nonword": {
+        "cohort_surprisal": 111,
+        "cohort_entropy": 111,
+        "cohort_size": 111
       },
       "n_words_nonword": 288
     }
