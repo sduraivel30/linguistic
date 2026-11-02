@@ -28,13 +28,19 @@ linguistic run -i data/examples/nonwords/stimuli.csv -o data/examples/nonwords/o
 The first command keeps the `N` rows and writes the pipeline input. The second prints:
 
 ```
-24 stimuli, 288 words, 227 phones; phone sources {'missing': 177, 'cmudict': 111}; 6 metric(s) -> data/examples/nonwords/output
+skipped elp_frequency: resource elp not installed (`linguistic fetch` or see the family README)
+24 stimuli, 288 words, 227 phones; phone sources {'missing': 177, 'cmudict': 111}; 9 metric(s) -> data/examples/nonwords/output
 177 word(s) need hand phones: see data/examples/nonwords/output/missing_phones.csv
 ```
 
-Metrics in this output: the phonological family (`phoneme_tp_cross`, `phoneme_tp_within`,
-`phoneme_tp_backward`, `blick_word`, `blick_cross`, `blick_within`; see
-`src/linguistic/metrics/phonological/README.md`).
+Metrics in this output:
+
+- phonological (`phoneme_tp_cross`, `phoneme_tp_within`, `phoneme_tp_backward`, `blick_word`,
+  `blick_cross`, `blick_within`): `src/linguistic/metrics/phonological/README.md`
+- lexical (`cohort`, `word_duration`, `subtlex_frequency`): `src/linguistic/metrics/lexical/README.md`.
+  `elp_frequency` is skipped because the ELP export is not installed. `word_duration_ms`
+  and `uniqueness_point_ms` are empty: these stimuli have no hand-label timing. Word
+  frequency is sentence-only, so its columns are empty for nonwords.
 
 ## Input: `stimuli.csv`
 
