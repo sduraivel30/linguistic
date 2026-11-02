@@ -28,5 +28,6 @@ nonword_01,3,REE,R IY,3.074,1.05
 ```
 
 177 of 288 nonwords are not in CMUdict, so they have no phones until hand labels are
-given (`missing_phones.csv`). Word frequency is sentence-only. ELP and GPT-2 XL were not
-installed when this was made.
+given (`missing_phones.csv`). The language models score every nonword; word frequency and
+the 5-gram are sentence-only, so those columns are empty. Made on a GPU node with every
+model installed except ELP.
