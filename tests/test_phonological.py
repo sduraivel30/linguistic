@@ -1,5 +1,7 @@
 import math
 
+import numpy as np
+
 import pytest
 
 from linguistic.assemble import run_metrics
@@ -97,3 +99,34 @@ def test_context_ordering_and_dictionary(tmp_path, lexicon):
     assert set(w1) == {"independent"}                                    # single-phone BLICK
     metric_cols = [c for c in t.words.columns if c in set(w["column"])]
     assert metric_cols == w["column"].tolist()
+
+
+def test_cohort_surprisal_and_entropy_brute_force(tmp_path, lexicon, monkeypatch):
+    import pandas as pd
+    from linguistic.metrics.lexical import frequency
+    from linguistic.metrics.phonological import cohort_phoneme as cp
+    res = tmp_path / "res" / "subtlex_us"
+    res.mkdir(parents=True)
+    pd.DataFrame({"Word": ["cat", "cap"], "FREQcount": [99, 9], "Lg10WF": [2.0, 1.0]}).to_csv(
+        res / "SUBTLEXus74286wordstextversion.txt", sep="\t", index=False)
+    monkeypatch.setenv("LINGUISTIC_RESOURCES", str(tmp_path / "res"))
+    frequency._subtlex.cache_clear()
+    cp.prefix_stats.cache_clear()
+    stats = cp.prefix_stats(lexicon)
+    # brute force over the lexicon: f = (FREQcount + 1) / number of pronunciations
+    counts = {"cat": 99, "cap": 9}
+    items = [(ph, (counts.get(w, 0) + 1) / len(prons)) for w, prons in lexicon._d.items() for ph in prons]
+
+    def F(prefix):
+        return sum(f for ph, f in items if ph[:len(prefix)] == prefix)
+    target = ("K", "AE", "T")
+    v = cp.cohort_values(list(target), stats)
+    assert math.isclose(v[1][0], -math.log(F(target[:2]) / F(target[:1])), rel_tol=1e-9)
+    coh = [f for ph, f in items if ph[:3] == target]
+    p = np.array(coh) / sum(coh)
+    assert math.isclose(v[2][1], float(-(p * np.log(p)).sum()), rel_tol=1e-9)
+    assert v[2][2] == len(coh)
+    z = cp.cohort_values(["Z", "Z", "K"], stats)                         # leaves the lexicon
+    assert math.isnan(z[1][0]) and z[1][2] == 0 and math.isnan(z[2][0])
+    frequency._subtlex.cache_clear()
+    cp.prefix_stats.cache_clear()
