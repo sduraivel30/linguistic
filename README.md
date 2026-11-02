@@ -20,6 +20,7 @@ One CSV/TSV, one row per stimulus:
 | `text` | yes | the stimulus, space-separated units |
 | `words_labels` | no | Audacity label file of word intervals |
 | `phones_labels` | no | Audacity label file of phone intervals (ARPAbet) |
+| `labels` | no | one Audacity file with both tiers (uppercase labels = phones, rest = words), instead of the pair above |
 | `audio_path` | no | only for acoustic metrics |
 
 Relative paths resolve against the stimulus file's folder. Hand labels come as a
@@ -56,10 +57,21 @@ Outputs: `words.csv`, `phones.csv`, `stimuli.csv`, `missing_phones.csv`, `manife
 - Read the CSVs with `keep_default_na=False, na_values=['']`: some nonwords (`nan`) are
   otherwise read as missing.
 
+## Metric families
+
+Each family is a folder under `src/linguistic/metrics/` with its own `README.md`: metric
+definitions, source, how to download and set up any model or lexicon it needs, and its
+regression check.
+
+| Family | README |
+| --- | --- |
+| phonological | [src/linguistic/metrics/phonological/README.md](src/linguistic/metrics/phonological/README.md) |
+
 ## Adding a metric
 
-Subclass `linguistic.registry.Metric` in a module under `src/linguistic/metrics/`,
-decorate it with `@register`, and import the module in `metrics/__init__.py`.
+Subclass `linguistic.registry.Metric` in a module under `src/linguistic/metrics/<family>/`,
+decorate it with `@register`, import it in the family's `__init__.py`, and import the
+family in `metrics/__init__.py`.
 See the docstring in `registry.py` for the contract.
 
 ## Tests
