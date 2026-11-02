@@ -22,12 +22,6 @@ Word-level metrics. In `stimuli.csv` each is the mean over the stimulus's words.
   is looked up closed (`ice-cream` → `icecream`), never as a mean of its parts. Words not
   in the list are NaN. Nonwords are NaN by design.
 
-## Source
-
-`cohort`, `word_duration` and `subtlex_lg10wf` are vendored from `Speech_Lang_iEEG` @
-`c55d0a9` (`neural/word_boundary/build_lexical_word_events.py`), definitions unchanged.
-New: the closed-form lookup, `subtlex_zipf`, `elp_log_freq_hal`.
-
 ## Resources and setup
 
 Resources live in `$LINGUISTIC_RESOURCES` (default `~/.cache/linguistic`), one folder each.
@@ -70,20 +64,4 @@ https://elexicon.wustl.edu/
 linguistic fetch subtlex_us                                     # once
 linguistic run -i stimuli.csv -o out/ -m lexical                # all four (ELP skipped if not installed)
 linguistic run -i stimuli.csv -o out/ -m cohort -m subtlex_frequency
-```
-
-## Regression check
-
-`scripts/regression/lexical_vs_langloc.py` runs `cohort`, `word_duration` and
-`subtlex_frequency` on the 114 langloc MT items and compares them with
-`Speech_Lang_iEEG/neural/results/word_boundary/lexical_word_events.csv` (one row per
-word-onset event; matched on item, word position and spelling).
-
-Result (2026-11-02): 1261 / 1261 events in these items matched (the reference has 1328 in
-all 120). Onset, phone count, duration, cohort density, uniqueness point (index and ms),
-`up_reached` and SUBTLEX Lg10WF are identical (max difference 6e-14). `subtlex_zipf` and
-`elp_log_freq_hal` have no reference.
-
-```bash
-python scripts/regression/lexical_vs_langloc.py <out dir>     # exits 1 on any difference
 ```
