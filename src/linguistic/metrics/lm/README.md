@@ -40,6 +40,10 @@ with the preceding words only (`--context full` for the whole stimulus); a word'
 its last sub-token (`--pool mean` for the mean). `--dtype float16` halves the size. T5:
 encoder layers.
 
+GloVe (`-m glove-840b`; 840B cased, 300-d, `linguistic fetch glove-840b`, 2 GB): one static
+vector per word in `embeddings.npy` (as written, else lowercased; out-of-vocabulary words
+are NaN and listed in `words.csv`), plus `stimuli_last.npy` / `stimuli_mean.npy`.
+
 ## Setup
 
 Models are not in the repo. Each is pinned to a revision and goes in
