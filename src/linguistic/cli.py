@@ -26,8 +26,9 @@ def prepare(input: Path = typer.Option(..., "--input", "-i", exists=True),
 def run(input: Path = typer.Option(..., "--input", "-i", exists=True),
         out: Path = typer.Option(..., "--out", "-o"),
         metrics: list[str] = typer.Option(["all"], "--metrics", "-m",
-                                          help="'all', family names or metric names; repeatable")):
-    """Extract metrics into words.csv, phones.csv, stimuli.csv + manifest.json."""
+                                          help="'all', family, metric, or level:context "
+                                               "(e.g. phone:independent); repeatable")):
+    """Extract metrics into phones.csv, words.csv, stimuli.csv, columns.csv + manifest.json."""
     _run(input, out, metric_spec=metrics)
 
 
@@ -74,6 +75,7 @@ def _run(input: Path, out: Path, metric_spec: list[str]) -> None:
     tables.phones.to_csv(out / "phones.csv", index=False)
     tables.stimuli.to_csv(out / "stimuli.csv", index=False)
     units.missing_phones.to_csv(out / "missing_phones.csv", index=False)
+    tables.columns.to_csv(out / "columns.csv", index=False)
     write_manifest(manifest, out)
 
     src = units.words["phone_source"].fillna("missing").value_counts().to_dict()
