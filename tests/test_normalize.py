@@ -62,6 +62,15 @@ def test_hand_phones_for_unknown_nonword(tmp_path, lexicon):
     assert bool(u.words.loc[0, "in_lexicon"]) is False
 
 
+def test_hyphenated_lookup_routes(lexicon):
+    assert lexicon.resolve("cat")[1] == "whole"
+    prons, route = lexicon.resolve("bus-stop")
+    assert route == "parts"
+    assert prons == [lexicon.lookup("bus")[0] + lexicon.lookup("stop")[0]]
+    assert lexicon.resolve("zorp-cat") == ([], None)            # one part unknown
+    assert lexicon.resolve("zorpleth") == ([], None)
+
+
 def test_hyphenated_word_split_in_labels_is_merged(tmp_path, lexicon):
     write_labels(tmp_path / "w.txt", [(0.0, 0.3, "ice"), (0.3, 0.7, "cream")])
     write_labels(tmp_path / "p.txt", [(0.0, 0.15, "AY"), (0.15, 0.3, "S"), (0.3, 0.4, "K"),
