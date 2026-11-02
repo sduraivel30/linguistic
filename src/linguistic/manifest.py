@@ -31,7 +31,7 @@ def build_manifest(input_path, stimuli, metrics, lexicon_info, report, units) ->
         "linguistic_git_commit": _git_commit(),
         "python": platform.python_version(),
         "packages": {p: _version(p) for p in _PACKAGES},
-        "input": {"path": str(Path(input_path).resolve()), "sha256": sha256(input_path),
+        "input": {"path": str(input_path), "sha256": sha256(input_path),
                   "n_stimuli": int(len(stimuli)),
                   "n_by_condition": stimuli["condition"].value_counts().to_dict()},
         "label_files": {p: sha256(p) for p in label_files},
