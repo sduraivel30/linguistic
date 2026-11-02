@@ -114,6 +114,7 @@ def _make(name: str, repo: str, revision: str, tag: str) -> None:
 
     class _LM(Metric):
         family = "lm"
+        context = {"word": "dependent"}                     # conditioned on the preceding words
         level = "word"
         description = (f"{repo}@{revision[:7]}: mean sub-token surprisal of the word given the "
                        "preceding words of its stimulus, and the entropy of the next-token "
