@@ -91,6 +91,8 @@ def test_context_ordering_and_dictionary(tmp_path, lexicon):
     w = cols[cols["table"] == "word"]
     assert (w["context"].tolist() == sorted(w["context"].tolist(), key=["independent", "dependent"].index))
     within = cols[(cols["column"] == "bigram_surp_within")].set_index("table")["context"]
-    assert within.to_dict() == {"phone": "dependent", "word": "independent", "stimulus": "independent"}
+    assert within.to_dict() == {"phone": "dependent", "word": "dependent", "stimulus": "dependent"}
+    w1 = cols[(cols["column"] == "blick_w1_within")].set_index("table")["context"]
+    assert set(w1) == {"independent"}                                    # single-phone BLICK
     metric_cols = [c for c in t.words.columns if c in set(w["column"])]
     assert metric_cols == w["column"].tolist()
