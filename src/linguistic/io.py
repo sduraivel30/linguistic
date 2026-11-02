@@ -6,9 +6,12 @@ Stimulus file (CSV or TSV), one row per stimulus:
     text            required, space-separated units (words or nonwords)
     words_labels    optional, Audacity label file of word intervals
     phones_labels   optional, Audacity label file of phone intervals (ARPAbet)
+    labels          optional, ONE Audacity file holding both tiers (e.g. the MT
+                    transcriptions): all-uppercase labels are phones, the rest words.
+                    Use either `labels` or the words_labels + phones_labels pair.
     audio_path      optional, only for acoustic metrics
 
-Hand phones need both label files: phones are assigned to words by time.
+Hand phones need both tiers: phones are assigned to words by time.
 Relative label/audio paths resolve against the stimulus file's folder.
 """
 from __future__ import annotations
@@ -19,7 +22,7 @@ import pandas as pd
 
 CONDITIONS = ("sentence", "nonword")
 REQUIRED = ("stimulus_id", "condition", "text")
-PATH_COLUMNS = ("words_labels", "phones_labels", "audio_path")
+PATH_COLUMNS = ("words_labels", "phones_labels", "labels", "audio_path")
 
 
 class InputError(ValueError):
@@ -62,7 +65,25 @@ def load_stimuli(path: str | Path) -> pd.DataFrame:
             f"{path}: words_labels and phones_labels must be given together; "
             f"only one given for {lonely}"
         )
+    both = df.loc[has_w & (df["labels"] != ""), "stimulus_id"].tolist()
+    if both:
+        raise InputError(f"{path}: give either labels or words_labels + phones_labels, "
+                         f"not both, for {both}")
     return df.reset_index(drop=True)
+
+
+def is_phone_label(label: str) -> bool:
+    """Phone-tier label in a combined file: all uppercase letters, optional stress digit."""
+    core = label.strip().rstrip("012")
+    return bool(core) and core.isalpha() and core.isupper()
+
+
+def read_combined_labels(path: str | Path) -> tuple[list[dict], list[dict]]:
+    """Split one Audacity file into (words, phones) by label case."""
+    rows = read_audacity_labels(path)
+    words = [r for r in rows if not is_phone_label(r["label"])]
+    phones = [r for r in rows if is_phone_label(r["label"])]
+    return words, phones
 
 
 def _resolve(p: str, base: Path) -> str:
