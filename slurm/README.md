@@ -16,16 +16,23 @@ Mainly for the language models. Run from the repo root.
    ```
 3. Download each model you need (once):
    ```bash
-   srun -p <partition> -t 00:30:00 --mem 8G .venv/bin/linguistic fetch gpt2-xl
+   for m in gpt2-xl xlnet-large-cased albert-xxlarge-v1 bert-large-uncased t5-large; do
+     srun -p <partition> -t 00:30:00 --mem 8G .venv/bin/linguistic fetch $m
+   done
    ```
 4. Copy your stimulus file to the cluster, e.g. into `data/`.
 5. Run (drop `--gres` to run on CPU):
    ```bash
    sbatch -p <partition> --gres=gpu:1 slurm/run_metrics.sh data/my_stimuli.csv out/my_run all
    ```
-   Log: `slurm/logs/linguistic_run_<jobid>.out`.
-6. Copy `out/my_run/` back.
+   Activations and embeddings:
+   ```bash
+   sbatch -p <partition> --gres=gpu:1 slurm/represent.sh data/my_stimuli.csv reps/my_run gpt2-xl albert-xxlarge-v1
+   ```
+   Logs: `slurm/logs/`.
+6. Copy `out/my_run/` (and `reps/my_run/`) back.
 
 Notes:
-- GPT-2 XL needs about 7 GB of RAM. A GPU is optional for a few hundred stimuli.
+- Downloads: GPT-2 XL 6.4 GB, T5-large 3 GB, the others 1–1.5 GB. A GPU is optional for a
+  few hundred stimuli.
 - GPU and CPU results differ slightly (about the 5th decimal).
