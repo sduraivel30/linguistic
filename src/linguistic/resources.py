@@ -28,6 +28,7 @@ class Resource:
     hf_revision: str = ""
     hf_patterns: tuple[str, ...] = ("*.json", "*.txt", "*.model", "model*.safetensors")
     container: str = ""        # container image (pulled with apptainer)
+    convert: str = ""          # post-download conversion ("glove")
 
     @property
     def manual(self) -> bool:
@@ -49,6 +50,14 @@ RESOURCES = {
         filename="ngram.sif",
         description="lm-zoo SRILM 5-gram image (cpllab/language-models:ngram), run with apptainer",
         container="docker://cpllab/language-models@sha256:cbecfb418878930a06514c2a55e66f116ba56dbc03ece722f73b84fea725df6a",
+        readme="src/linguistic/metrics/lm/README.md",
+    ),
+    "glove-840b": Resource(
+        name="glove-840b",
+        filename="vectors.npy",
+        description="GloVe 840B cased 300-d word vectors (Pennington et al. 2014)",
+        url="https://nlp.stanford.edu/data/glove.840B.300d.zip",
+        convert="glove",
         readme="src/linguistic/metrics/lm/README.md",
     ),
     "elp": Resource(
@@ -113,6 +122,11 @@ def fetch(name: str) -> Path:
         shutil.copyfileobj(resp, f)
     if r.archive_md5 and md5(archive) != r.archive_md5:
         raise ValueError(f"{archive}: md5 {md5(archive)} != expected {r.archive_md5}")
+    if r.convert == "glove":
+        from .static_embeddings import convert_glove
+        out = convert_glove(archive, d)
+        archive.unlink()
+        return out
     if archive.suffix == ".zip":
         with zipfile.ZipFile(archive) as z:
             member = next(m for m in z.namelist() if Path(m).name == r.filename)
