@@ -1,100 +1,53 @@
 # linguistic
 
-Extract linguistic metrics for a list of sentences or nonwords, at the phone, word and
-stimulus level. Setup plan: https://claude.ai/artifact/Up1mTvhWmRzu9ePv13TBYa
+Linguistic metrics for sentence and nonword lists, at the phone, word and stimulus level.
 
 ## Install
 
 ```bash
-python -m venv .venv && .venv/bin/pip install -e ".[dev]"      # add ,lm for language-model metrics
+python -m venv .venv && .venv/bin/pip install -e ".[dev,lm]"
+linguistic fetch all          # lexicons and models with a public download
 ```
 
 ## Input
 
-One CSV/TSV, one row per stimulus:
+CSV with `stimulus_id`, `condition` (`sentence` / `nonword`) and `text`. Optional hand
+labels (Audacity format): `words_labels` + `phones_labels`, or one `labels` file with both
+tiers. Optional `audio_path`.
 
-| Column | Required | Meaning |
-| --- | --- | --- |
-| `stimulus_id` | yes | unique id |
-| `condition` | yes | `sentence` or `nonword` |
-| `text` | yes | the stimulus, space-separated units |
-| `words_labels` | no | Audacity label file of word intervals |
-| `phones_labels` | no | Audacity label file of phone intervals (ARPAbet) |
-| `labels` | no | one Audacity file with both tiers (uppercase labels = phones, rest = words), instead of the pair above |
-| `audio_path` | no | only for acoustic metrics |
-
-Relative paths resolve against the stimulus file's folder. Hand labels come as a
-words + phones pair; each phone goes to the word it overlaps most in time, and word
-bounds are then taken from the phones. A hyphenated text word split into its parts
-in the labels (`ice` + `cream` for `ice-cream`) is merged back into one word.
-
-## Phones
-
-1. Hand labels, when given.
-2. Otherwise CMUdict, if the spelling is in it (first pronunciation, stress stripped).
-   Every word and nonword is tagged `in_lexicon`.
-3. Otherwise none: phone-based metrics are NaN and the word is listed in
-   `missing_phones.csv` until hand phones are supplied.
-
-No grapheme-to-phoneme prediction is used.
+Phones come from the hand labels, else from CMUdict. Words with neither are listed in
+`missing_phones.csv` and their phone-based metrics are NaN.
 
 ## Run
 
 ```bash
-linguistic fetch all                              # download every lexicon/model with a public URL (GPT-2 XL is 6.4 GB)
-linguistic list                                   # registered metrics
-linguistic prepare -i stimuli.csv -o out/         # word/phone tables + missing phones only
-linguistic run -i stimuli.csv -o out/ -m all      # or family / metric names, repeatable
+linguistic list                                   # available metrics
+linguistic run -i stimuli.csv -o out/ -m all      # or a family, a metric, or level:context
 ```
 
-Outputs: `phones.csv`, `words.csv`, `stimuli.csv`, `columns.csv` (column dictionary: table,
-column, context, metric, aggregation, definition), `missing_phones.csv`, `manifest.json`.
+Outputs: `phones.csv`, `words.csv`, `stimuli.csv`, `columns.csv` (what each column is),
+`missing_phones.csv`, `manifest.json`. Word values of phone metrics are means over the
+word's phones; stimulus values are means over its words.
 
-- A phone-level metric appears in `words.csv` as the mean over the word's phones.
-- `stimuli.csv` averages every numeric word-level metric over the stimulus's words
-  (NaN words skipped, `n_valid_<metric>` counts), so phone-level metrics are a mean of
-  per-word means.
-- Values are NaN where a metric's declared conditions or requirements (phones, timing)
-  are not met.
-- Read the CSVs with `keep_default_na=False, na_values=['']`: some nonwords (`nan`) are
-  otherwise read as missing.
+Examples: [`data/examples/`](data/examples/).
 
-## Metric map
+## Metrics
 
-Every metric column is labelled per level (`columns.csv` in each run lists them all):
-**context-independent** = depends only on the unit itself; **context-dependent** = depends
-on a sequence (preceding phones, the word's other phones, preceding words). Within each
-table the independent columns come first. Select by label with `-m <level>:<context>`,
-e.g. `-m phone:independent`, `-m word:dependent`.
+Each column is context-independent (depends only on the unit) or context-dependent
+(depends on a phone or word sequence) at each level.
 
 | Level | Context-independent | Context-dependent |
 | --- | --- | --- |
-| phone | phonetic features (`feat_*`), single-phone BLICK (`blick_w1_*`) | phoneme transitional probability (cross, within, backward), BLICK 2–4-phone windows and deltas |
-| word | phonetic-feature shares, single-phone BLICK mean, word duration, word frequency (SUBTLEX, ELP) | phoneme TP means (cross, within, backward), BLICK (whole word, windows), cohort density, uniqueness point, language-model surprisal and entropy |
-| stimulus | means of the word-level independent columns | means of the word-level dependent columns |
+| phone | phonetic features, single-phone BLICK | phoneme transitional probability, BLICK windows |
+| word | feature shares, word duration, word frequency | phoneme TP, BLICK, cohort density, uniqueness point, LM surprisal and entropy |
+| stimulus | means of the word-level columns | means of the word-level columns |
 
-## Metric families
+Definitions and setup per family:
+[phonological](src/linguistic/metrics/phonological/README.md) ·
+[lexical](src/linguistic/metrics/lexical/README.md) ·
+[lm](src/linguistic/metrics/lm/README.md).
 
-Each family is a folder under `src/linguistic/metrics/` with its own `README.md`: metric
-definitions with their context labels, and how to download and set up any model or
-lexicon it needs.
-
-| Family | README |
-| --- | --- |
-| phonological | [src/linguistic/metrics/phonological/README.md](src/linguistic/metrics/phonological/README.md) |
-| lexical | [src/linguistic/metrics/lexical/README.md](src/linguistic/metrics/lexical/README.md) |
-| lm | [src/linguistic/metrics/lm/README.md](src/linguistic/metrics/lm/README.md) |
-
-## Running on a server
-
-See [`slurm/README.md`](slurm/README.md).
-
-## Adding a metric
-
-Subclass `linguistic.registry.Metric` in a module under `src/linguistic/metrics/<family>/`,
-decorate it with `@register`, import it in the family's `__init__.py`, and import the
-family in `metrics/__init__.py`.
-See the docstring in `registry.py` for the contract.
+Running on a SLURM cluster: [`slurm/README.md`](slurm/README.md).
 
 ## Tests
 
