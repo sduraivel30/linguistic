@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-11-02T21:42:14+00:00",
+  "created_utc": "2026-11-02T21:50:30+00:00",
   "linguistic_version": "0.1.0",
-  "linguistic_git_commit": "e2344a339fcc7c46336657793a26c42d7c92b091",
+  "linguistic_git_commit": "e4628ce7c0e836bf382d9a30303a77f9d30c561d",
   "python": "3.11.15",
   "packages": {
     "numpy": "2.4.6",
@@ -30,6 +30,93 @@
     "cmudict": 111
   },
   "n_words_missing_phones": 177,
-  "metrics": [],
-  "report": []
+  "metrics": [
+    {
+      "name": "phoneme_tp_cross",
+      "family": "phonological",
+      "level": "phone",
+      "columns": [
+        "bigram_surp_cross",
+        "trigram_surp_cross",
+        "log_bigram_freq_cross"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "Forward phoneme transitional probability over the stimulus's phone sequence, context carried across word boundaries. bigram: -ln P(B|A); trigram: -ln P(C|A,B); log_bigram_freq: ln count(A,B). CMUdict counts.",
+      "nan_reason": ""
+    },
+    {
+      "name": "phoneme_tp_within",
+      "family": "phonological",
+      "level": "phone",
+      "columns": [
+        "bigram_surp_within",
+        "trigram_surp_within",
+        "log_bigram_freq_within"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "Forward phoneme transitional probability with context reset at each word boundary (word-initial phone NaN for bigram, first two for trigram).",
+      "nan_reason": ""
+    },
+    {
+      "name": "phoneme_tp_backward",
+      "family": "phonological",
+      "level": "phone",
+      "columns": [
+        "bigram_surp_back",
+        "trigram_surp_back"
+      ],
+      "conditions": [
+        "nonword",
+        "sentence"
+      ],
+      "requires": [
+        "phones"
+      ],
+      "description": "Backward phoneme surprisal across word boundaries: for A B C, bigram -ln P(B|C) assigned to B; trigram -ln P(X|Y,Z) assigned to X. NaN for the last one / two phones of a sequence.",
+      "nan_reason": ""
+    }
+  ],
+  "report": [
+    {
+      "metric": "phoneme_tp_cross",
+      "level": "phone",
+      "n_valid_nonword": {
+        "bigram_surp_cross": 91,
+        "trigram_surp_cross": 35,
+        "log_bigram_freq_cross": 91
+      },
+      "n_words_nonword": 288
+    },
+    {
+      "metric": "phoneme_tp_within",
+      "level": "phone",
+      "n_valid_nonword": {
+        "bigram_surp_within": 90,
+        "trigram_surp_within": 19,
+        "log_bigram_freq_within": 90
+      },
+      "n_words_nonword": 288
+    },
+    {
+      "metric": "phoneme_tp_backward",
+      "level": "phone",
+      "n_valid_nonword": {
+        "bigram_surp_back": 95,
+        "trigram_surp_back": 37
+      },
+      "n_words_nonword": 288
+    }
+  ]
 }
