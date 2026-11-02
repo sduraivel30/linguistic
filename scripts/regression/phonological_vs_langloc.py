@@ -1,7 +1,7 @@
 """Regression: the vendored phonological metrics vs the existing langloc outputs.
 
 Reference outputs (not in this repo):
-  Speech_Lang_iEEG/surprisal/phoneme/tp_blick_per_phone.csv        forward cross/within TP, word assignment
+  Speech_Lang_iEEG/surprisal/phoneme/tp_blick_per_phone.csv        forward cross/within TP, BLICK, word assignment
   Speech_Lang_iEEG/surprisal/phoneme/plots/backward_values_<cond>.npz   backward bigram/trigram
 Input: the canonical MT transcriptions (one Audacity file per item, both tiers), file
 choice as in word_form_boundary_analysis mt_phones.collect_mt_files (prefer *_MT_SD.txt),
@@ -67,7 +67,7 @@ def main(out_dir: str) -> int:
     stim = load_stimuli(build_input(out))
     lex = Lexicon()
     u = build_units(stim, lex)
-    t = run_metrics(Context(stim, u.words, u.phones, lex), select(["phonological"]))
+    t = run_metrics(Context(stim, u.words, u.phones, lex), select(["phonological"]))  # TP + BLICK
     t.phones.to_csv(out / "phones.csv", index=False)
     t.words.to_csv(out / "words.csv", index=False)
 
@@ -101,6 +101,18 @@ def main(out_dir: str) -> int:
     for c in ("bigram_surp_cross", "trigram_surp_cross", "log_bigram_freq_cross",
               "bigram_surp_within", "trigram_surp_within", "log_bigram_freq_within"):
         rows.append(_cmp(c, both[c], both[f"{c}_ref"]))
+    blick = [f"blick_w{w}_{s}" for s in ("cross", "within") for w in (1, 2, 3, 4)] + \
+            [f"delta_blick_w{w}_{s}" for s in ("cross", "within") for w in (2, 3, 4)]
+    for c in blick:
+        if c.endswith("_within"):
+            # the reference left these NaN for the 349 phones whose word assignment was
+            # repaired (BLICK needs the generator); compare where it has a value
+            have = both[f"{c}_ref"].notna()
+            r = _cmp(c, both.loc[have, c], both.loc[have, f"{c}_ref"])
+            r["ref_nan_we_fill"] = int((~have & both[c].notna()).sum())
+            rows.append(r)
+        else:
+            rows.append(_cmp(c, both[c], both[f"{c}_ref"]))
 
     mb = ours.merge(back, on=["run", "cond", "t", "phone"], how="inner", suffixes=("", "_ref"))
     lines.append(f"backward: reference {len(back)}, matched {len(mb)}")
