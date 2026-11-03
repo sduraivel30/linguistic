@@ -75,7 +75,7 @@ Running on a SLURM cluster: [`slurm/README.md`](slurm/README.md).
 
 ## Contributing
 
-See [`CONTRIBUTING.md`](CONTRIBUTING.md). Licence: MIT. Cite with [`CITATION.cff`](CITATION.cff).
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Licence: MIT.
 
 ## Tests
 
@@ -85,3 +85,16 @@ python -m pytest
 
 Language-model tests use small test models from the local Hugging Face cache and are
 skipped when those are not downloaded.
+
+## Citation
+
+If you use this work, please cite
+```
+@software{Duraivel2026linguistic,
+	author = {Duraivel, Kumar},
+	title = {linguistic: linguistic metrics for sentence and nonword lists},
+	year = {2026},
+	version = {0.1.0},
+	url = {https://github.com/sduraivel30/linguistic}
+}
+```
