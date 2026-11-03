@@ -29,7 +29,7 @@ linguistic represent -i stimuli.csv -o reps/ -m gpt2-xl     # layer activations,
 ```
 
 `columns.csv` in each output lists every column with its level and context.
-Examples: [`data/examples/`](data/examples/).
+Examples: [`data/examples/`](data/examples/). Notebooks: [sentence GPT-2 XL surprisal](notebooks/sentence_gpt2xl_surprisal.ipynb), [nonword orthographic ill-formedness](notebooks/nonword_orthographic_illformedness.ipynb) (`pip install -e ".[notebooks]"`).
 
 ## What is computed at each level
 
@@ -46,6 +46,7 @@ context-dependent (D) means it depends on a sequence of phones or words.
 | BLICK windows (`blick_w2-4_*`, `delta_*`) | D: score | D: mean over phones | – |
 | cohort surprisal, entropy (`cohort_*`) | D: value | D: mean over phones | – |
 | BLICK whole word (`blick_word`) | – | D: score | D: mean over words |
+| letter n-gram ill-formedness (`orth_*_surp`) | – | D: mean over letters | D: mean over words |
 | cohort density, uniqueness point | – | D: value | D: mean over words |
 | word frequency (SUBTLEX, ELP) | – | I: value | I: mean over words |
 | word duration | – | I: value | I: mean over words |
@@ -58,6 +59,7 @@ context-dependent (D) means it depends on a sequence of phones or words.
 Definitions and setup per family:
 [phonological](src/linguistic/metrics/phonological/README.md) ·
 [lexical](src/linguistic/metrics/lexical/README.md) ·
+[orthographic](src/linguistic/metrics/orthographic/README.md) ·
 [lm](src/linguistic/metrics/lm/README.md).
 
 Running on a SLURM cluster: [`slurm/README.md`](slurm/README.md).
