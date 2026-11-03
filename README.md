@@ -121,9 +121,6 @@ skipped when those are not downloaded.
 - python-BLICK (McAuliffe & Hayes). https://github.com/mmcauliffe/python-BLICK
 - NumPy, pandas, huggingface_hub, Typer, Apptainer.
 
-**Lab code**
-- The phoneme transitional-probability, BLICK, lexical and GPT-2 XL extraction code was adapted from the Fedorenko lab repositories `word_form_boundary_analysis` and `Speech_Lang_iEEG`.
-
 ## Citation
 
 If you use this work, please cite
