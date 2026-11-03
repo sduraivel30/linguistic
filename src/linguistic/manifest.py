@@ -23,7 +23,8 @@ def sha256(path: str | Path) -> str:
 
 
 def build_manifest(input_path, stimuli, metrics, lexicon_info, report, units) -> dict:
-    label_files = sorted({p for col in ("words_labels", "phones_labels")
+    base = Path(input_path).resolve().parent
+    label_files = sorted({p for col in ("words_labels", "phones_labels", "labels")
                           for p in stimuli[col] if p})
     return {
         "created_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -34,13 +35,22 @@ def build_manifest(input_path, stimuli, metrics, lexicon_info, report, units) ->
         "input": {"path": str(input_path), "sha256": sha256(input_path),
                   "n_stimuli": int(len(stimuli)),
                   "n_by_condition": stimuli["condition"].value_counts().to_dict()},
-        "label_files": {p: sha256(p) for p in label_files},
+        "label_files": {_rel(p, base): sha256(p) for p in label_files},
         "lexicon": lexicon_info,
         "phone_sources": units.words["phone_source"].fillna("missing").value_counts().to_dict(),
         "n_words_missing_phones": int(len(units.missing_phones)),
         "metrics": [m.info() for m in metrics],
         "report": report,
     }
+
+
+def _rel(path: str, base: Path) -> str:
+    """Path relative to the stimulus file's folder when possible, else the file name."""
+    p = Path(path).resolve()
+    try:
+        return str(p.relative_to(base))
+    except ValueError:
+        return p.name
 
 
 def write_manifest(manifest: dict, out_dir: str | Path) -> Path:

@@ -147,7 +147,8 @@ def fetch(name: str) -> Path:
 def info(name: str) -> dict:
     r = RESOURCES[name]
     p = root() / r.name / r.filename
-    out = {"name": r.name, "path": str(p), "url": r.url or "manual"}
+    # relative to $LINGUISTIC_RESOURCES, so manifests carry no machine-specific paths
+    out = {"name": r.name, "path": f"$LINGUISTIC_RESOURCES/{r.name}/{r.filename}", "url": r.url or "manual"}
     if r.container:
         out.update(url=r.container)
     elif r.hf_repo:
