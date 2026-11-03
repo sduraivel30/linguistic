@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "linguistic"
 version = "0.1.0"
 description = "Extract linguistic metrics for sentence and nonword stimulus lists"
+license = "MIT"
 requires-python = ">=3.10"
 dependencies = [
     "numpy",
