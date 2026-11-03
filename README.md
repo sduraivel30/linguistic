@@ -29,7 +29,7 @@ linguistic represent -i stimuli.csv -o reps/ -m gpt2-xl     # layer activations,
 ```
 
 `columns.csv` in each output lists every column with its level and context.
-Examples: [`data/examples/`](data/examples/). Notebooks: [sentence GPT-2 XL surprisal](notebooks/sentence_gpt2xl_surprisal.ipynb), [nonword orthographic ill-formedness](notebooks/nonword_orthographic_illformedness.ipynb) (`pip install -e ".[notebooks]"`).
+Examples: [`data/examples/`](data/examples/). Notebooks: [sentence GPT-2 XL surprisal](notebooks/sentence_gpt2xl_surprisal.ipynb), [nonword orthographic ill-formedness](notebooks/nonword_orthographic_illformedness.ipynb), [nonword phonological neighbourhood and BLICK](notebooks/nonword_phonological_blick.ipynb) (`pip install -e ".[notebooks]"`).
 
 ## What is computed at each level
 
