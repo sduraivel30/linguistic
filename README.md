@@ -62,6 +62,21 @@ Definitions and setup per family:
 
 Running on a SLURM cluster: [`slurm/README.md`](slurm/README.md).
 
+## Known limitations
+
+- English only; phones are ARPAbet. No grapheme-to-phoneme prediction: words outside
+  CMUdict need hand labels.
+- ELP frequency needs an ELP export placed by hand.
+- BLICK gives every vowel primary stress, real words included.
+- Text is scored as written: case matters for the language models.
+- XLNet reads each stimulus after a fixed padding passage.
+- The 5-gram model needs Apptainer, and scores sentences only.
+- The language models need a GPU for large stimulus sets.
+
+## Contributing
+
+See [`CONTRIBUTING.md`](CONTRIBUTING.md). Licence: MIT. Cite with [`CITATION.cff`](CITATION.cff).
+
 ## Tests
 
 ```bash
