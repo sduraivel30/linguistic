@@ -1,7 +1,7 @@
 {
-  "created_utc": "2026-11-02T23:50:36+00:00",
+  "created_utc": "2026-11-03T00:05:24+00:00",
   "linguistic_version": "0.1.0",
-  "linguistic_git_commit": "04526e6e147d1b42dc21e99e3cec5a6e3a341f71",
+  "linguistic_git_commit": "062d3232a7501b00399513020bb97d6b75add70d",
   "python": "3.14.7",
   "packages": {
     "numpy": "2.5.4",
@@ -11,10 +11,10 @@
   },
   "input": {
     "path": "data/examples/sentences/stimuli.csv",
-    "sha256": "e4434242304d44fd9d341fefdfd1b4bc612233bd46a5f5fbd8d804ca6e7df4bc",
-    "n_stimuli": 24,
+    "sha256": "6b3896c7cb7cd4a23ffeeb9ac104504389c303959e5a23d1c53579f34b90f824",
+    "n_stimuli": 20,
     "n_by_condition": {
-      "sentence": 24
+      "sentence": 20
     }
   },
   "label_files": {},
@@ -26,10 +26,9 @@
     "pronunciation": "first listed"
   },
   "phone_sources": {
-    "cmudict": 286,
-    "missing": 2
+    "cmudict": 159
   },
-  "n_words_missing_phones": 2,
+  "n_words_missing_phones": 0,
   "metrics": [
     {
       "name": "cohort",
@@ -685,12 +684,12 @@
       "metric": "cohort",
       "level": "word",
       "n_valid_sentence": {
-        "cohort_density_log10": 286,
-        "uniqueness_point_idx": 286,
+        "cohort_density_log10": 159,
+        "uniqueness_point_idx": 159,
         "uniqueness_point_ms": 0,
-        "up_reached": 286
+        "up_reached": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "word_duration",
@@ -698,172 +697,172 @@
       "n_valid_sentence": {
         "word_duration_ms": 0
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "subtlex_frequency",
       "level": "word",
       "n_valid_sentence": {
-        "subtlex_lg10wf": 284,
-        "subtlex_zipf": 284
+        "subtlex_lg10wf": 157,
+        "subtlex_zipf": 157
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "lm_gpt2-xl",
       "level": "word",
       "n_valid_sentence": {
-        "lm_surprisal_gpt2xl": 288,
-        "lm_entropy_gpt2xl": 288,
-        "lm_n_subtokens_gpt2xl": 288
+        "lm_surprisal_gpt2xl": 159,
+        "lm_entropy_gpt2xl": 159,
+        "lm_n_subtokens_gpt2xl": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "lm_albert-xxlarge-v1",
       "level": "word",
       "n_valid_sentence": {
-        "lm_surprisal_albertxxl": 288,
-        "lm_entropy_albertxxl": 288,
-        "lm_n_subtokens_albertxxl": 288
+        "lm_surprisal_albertxxl": 159,
+        "lm_entropy_albertxxl": 159,
+        "lm_n_subtokens_albertxxl": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "lm_bert-large-uncased",
       "level": "word",
       "n_valid_sentence": {
-        "lm_surprisal_bertlarge": 288,
-        "lm_entropy_bertlarge": 288,
-        "lm_n_subtokens_bertlarge": 288
+        "lm_surprisal_bertlarge": 159,
+        "lm_entropy_bertlarge": 159,
+        "lm_n_subtokens_bertlarge": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "lm_xlnet-large-cased",
       "level": "word",
       "n_valid_sentence": {
-        "lm_surprisal_xlnetlarge": 288,
-        "lm_entropy_xlnetlarge": 288,
-        "lm_n_subtokens_xlnetlarge": 288
+        "lm_surprisal_xlnetlarge": 159,
+        "lm_entropy_xlnetlarge": 159,
+        "lm_n_subtokens_xlnetlarge": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "lm_t5-large",
       "level": "word",
       "n_valid_sentence": {
-        "lm_surprisal_t5large": 288,
-        "lm_entropy_t5large": 288,
-        "lm_n_subtokens_t5large": 288
+        "lm_surprisal_t5large": 159,
+        "lm_entropy_t5large": 159,
+        "lm_n_subtokens_t5large": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "ngram_5gram",
       "level": "word",
       "n_valid_sentence": {
-        "ngram_surprisal_5gram": 288,
-        "ngram_n_tokens_5gram": 288,
-        "ngram_oov_5gram": 288
+        "ngram_surprisal_5gram": 159,
+        "ngram_n_tokens_5gram": 159,
+        "ngram_oov_5gram": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "phonetic_features",
       "level": "phone",
       "n_valid_sentence": {
-        "feat_dorsal": 286,
-        "feat_coronal": 286,
-        "feat_labial": 286,
-        "feat_high": 286,
-        "feat_front": 286,
-        "feat_low": 286,
-        "feat_back": 286,
-        "feat_plosive": 286,
-        "feat_fricative": 286,
-        "feat_syllabic": 286,
-        "feat_nasal": 286,
-        "feat_voiced": 286,
-        "feat_obstruent": 286,
-        "feat_sonorant": 286
+        "feat_dorsal": 159,
+        "feat_coronal": 159,
+        "feat_labial": 159,
+        "feat_high": 159,
+        "feat_front": 159,
+        "feat_low": 159,
+        "feat_back": 159,
+        "feat_plosive": 159,
+        "feat_fricative": 159,
+        "feat_syllabic": 159,
+        "feat_nasal": 159,
+        "feat_voiced": 159,
+        "feat_obstruent": 159,
+        "feat_sonorant": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "phoneme_tp_cross",
       "level": "phone",
       "n_valid_sentence": {
-        "bigram_surp_cross": 284,
-        "trigram_surp_cross": 263,
-        "log_bigram_freq_cross": 284
+        "bigram_surp_cross": 156,
+        "trigram_surp_cross": 139,
+        "log_bigram_freq_cross": 156
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "phoneme_tp_within",
       "level": "phone",
       "n_valid_sentence": {
-        "bigram_surp_within": 277,
-        "trigram_surp_within": 190,
-        "log_bigram_freq_within": 277
+        "bigram_surp_within": 153,
+        "trigram_surp_within": 104,
+        "log_bigram_freq_within": 153
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "phoneme_tp_backward",
       "level": "phone",
       "n_valid_sentence": {
-        "bigram_surp_back": 286,
-        "trigram_surp_back": 273
+        "bigram_surp_back": 159,
+        "trigram_surp_back": 153
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "blick_cross",
       "level": "phone",
       "n_valid_sentence": {
-        "blick_w1_cross": 286,
-        "blick_w2_cross": 286,
-        "blick_w3_cross": 286,
-        "blick_w4_cross": 286,
-        "delta_blick_w2_cross": 284,
-        "delta_blick_w3_cross": 284,
-        "delta_blick_w4_cross": 284
+        "blick_w1_cross": 159,
+        "blick_w2_cross": 159,
+        "blick_w3_cross": 159,
+        "blick_w4_cross": 159,
+        "delta_blick_w2_cross": 156,
+        "delta_blick_w3_cross": 156,
+        "delta_blick_w4_cross": 156
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "blick_within",
       "level": "phone",
       "n_valid_sentence": {
-        "blick_w1_within": 286,
-        "blick_w2_within": 286,
-        "blick_w3_within": 286,
-        "blick_w4_within": 286,
-        "delta_blick_w2_within": 277,
-        "delta_blick_w3_within": 277,
-        "delta_blick_w4_within": 277
+        "blick_w1_within": 159,
+        "blick_w2_within": 159,
+        "blick_w3_within": 159,
+        "blick_w4_within": 159,
+        "delta_blick_w2_within": 153,
+        "delta_blick_w3_within": 153,
+        "delta_blick_w4_within": 153
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "blick_word",
       "level": "word",
       "n_valid_sentence": {
-        "blick_word": 286
+        "blick_word": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     },
     {
       "metric": "cohort_phoneme",
       "level": "phone",
       "n_valid_sentence": {
-        "cohort_surprisal": 286,
-        "cohort_entropy": 286,
-        "cohort_size": 286
+        "cohort_surprisal": 159,
+        "cohort_entropy": 159,
+        "cohort_size": 159
       },
-      "n_words_sentence": 288
+      "n_words_sentence": 159
     }
   ],
   "skipped_metrics": {
@@ -874,46 +873,46 @@
   "resources": [
     {
       "name": "albert-xxlarge-v1",
-      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/albert-xxlarge-v1/config.json",
+      "path": "$LINGUISTIC_RESOURCES/albert-xxlarge-v1/config.json",
       "url": "https://huggingface.co/albert/albert-xxlarge-v1",
       "hf_repo": "albert/albert-xxlarge-v1",
       "hf_revision": "43129068ee5f6a481c148daeac11cc593b8ff440"
     },
     {
       "name": "bert-large-uncased",
-      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/bert-large-uncased/config.json",
+      "path": "$LINGUISTIC_RESOURCES/bert-large-uncased/config.json",
       "url": "https://huggingface.co/google-bert/bert-large-uncased",
       "hf_repo": "google-bert/bert-large-uncased",
       "hf_revision": "6da4b6a26a1877e173fca3225479512db81a5e5b"
     },
     {
       "name": "gpt2-xl",
-      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/gpt2-xl/config.json",
+      "path": "$LINGUISTIC_RESOURCES/gpt2-xl/config.json",
       "url": "https://huggingface.co/openai-community/gpt2-xl",
       "hf_repo": "openai-community/gpt2-xl",
       "hf_revision": "15ea56dee5df4983c59b2538573817e1667135e2"
     },
     {
       "name": "lmzoo-ngram",
-      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/lmzoo-ngram/ngram.sif",
+      "path": "$LINGUISTIC_RESOURCES/lmzoo-ngram/ngram.sif",
       "url": "docker://cpllab/language-models@sha256:cbecfb418878930a06514c2a55e66f116ba56dbc03ece722f73b84fea725df6a"
     },
     {
       "name": "subtlex_us",
-      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/subtlex_us/SUBTLEXus74286wordstextversion.txt",
+      "path": "$LINGUISTIC_RESOURCES/subtlex_us/SUBTLEXus74286wordstextversion.txt",
       "url": "https://www.ugent.be/pp/experimentele-psychologie/en/research/documents/subtlexus/subtlexus2.zip",
       "md5": "ee7be8db21f26e1925ac0ea3ab598f32"
     },
     {
       "name": "t5-large",
-      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/t5-large/config.json",
+      "path": "$LINGUISTIC_RESOURCES/t5-large/config.json",
       "url": "https://huggingface.co/google-t5/t5-large",
       "hf_repo": "google-t5/t5-large",
       "hf_revision": "150ebc2c4b72291e770f58e6057481c8d2ed331a"
     },
     {
       "name": "xlnet-large-cased",
-      "path": "/orcd/data/evelina9/001/USERS/sdurai30/data/linguistic_resources/xlnet-large-cased/config.json",
+      "path": "$LINGUISTIC_RESOURCES/xlnet-large-cased/config.json",
       "url": "https://huggingface.co/xlnet/xlnet-large-cased",
       "hf_repo": "xlnet/xlnet-large-cased",
       "hf_revision": "37658b4f179eaf971d127d16bfbd9ca676a93034"
