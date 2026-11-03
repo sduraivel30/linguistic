@@ -45,6 +45,7 @@ whether that phone could stand alone (`T` = 15.6).
 | `phoneme_tp_backward` | `bigram_surp_back`, `trigram_surp_back` | −ln P(B\|C), −ln P(X\|Y,Z), across word boundaries |
 | `cohort_phoneme` | `cohort_surprisal`, `cohort_entropy`, `cohort_size` | within the word, over the frequency-weighted cohort (CMUdict words sharing the phonemes so far, SUBTLEX-US counts + 1): −ln P(phoneme \| earlier phonemes of the word), entropy over the remaining words, and their number (Brodbeck et al. 2018; Gwilliams et al. 2022). NaN once no word shares the prefix |
 | `blick_word` | `blick_word` | BLICK score of the whole word |
+| `phonological_neighbourhood` | `phone_pld20`, `phone_nbhd_entropy_b*`, `phone_nbhd_surprisal_b*` | PLD20; entropy and surprisal of the edit-distance neighbourhood over phones, as in the [orthographic](../orthographic/README.md) version (one entry per CMUdict pronunciation) |
 | `blick_cross` / `blick_within` | `blick_w2_*` … `blick_w4_*`, `delta_blick_*` | BLICK score of the last 2–4 phones, and its change from the previous phone |
 
 BLICK: 0 = English-like, higher = less (`blick` 0.12, `bnick` 5.95). All vowels get primary

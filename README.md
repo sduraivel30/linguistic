@@ -47,6 +47,7 @@ context-dependent (D) means it depends on a sequence of phones or words.
 | cohort surprisal, entropy (`cohort_*`) | D: value | D: mean over phones | – |
 | BLICK whole word (`blick_word`) | – | D: score | D: mean over words |
 | letter n-gram ill-formedness (`orth_*_surp`) | – | D: mean over letters | D: mean over words |
+| neighbourhood OLD20/PLD20, entropy, surprisal (`orth_old20`, `phone_pld20`, `*_nbhd_*`) | – | D: value | D: mean over words |
 | cohort density, uniqueness point | – | D: value | D: mean over words |
 | word frequency (SUBTLEX, ELP) | – | I: value | I: mean over words |
 | word duration | – | I: value | I: mean over words |
